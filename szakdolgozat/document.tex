@@ -1,0 +1,32 @@
+\documentclass[
+% opciók nélkül: egyoldalas nyomtatás, elektronikus verzió (fekete linkek)
+% twoside,     % kétoldalas nyomtatás
+% colorlinks,  % elektronikus verzió (színes linkek)
+% tocnopagenum,% oldalszámozás a tartalomjegyzék után kezdődik
+]{thesis-ekf}
+\usepackage[T1]{fontenc}
+\PassOptionsToPackage{defaults=hu-min}{magyar.ldf}
+\usepackage[magyar]{babel}
+\footnotestyle{rule=fourth}
+\usepackage{natbib}
+\setcitestyle{aysep={}}
+
+\begin{document}
+\institute{Matematikai és Informatikai Intézet}
+\title{A szakdolgozat címe}
+\author{Renyhárt Gábor\\programtervező informatikus BSc}
+\supervisor{Balla Tamás\\tanársegéd}
+\city{Eger}
+\date{2020}
+\maketitle
+
+\tableofcontents
+
+\chapter*{Bevezetés}
+
+\chapter{Fejezet címe}
+\section{Szakasz címe}
+\subsection{Alszakasz címe}
+\begin{thebibliography}{}
+\end{thebibliography}
+\end{document}
