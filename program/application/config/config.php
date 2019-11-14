@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 date_default_timezone_set('Europe/Budapest');
-$config['base_url'] = 'http://regabi.hu/szakdolgozatgit';
+$config['base_url'] = 'http://localhost/szakdolgozatgit';
 
 /*
 |--------------------------------------------------------------------------
