@@ -1,0 +1,90 @@
+.header-name-exit
+{
+	float:right;
+	text-align: right;
+	margin-top: 20px;
+	margin-right: 20px;	
+}
+.header-iskolanev
+{
+	float:left;
+	text-align: left;
+	margin-top: 20px;
+	margin-left: 20px;
+}
+.kozepre
+{
+	margin-left: 100px;
+}
+body
+{
+	background-color: #CAFAFE;
+}
+a
+{
+	color:blue;
+	text-decoration: none;
+}
+a:hover
+{
+	color:darkblue;
+}
+table, th, td 
+{
+  border: 1px solid black;
+  padding:5px 10px 5px 0px;
+}
+span
+{
+	
+}
+.vert_center
+{
+	position:absolute;
+	margin-left: 0px;
+	margin-right: 0px;
+	top:30%;
+}
+.bejelentkez
+{
+	background-color: rgba(153,153,102,0.5);
+}
+.bejelentkez2
+{
+	background-color: rgba(255,255,255,0.8);
+}
+.hatter
+{
+	background-image: url("hatter.jpg");
+		background-size: auto;
+		background-size: cover;
+}
+.ora
+{
+	background-color:gray;
+}
+.ora:hover
+{
+	background-color: orange;
+}
+.nap
+{
+	background-color:white;
+	text-align: center;
+	margin-bottom: 5px;
+	margin-right: 10px;
+}
+
+.szam
+{
+	background-color: white;
+	width:30px;
+		margin-bottom: 5px;
+	margin-right: 10px;
+
+	text-align: center;
+}
+.orarend
+{
+	border-collapse: collapse;
+}
