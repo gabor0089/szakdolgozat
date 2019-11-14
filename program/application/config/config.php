@@ -23,7 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '';
+date_default_timezone_set('Europe/Budapest');
+$config['base_url'] = 'http://regabi.hu/szakdolgozatgit';
 
 /*
 |--------------------------------------------------------------------------
