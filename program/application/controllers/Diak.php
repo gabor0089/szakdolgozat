@@ -62,8 +62,7 @@ class Diak extends CI_Controller
 	{
 		$this->load->model('diak_model');
 		$userid = $this->session->user_id;
-		$osztalyid=$this->diak_model->osztaly($userid);
-		$orarend=$this->diak_model->orarend($osztalyid[0]['osztalyid']);
+		$orarend=$this->diak_model->orarend(1);
 		$orarend2=[
 		'orarend'=>$orarend,
 		];
@@ -71,6 +70,7 @@ class Diak extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('diak/orarend',$orarend2);
 	}
+
 	public function Osztalyozas()
 	{
 		$adatok=$this->Main();
