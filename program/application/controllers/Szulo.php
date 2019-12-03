@@ -60,40 +60,134 @@ class Szulo extends CI_Controller
 	}
 	public function Orarend()
 	{
-		$this->load->model('tanar_model');
+		$this->load->model('diak_model');
 		$userid = $this->session->user_id;
-		///////
-		$ido=time();
-		$kivonni=date('N',$ido)-1;
-		$kezdodatum=$ido-$kivonni;
-		///////
-		$orarend=$this->tanar_model->orarend($userid);
+		$orarend=$this->diak_model->orarend(1);
 		$orarend2=[
 		'orarend'=>$orarend,
-		'hetvege'=>0,
-		'oraszam'=>11,
-		'kezdodatum'=>$kezdodatum
 		];
 		$adatok=$this->Main();
+		$gyermeklista=$this->Gyermeklista();
+		$adatok=array_merge($adatok,$gyermeklista);
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('szulo/orarend',$orarend2);
 	}
 	public function Osztalyozas()
 	{
 		$adatok=$this->Main();
+		$gyermeklista=$this->Gyermeklista();
+		$adatok=array_merge($adatok,$gyermeklista);
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('szulo/osztalyozas');
 	}
+
+	public function Gyermeklista()
+	{
+		$szuloid = $this->session->user_id;
+		$this->load->model('szulo_model');
+		$gyerek=$this->szulo_model->aktualgyerek($szuloid);		
+		return $adatok2=['aktgyerek'=>$gyerek];
+	}
+
+	public function Mindengyerek()
+	{
+		$szuloid = $this->session->user_id;
+		$this->load->model('szulo_model');
+		$gyerekek=$this->szulo_model->gyermeklista($szuloid);
+		return $adatok2=['mindengyerek'=>$gyerekek];
+	}
+
 	public function Hianyzas()
 	{
 		$adatok=$this->Main();
+		////
+		$gyermeklista=$this->Gyermeklista();
+		$adatok=array_merge($adatok,$gyermeklista);
+		////
+		//var_dump($adatok);
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('szulo/hianyzasok');
+
 	}
 	public function Kozlemenyek()
 	{
 		$adatok=$this->Main();
+		$gyermeklista=$this->Gyermeklista();
+		$adatok=array_merge($adatok,$gyermeklista);
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('szulo/kozlemenyek');
 	}
+	public function Alapadatok()
+		{
+		////////////////////////////////////////////////////////////////////
+		$this->load->model('admin_model');
+		$datas=$this->admin_model->alapadatok();
+		$adatok2=
+		[
+			'isnev'=>$datas[0]['iskolanev'],
+			'ignev'=>$datas[0]['igazgatonev'],
+			'cim'=>$datas[0]['iskolacim'],
+			'ev'=>$datas[0]['ev']
+		];
+		$adatok=$this->Main();
+		$gyermeklista=$this->Gyermeklista();
+		$adatok=array_merge($adatok,$gyermeklista);
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('szulo/alapadatok',$adatok2);
+	}
+
+	public function Csengrend()
+	{
+		$this->load->model('users_model');
+		$datas=$this->users_model->csengrend();
+		$adatok2=[
+		'datas'=>$datas
+		];	
+		$adatok=$this->Main();
+		$gyermeklista=$this->Gyermeklista();
+		$adatok=array_merge($adatok,$gyermeklista);
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('szulo/csengrend',$adatok2);
+	}
+	public function Gyerekvaltas()
+	{
+		$adatok=$this->Main();
+		$gyermeklista=$this->Gyermeklista();
+		$adatok=array_merge($adatok,$gyermeklista);
+		$this->load->view($adatok['headerlink'],$adatok);
+		$mindengyerek=$this->Mindengyerek();
+		$this->load->view('szulo/gyerekvalasztas',$mindengyerek);
+		
+	}
+
+	public function Chdchng()
+	{
+		$this->form_validation->set_rules('gyerek','Gyerek','required');
+		if($this->form_validation->run()===FALSE)
+		{
+			$adatok=$this->Main();
+			$gyermeklista=$this->Gyermeklista();
+			$adatok=array_merge($adatok,$gyermeklista);
+			$this->load->view($adatok['headerlink'],$adatok);
+			$mindengyerek=$this->Mindengyerek();
+			$this->load->view('szulo/gyerekvalasztas',$mindengyerek);
+		}
+		else
+		{
+			$uj_akt_gyerek=$this->input->post('gyerek');
+			//echo $uj_akt_gyerek;
+			$szuloid = $this->session->user_id;
+			$this->load->model('szulo_model');
+			$datas=$this->szulo_model->Chdchng($szuloid,$uj_akt_gyerek);
+			$adatok=$this->Main();
+			$gyermeklista=$this->Gyermeklista();
+			$adatok=array_merge($adatok,$gyermeklista);
+			$this->load->view($adatok['headerlink'],$adatok);
+			$mindengyerek=$this->Mindengyerek();
+			$this->load->view('szulo/gyerekvalasztas',$mindengyerek);
+
+		}
+	}
+	
+	
 }

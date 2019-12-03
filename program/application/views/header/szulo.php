@@ -18,24 +18,17 @@
 <a href="<?php echo base_url();?>User/profil/<?=$userid?>"><?=$name?></a> (<?=$beosztas?>) 
   <?php echo date("H:i:s",time());?> 
   <a class="hidden-sm hidden-xs" href='../Users/Kilepes'><img src="<?php echo base_url();?>assets/img/exit.png" height="15"></img></a><BR>
-  <?php
-  $options = array(
-        '1'         => 'Egyik gyerek',
-        '2'           => 'Másik gyerek'
-);
-
-echo form_dropdown('gyerek', $options, '1');
-?>
+<a class='gyermek' href="<?php echo base_url();?>Szulo/gyerekvaltas">Aktuális gyermek: <?=$aktgyerek[0]['gyermeknev']?></a>
 </span>
-<header class="container-fluid">
+  <header class="container-fluid">
   <div class="row">
     <div class="container">
       <div class="row">
           <nav>
-            <a href="<?php echo base_url();?>Users/alapadatok">Alapadatok</a>
-            <a href="<?php echo base_url();?>Users/csengrend">Csengetési rend</a>
+            <a href="<?php echo base_url();?>Szulo/alapadatok">Alapadatok</a>
+            <a href="<?php echo base_url();?>Szulo/csengrend">Csengetési rend</a>
             <a href="<?php echo base_url();?>Szulo/orarend">Órarend</a>
-            <a href="<?php echo base_url();?>Szulo/osztalyozas">Jegyeim</a>
+            <a href="<?php echo base_url();?>Szulo/osztalyozas">Osztályzatok</a>
             <a href="<?php echo base_url();?>Szulo/hianyzas">Hiányzások</a>
             <a href="<?php echo base_url();?>Szulo/kozlemenyek">Közlemények</a>
             <a class="visible-sm visible-xs" href='../Users/Kilepes'>Kilépés</a>
