@@ -56,62 +56,66 @@ class Users extends CI_Controller
 				];
 				$this->session->set_userdata($user_data);
 				$this->session->set_flashdata('user_loggedin','Sikeresen bejelentkeztél!');
-///////////////
 
-		$this->load->model('users_model');
-		$userid = $this->session->user_id;
-		$iskolanev=$this->users_model->iskolanev();
-		$iskolanev=$iskolanev[0]['iskolanev'];
-		$items=$this->users_model->get_userdata($userid);
-		switch($items[0]['beosztas'])
-		{
-			case '0':
-				$beosztasnev="adminisztrátor";
-				$headerlink='header/admin';
-			break;
-			case '1':
-				$beosztasnev="igazgató";
-				$headerlink='header/igazgato';
-			break;
-			case '2':
-				$beosztasnev="osztályfőnök";
-				$headerlink='header/ofonok';
-			break;
-			case '3':
-				$beosztasnev="tanár";
-				$headerlink='header/tanar';
-			break;
-			case '4':
-				$beosztasnev="diák";
-				$headerlink='header/diak';
-			break;
-			case '5':
-				$beosztasnev="szülő";
-				$headerlink='header/szulo';
-			break;
-		}
-		$adatok=
-		[
-			'headerlink'=>$headerlink,
-			'userid'=>$items[0]['userid'],
-			'name'=>$items[0]['name'],
-			'beosztas'=>$beosztasnev,
-			'iskolanev'=>$iskolanev
-		];
-		$this->load->view($adatok['headerlink'],$adatok);
-			
-				/////////////
-
-
+				$this->load->model('users_model');
+				$userid = $this->session->user_id;
+				$iskolanev=$this->users_model->iskolanev();
+				$iskolanev=$iskolanev[0]['iskolanev'];
+				$items=$this->users_model->get_userdata($userid);
+				switch($items[0]['beosztas'])
+				{
+					case '0':
+						$beosztasnev="adminisztrátor";
+						$headerlink='header/admin';
+					break;
+					case '1':
+						$beosztasnev="igazgató";
+						$headerlink='header/igazgato';
+					break;
+					case '2':
+						$beosztasnev="osztályfőnök";
+						$headerlink='header/ofonok';
+					break;
+					case '3':
+						$beosztasnev="tanár";
+						$headerlink='header/tanar';
+					break;
+					case '4':
+						$beosztasnev="diák";
+						$headerlink='header/diak';
+					break;
+					case '5':
+						$beosztasnev="szülő";
+						$headerlink='header/szulo';
+					break;
+				}
+				$adatok=
+				[
+					'headerlink'=>$headerlink,
+					'userid'=>$items[0]['userid'],
+					'name'=>$items[0]['name'],
+					'beosztas'=>$beosztasnev,
+					'iskolanev'=>$iskolanev
+				];
+				if($headerlink=='header/szulo')
+				{
+					$szuloid = $this->session->user_id;
+					$this->load->model('szulo_model');
+					$gyerek=$this->szulo_model->aktualgyerek($szuloid);
+				
+					$adatok2=['aktgyerek'=>$gyerek];
+					$adatok=array_merge($adatok,$adatok2);
+				}
+				$this->load->view($adatok['headerlink'],$adatok);
 			}
 			else
 			{
 				$this->session->set_flashdata('login_failed','Login is invalid');
 			}
-
 		}
 	}
-		public function Main()
+
+public function Main()
 	{
 		$this->load->model('users_model');
 		$userid = $this->session->user_id;
