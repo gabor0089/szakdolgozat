@@ -1,4 +1,4 @@
-<!DOCTYPE stml>
+<!DOCTYPE html>
 <HTML>
 	<HEAD>
 		<meta charset="utf-8">
@@ -11,14 +11,28 @@
 	<div class='row'>
 		<div class='kozepre'>
 A nézet váltható! És az állapot elmentődik adatbázisba<BR>
-Nézet 1: A jegyek egymás alatt jelennek meg időrendben vissszafelé. Időpont, tantárgy, jegy, megjegyzes, Tanár neve. A táblázat rendezhető mindenféleképpen.<BR>
-<TABLE border='1'>
-<TR><TD>Időpont</TD><TD>Tantárgy</TD><TD>Jegy</TD><TD>Megjegyzés</TD><TD>Tanár</TD></TR>
-<?php foreach ($jegyektargyak as $jegy):?>
-<TR><TD><?=$jegy['idopont']?></TD><TD><?=$jegy['tantargynev']?></TD><TD><?=$jegy['jegy']?></TD><TD><?=$jegy['megjegyzes']?></TD><TD><?=$jegy['tanar']?></TD></TR>
-
-<?php endforeach;?>
-</TABLE>
+Nézet 2: Egymás alatt a tantárgyak, egymás mellett a jegyek. Tantárgyra is lehet kattintani, meg magára a jegyre is, ami így kiadja a részleteket.<BR>
+Előszőr le kell kérdezni az összes diák által tanult tárgyat.<BR>
+<TABLE border='0'>
+<?php
+//var_dump($jegyektargyak);
+for($i=0;$i<count($jegyektargyak);$i++)
+{
+	if(is_string($jegyektargyak[$i]))
+	{
+		echo "<TR><TD>".$jegyektargyak[$i]."</TD>";
+	}
+	else
+	{
+		echo "<TD>";
+		foreach ($jegyektargyak[$i] as $jegy)
+		{
+			echo $jegy['jegy']." ";
+		}
+		echo "</TD></TR>";
+	}
+}
+	?>
 		</div>
 	</div>
 	</body>

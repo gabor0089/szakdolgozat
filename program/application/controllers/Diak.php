@@ -73,9 +73,40 @@ class Diak extends CI_Controller
 
 	public function Osztalyozas()
 	{
-		$adatok=$this->Main();
-		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('diak/osztalyozas');
+		$userid = $this->session->user_id;
+		$this->load->model('diak_model');
+		$set=$this->diak_model->jegy_set($userid);
+		if($set[0]['value']<0)//Táblázatosan jelenjenek meg!!!
+		{
+			$targyak=$this->diak_model->mindentargy($userid);
+			$jegyektargyak=array();
+			foreach ($targyak as $t)
+			{
+				$jegyektargyak[]=$t['tantargynev'];
+				$jegyektargyak[]=$jegyek=$this->diak_model->jegyektabla($userid,$t['tid']);
+			}
+			$jegyektargyak=['jegyektargyak'=>$jegyektargyak];
+			$adatok=$this->Main();
+			$this->load->view($adatok['headerlink'],$adatok);
+			$this->load->view('diak/osztalyozastablazat',$jegyektargyak);
+		}
+		else
+		{//Időrendben jelenik  meg!
+			$jegyektargyak=$this->diak_model->jegyekidorend($userid);
+			$jegyektargyak=[
+				'jegyektargyak'=>$jegyektargyak
+			];
+			$adatok=$this->Main();
+			$this->load->view($adatok['headerlink'],$adatok);
+			$this->load->view('diak/osztalyozas',$jegyektargyak);
+		}
+	}
+	public function Nezet()
+	{
+		$userid=$this->session->user_id;
+		$this->load->model('diak_model');
+		$this->diak_model->nezet($userid);
+		$this->Osztalyozas();
 	}
 	public function Hianyzas()
 	{
