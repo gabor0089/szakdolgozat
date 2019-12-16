@@ -72,14 +72,54 @@ class Szulo extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('szulo/orarend',$orarend2);
 	}
+///////////////////////////////////////////////////////////////////////////
+	
+////////////////////////////////////////////////////////////////////////////
 	public function Osztalyozas()
 	{
-		$adatok=$this->Main();
-		$gyermeklista=$this->Gyermeklista();
-		$adatok=array_merge($adatok,$gyermeklista);
-		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('szulo/osztalyozas');
+		$userid = $this->session->user_id;
+		$this->load->model('szulo_model');
+		$aktualgyerek=$this->szulo_model->Aktualgyerek($userid);
+		$set=$this->szulo_model->jegy_set($userid);
+		if($set[0]['value']<0)//Táblázatosan jelenjenek meg!!!
+		{
+			$targyak=$this->szulo_model->mindentargy($aktualgyerek[0]['gyermekid']);
+			$jegyektargyak=array();
+			foreach ($targyak as $t)
+			{
+				$jegyektargyak[]=$t['tantargynev'];
+				$jegyektargyak[]=$jegyek=$this->szulo_model->jegyektabla($aktualgyerek[0]['gyermekid'],$t['tid']);
+			}
+			$jegyektargyak=['jegyektargyak'=>$jegyektargyak];
+			$adatok=$this->Main();
+			$gyermeklista=$this->Gyermeklista();
+			$adatok=array_merge($adatok,$gyermeklista);
+			$this->load->view($adatok['headerlink'],$adatok);
+			$this->load->view('szulo/osztalyozastablazat',$jegyektargyak);
+		}
+		else
+		{//Időrendben jelenik  meg!
+			$jegyektargyak=$this->szulo_model->jegyekidorend($aktualgyerek[0]['gyermekid']);
+			$jegyektargyak=[
+				'jegyektargyak'=>$jegyektargyak
+			];
+			$adatok=$this->Main();
+			$gyermeklista=$this->Gyermeklista();
+			$adatok=array_merge($adatok,$gyermeklista);
+			$this->load->view($adatok['headerlink'],$adatok);
+			$this->load->view('szulo/osztalyozas',$jegyektargyak);
+		}
 	}
+	public function Nezet()
+	{
+		$this->load->helper('url');
+		$userid=$this->session->user_id;
+		$this->load->model('szulo_model');
+		$this->szulo_model->nezet($userid);
+		redirect('Szulo/Osztalyozas','location');
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public function Gyermeklista()
 	{

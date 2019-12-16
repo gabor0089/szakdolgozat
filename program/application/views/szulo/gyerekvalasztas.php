@@ -7,13 +7,18 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
 	</HEAD>
 	<BODY>
-		<h1 class='text-center'>Hiányzások</h1>
+		<h1 class='text-center'>Gyerek váltás</h1>
 		<div class='col'>
 		</div>
 		<div class='row'>
 			<div class='kozepre'>
-			Táblázat, amiben a napok vannak felsorolva, amikor hiányzott. Mellette a hiányzás típusa, és hogy melyik tanár írta be, majd mellette egy ikon, hogy igazolt, igazolatlan, vagy mi.<BR>
-			Ha igazolatlan, akkor megjelenik egy gomb, amire kattintva igazolhatja a szülő a hiányzást. (Szülői vagy orvosi. Orvosi esetén az orvostól kapott igazolást fel kell tölteni.)
+			<?PHP echo form_open('Szulo/Chdchng');?>
+			<?php foreach ($mindengyerek as $gyerek):?>
+				<input type="radio" name="gyerek" value="<?=$gyerek['gyermekid']?>"><?=$gyerek['gyermeknev']?><BR>
+			<?php endforeach;?>
+				<input type='submit' class='btn btn-primary' value='Váltás'>
+			<?PHP echo form_close();?>
+
 			</div>
 		</div>
 	</body>

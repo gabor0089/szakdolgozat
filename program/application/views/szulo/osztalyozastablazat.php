@@ -1,4 +1,4 @@
-<!DOCTYPE stml>
+<!DOCTYPE html>
 <HTML>
 	<HEAD>
 		<meta charset="utf-8">
@@ -7,16 +7,29 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
     </HEAD>
 	<BODY>
-	<H1 class='text-center'>Jegyeim</H1><a href='Nezet'>Nézet váltás</a>
+	<H1 class='text-center'>Jegyek</H1><a href='Nezet'>Nézet váltás</a>
 	<div class='row'>
 		<div class='kozepre'>
-<TABLE border='1'>
-<TR><TD>Időpont</TD><TD>Tantárgy</TD><TD>Jegy</TD><TD>Megjegyzés</TD><TD>Tanár</TD></TR>
-<?php foreach ($jegyektargyak as $jegy):?>
-<TR><TD><?=$jegy['idopont']?></TD><TD><?=$jegy['tantargynev']?></TD><TD><?=$jegy['jegy']?></TD><TD><?=$jegy['megjegyzes']?></TD><TD><?=$jegy['tanar']?></TD></TR>
-
-<?php endforeach;?>
-</TABLE>
+<TABLE border='0'>
+<?php
+//var_dump($jegyektargyak);
+for($i=0;$i<count($jegyektargyak);$i++)
+{
+	if(is_string($jegyektargyak[$i]))
+	{
+		echo "<TR><TD>".$jegyektargyak[$i]."</TD>";
+	}
+	else
+	{
+		echo "<TD>";
+		foreach ($jegyektargyak[$i] as $jegy)
+		{
+			echo $jegy['jegy']." ";
+		}
+		echo "</TD></TR>";
+	}
+}
+	?>
 		</div>
 	</div>
 	</body>

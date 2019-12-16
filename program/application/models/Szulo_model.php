@@ -31,5 +31,41 @@ class szulo_model extends CI_Model
 		$result_array=$query->result_array();
 		return $result_array;
 	}
+	public function jegy_set($userid)
+	{
+		$query=$this->db->query("SELECT value from users_sets where userid='$userid' AND set_name='jegyek'");
+		$result_array=$query->result_array();
+		return $result_array;
+	}
+	public function Jegyekidorend($userid)
+	{
+		$query=$this->db->query("SELECT tantargyak.nev as tantargynev,jegyek.jegy as jegy,jegyek.idopont as idopont,jegyek.megjegyzes as megjegyzes,users.name as tanar 
+							from tantargyak right join jegyek on tantargyak.tantargyid=jegyek.tantargyid 
+							join users on users.userid=jegyek.kiadta  
+							where jegyek.kikapta='$userid' AND tantargyak.megjegyzes like '1,%' order by idopont desc");
+		$result_array=$query->result_array();
+		return $result_array;
+	}
+	public function Jegyektabla($userid,$tid)
+	{
+		$query=$this->db->query("SELECT jegyek.jegy as jegy 
+							from tantargyak left join jegyek on tantargyak.tantargyid=jegyek.tantargyid 
+							where tantargyak.megjegyzes like '1,%' AND tantargyak.tantargyid='$tid' AND kikapta='$userid'");
+		$result_array=$query->result_array();
+		return $result_array;
+	}
+	public function Mindentargy($userid)
+	{
+		$query=$this->db->query("SELECT tantargyak.nev as tantargynev,tantargyak.tantargyid as tid from tantargyak 
+								where tantargyak.megjegyzes like '1,%' order by tantargyid");
+		$result_array=$query->result_array();
+		return $result_array;
+	}
+	public function Nezet($userid)
+	{
+		$this->db->where('userid', $userid);
+		$this->db->set('value', 'value*-1', FALSE);
+		$this->db->update('users_sets');
+	}
 }
 ?>
