@@ -16,21 +16,6 @@ class tanar_model extends CI_Model
 		$result_array=$query->result_array();
 		return $result_array;
 	} 
-	/*public function ujjegy()
-	{
-		$data = array(
-				'ki_kapta' => '1',
-				'ki_adta' => '1',
-				'jegy' => $this->input->post('jegy'),
-				'tantargy' => $this->input->post('tantargy'),
-				'jeloles' => 'kék',
-				'megjegyzes' => 'ez a megjegyzés',
-				'dolg_azon' => rand(0,999),
-                'dolgozat_fajl_id' => rand(0,9999),
-				); 		
-			$this->db->insert('jegyek', $data);
-		return true;
-	}*/
 	public function diakid($diak)
 	{
 		$query=$this->db->query("SELECT userid from users where name='$diak'");
@@ -42,6 +27,18 @@ class tanar_model extends CI_Model
 		$query=$this->db->query("SELECT tantargyid from tantargyak where nev='$tantargy'");
 		$tantargyid=$query->row_array();
 		return $tantargyid;
+	}
+	public function osztalyid($osztaly)
+	{
+		$query=$this->db->query("SELECT osztalyid from osztalyok where osztalynev='$osztaly'");
+		$tantargyid=$query->row_array();
+		return $tantargyid;
+	}
+	public function nevsor($osztalyid)
+	{
+		$query=$this->db->query("SELECT name, userid from users where osztalyid='$osztalyid' order by name");
+		$nevsor=$query->result_array();
+		return $nevsor;
 	}
 
 	public function ujjegy($tanar,$diakid,$tantargy,$jegy)
@@ -56,13 +53,25 @@ class tanar_model extends CI_Model
 				'dolgid' => rand(0,999),
                 'dolgfajlid' => rand(0,9999),
 				); 		
-		var_dump($data);
 			$this->db->insert('jegyek', $data);
 		return true;
 	}
+	public function ujhianyzasfelvitel($diakid,$perc)
+	{
+		$data = array(
+				'diakid' => $diakid,
+				'hianyzas_tipus'=>$perc,
+				'tanarid' => 99,
+				'hianyzas_datum' => '2019-12-12',
+				'statusz' => 1,
+				); 		
+			$this->db->insert('hianyzasok', $data);
+		return true;
+
+	}
 	public function mindendiak()
 	{
-		$query=$this->db->get('users');
+		$query = $this->db->get_where('users', array('beosztas' => 4));
 		$result_array=$query->result_array();
 		return $result_array;	
 	}
