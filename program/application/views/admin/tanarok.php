@@ -16,6 +16,8 @@
       	<table border='1'>
       	
       	<div class="col-sm-3">
+        <TR><TD>Név</TD><TD>Születési idő</TD><TD>Születési hely</TD><TD>TAJ szám</TD><TD>Telefonszám</TD><TD>Irsz.</TD><TD>Lakcím</TD><TD>Beosztás</TD><TD>Fénykép</TR>
+
       	<?php foreach($tanaroklistaja as $lista):?>
           <tr>
           <td><?=$lista[0]?></TD>
@@ -26,7 +28,7 @@
           <TD><?=$lista[5]?></TD>
           <td><?=$lista[6]?></TD>
           <td><?=$lista[7]?></TD>
-          <TD><a target="_blank" href="../uploads/<?=$lista[8]?>">Kép</a></TD>
+          <TD><a target="_blank" href="../uploads/<?=$lista[8]?>"><img width='40' src='../uploads/<?=$lista[8]?>'></img></a><a download target="_blank" href="../uploads/<?=$lista[8]?>"><img width='30' src="../assets/img/letoltes.png"></img></a></TD>
           </TR>
       <?php endforeach;?>
       </div>

@@ -140,9 +140,7 @@ class Admin extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$tanaroklistaja=$this->load->admin_model->tanaroklistaja();
 		
-		$table_data=array(
-				array('Név',"Születési idő","Születési hely","TAJ szám","Telefonszám","Irsz.","Lakcím","Beosztás","Fénykép")
-			);
+		$table_data=array();
 		foreach($tanaroklistaja as $lista)
 		{
 			$beosztasnev=$this->load->admin_model->beosztas($lista['beosztas']);
@@ -157,15 +155,17 @@ class Admin extends CI_Controller
 	}
 	public function Ujtanar()
 	{
-
 		$this->load->model('admin_model');
 		$this->form_validation->set_rules('nev','Tanár neve','required');
-		
+		$tantargyak=$this->admin_model->tantargyak();
+		$osztalyok=$this->admin_model->osztalyok();
 		if($this->form_validation->run()===FALSE)
 		{
 			$adatok2=
 			[
-				'feltoltes'=>'sikertelen!'
+				'feltoltes'=>'sikertelen!',
+				'tantargyak'=>$tantargyak,
+				'osztalyok'=>$osztalyok
 			];
 			$adatok=$this->Main();
 			$this->load->view($adatok['headerlink'],$adatok);

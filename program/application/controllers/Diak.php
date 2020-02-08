@@ -110,9 +110,18 @@ class Diak extends CI_Controller
 	}
 	public function Hianyzas()
 	{
+		$userid = $this->session->user_id;
 		$adatok=$this->Main();
+		$this->load->model('diak_model');
+		$datas=$this->diak_model->hianyzasok($userid);
+		$napok=array('ismeretlen nap','hétfő','kedd','szerda','csütörtök','péntek','szombat','vasárnap');
+		$statusz=array('ismeretlen státusz','igazolatlan','igazolt');
+		$datas=[
+		'datas'=>$datas,
+		'napok'=>$napok,
+		'statusz'=>$statusz];
 		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('diak/hianyzasok');
+		$this->load->view('diak/hianyzasok',$datas);
 	}
 	public function Kozlemenyek()
 	{

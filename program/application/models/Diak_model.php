@@ -60,6 +60,13 @@ class diak_model extends CI_Model
 		$this->db->update('users_sets');
 		return true;
 	}
-
+	public function Hianyzasok($userid)
+	{
+		$query = $this->db->query("SELECT hianyzas_datum, ora, perc,users.name as tanarnev,statusz 
+									from hianyzasok left join users on users.userid=hianyzasok.tanarid 
+									where diakid='$userid' order by hianyzas_datum desc");
+		$result_array=$query->result_array();
+		return $result_array;
+	}
 }
 ?>

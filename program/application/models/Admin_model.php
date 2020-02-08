@@ -101,7 +101,7 @@ class admin_model extends CI_Model
 		'lakcim'=>$this->input->post('lakcim'),
 		'foto_link'=>$filename,
 		'beosztas'=>4,
-		'osztaly'=>$this->input->post('osztaly')
+		'osztalyid'=>$this->input->post('osztaly')
 		);
 		$this->db->insert('users', $data);
 		$ekezettel=   array('á','é','í','ó','ö','ő','ú','ü','ű','Á','É','Í','Ó','Ö','Ő','Ú','Ü','Ű',' ');
@@ -113,6 +113,20 @@ class admin_model extends CI_Model
 			'username'=>$felhasznalonev,
 			'password'=>$jelszo);
 		$this->db->insert('login',$data2);
+		
+	}
+	public function tantargyak()
+	{
+		$query1=$this->db->query("Select nev from tantargyak order by CHAR_LENGTH(nev),nev");
+		$result_array=$query1->result_array();
+		return $result_array;
+		
+	}
+	public function osztalyok()
+	{	
+		$query2=$this->db->query("Select osztalynev from osztalyok order by osztalynev");
+		$result_array=$query2->result_array();
+		return $result_array;
 		
 	}
 	public function mindendiak()

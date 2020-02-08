@@ -13,7 +13,7 @@
   <div class="row">
     <div class="container">
       <div class="row">
-          <div class="col-sm-12 col-md-6">
+          <div class="col-sm-6 col-md-6">
 			<?PHP echo form_open_multipart('Admin/ujtanar');?>
 			<?php 
 				if($feltoltes!='sikertelen!') 
@@ -28,6 +28,10 @@
 			Telefonszám (kötőjelek és szóköz nélkül)<input type='text' class='form-control' name='tel' value='' autocomplete='off' placeholder='Telefonszám' >
 			Irányítószám <input type='text' class='form-control' name='irsz' value='' autocomplete='off' placeholder='Irányítószám' >
 			Lakcím <input type='text' class='form-control' name='lakcim' value='' autocomplete='off' placeholder='Lakcím' >
+			Tantárgyai <input type='text' class='form-control' name='tantargyai' value='' autocomplete='off' placeholder='Tantárgyai...' >
+			Tanított osztályai <input type='text' class='form-control' name='osztalyai' id='osztalyai' value='' autocomplete='off' placeholder='Osztályok...' >
+			Osztályfőnök <input type='checkbox' class='form-control' name='lakcim'>
+			Osztály: <input type='text' class='form-control' name='ofo' autocomplete='off' placeholder='osztály' >
 			Beosztás
 			<?php
 				$beosztasok = array(
@@ -41,6 +45,28 @@
 			<BR>
 			Fénykép <input type="file" name="userfile" size="20"/><br>
 			<button type='submit' class='btn btn-primary btn-block'>Mentés</button>
+          </div>
+          <div class="col-sm-6 col-md-3"> Osztályok egymás alatt
+          <?php
+//          var_dump($osztalyok);
+//          var_dump($tantargyak);
+          ?>
+          <?php foreach ($osztalyok as $o)
+          {
+            echo "<input type='button' value=".$o['osztalynev']." onClick='Add(".$o[0].")'>";
+        }
+           ?>
+          	
+          }
+			<script>
+				function Add(szoveg)
+				{
+					document.getElementById('osztalyai').value+=szoveg+',';
+				}
+			</script>
+
+			</div>
+          <div class="col-sm-6 col-md-3">Tantárgyak egymás alatt
           </div>
       </div>
     </div>

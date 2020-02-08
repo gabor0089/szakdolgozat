@@ -10,9 +10,6 @@
 	<H1 class='text-center'>Jegyeim</H1><a href='Nezet'>Nézet váltás</a>
 	<div class='row'>
 		<div class='kozepre'>
-A nézet váltható! És az állapot elmentődik adatbázisba<BR>
-Nézet 2: Egymás alatt a tantárgyak, egymás mellett a jegyek. Tantárgyra is lehet kattintani, meg magára a jegyre is, ami így kiadja a részleteket.<BR>
-Előszőr le kell kérdezni az összes diák által tanult tárgyat.<BR>
 <TABLE border='0'>
 <?php
 //var_dump($jegyektargyak);
