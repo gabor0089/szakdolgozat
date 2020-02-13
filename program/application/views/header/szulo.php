@@ -30,8 +30,8 @@
             <a href="<?php echo base_url();?>Szulo/orarend">Órarend</a>
             <a href="<?php echo base_url();?>Szulo/osztalyozas">Osztályzatok</a>
             <a href="<?php echo base_url();?>Szulo/hianyzas">Hiányzások</a>
-            <a href="<?php echo base_url();?>Szulo/kozlemenyek">Közlemények</a>
-            <a class="visible-sm visible-xs" href='../Users/Kilepes'>Kilépés</a>
+            <a href="<?php echo base_url();?>Users/uzenetek">Üzenetek</a>
+            <a class="visible-sm visible-xs" href='../../../Users/Kilepes'>Kilépés</a>
 
           </nav>
       </div>

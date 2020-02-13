@@ -17,7 +17,7 @@
 <span class='header-name-exit'>
 <a href="<?php echo base_url();?>User/profil/<?=$userid?>"><?=$name?></a> (<?=$beosztas?>) 
   <?php echo date("H:i:s",time());?> 
-  <a class="hidden-sm hidden-xs" href='../Users/Kilepes'><img src="<?php echo base_url();?>assets/img/exit.png" height="15"></img></a>
+  <a class="hidden-sm hidden-xs" href='../../../Users/Kilepes'><img src="<?php echo base_url();?>assets/img/exit.png" height="15"></img></a>
 </span>
 <header class="container-fluid">
   <div class="row">
@@ -29,7 +29,7 @@
             <a href="<?php echo base_url();?>Diak/orarend">Órarend</a>
             <a href="<?php echo base_url();?>Diak/osztalyozas">Jegyeim</a>
             <a href="<?php echo base_url();?>Diak/hianyzas">Hiányzások</a>
-            <a href="<?php echo base_url();?>Diak/kozlemenyek">Közlemények</a>
+            <a href="<?php echo base_url();?>Users/uzenetek">Üzenetek</a>
             <a class="visible-sm visible-xs" href='../Users/Kilepes'>Kilépés</a>
 
           </nav>

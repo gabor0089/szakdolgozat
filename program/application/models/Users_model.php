@@ -40,6 +40,50 @@ class Users_model extends CI_Model
 		$result_array=$query->result_array();
 		return $result_array;
 	}
+	public function uzenetek($userid)
+	{
+		$query=$this->db->query("SELECT t.felado, t.cimzett,t1.name as feladonev, t2.name as cimzettnev,csoport,datum,uzenet
+									FROM uzenetek t
+									JOIN users t1 ON t1.userid = t.felado
+									JOIN users t2 ON t2.userid = t.cimzett
+									WHERE
+									t.felado=$userid OR
+									t.cimzett=$userid 
+									GROUP BY csoport");
+
+		$result_array=$query->result_array();
+		return $result_array;	
+	}
+	public function usernev($partner)
+	{
+		$query=$this->db->get_where('users',['userid'=>$partner]);
+		return $query->result_array();
+	}
+	public function egyuzi($csoport,$userid)
+	{
+		$query=$this->db->query("SELECT t.felado, t.cimzett,t1.name as feladonev, t2.name as cimzettnev,csoport,datum,uzenet
+									FROM uzenetek t
+									JOIN users t1 ON t1.userid = t.felado
+									JOIN users t2 ON t2.userid = t.cimzett
+									WHERE
+									(t.felado=$userid OR
+									t.cimzett=$userid) AND
+									csoport='$csoport'");
+		$result_array=$query->result_array();
+		return $result_array;	
+	}
+	public function ujuzenet($felado,$cimzett,$szoveg,$datum,$csoport)
+	{
+		$data=array(
+			'felado'=>$felado,
+			'cimzett'=>$cimzett,
+			'csoport'=>$csoport,
+			'datum'=>$datum,
+			'uzenet'=>$szoveg,
+			'statusz'=>1
+			);
+		$this->db->insert('uzenetek', $data);
+	}
 
 }
 

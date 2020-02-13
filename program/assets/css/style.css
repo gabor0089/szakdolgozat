@@ -15,6 +15,17 @@
 .kozepre
 {
 	margin-left: 100px;
+	margin-right: 100px;
+}
+.gyermekvalaszto
+{
+	position:fixed;
+	right:5px;
+	top:85px;
+}
+a.gyermek
+{
+	background-color: white;
 }
 body
 {
@@ -87,4 +98,20 @@ span
 .orarend
 {
 	border-collapse: collapse;
+}
+.uzki
+{
+	background-color: red;
+}
+.uzbe
+{
+	background-color: blue;
+}
+.orarendlink
+{
+	color:white;
+}
+tr:hover
+{
+	background-color: #ffff66;
 }

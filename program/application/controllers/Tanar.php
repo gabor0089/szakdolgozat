@@ -127,12 +127,6 @@ class Tanar extends CI_Controller
 		$this->tanar_model->Ujhianyzasfelvitel($diakid,$perc);
 		$this->Ujhianyzas();
 	}
-	public function Kozlemenyek()
-	{
-		$adatok=$this->Main();
-		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('tanar/kozlemenyek');
-	}
 	public function Ujjegyadas()
 	{
 		$this->load->model('tanar_model');

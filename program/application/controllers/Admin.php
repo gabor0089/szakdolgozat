@@ -66,11 +66,11 @@ class Admin extends CI_Controller
 		$diakoklistaja=$this->load->admin_model->diakoklistaja();
 		
 		$table_data=array(
-				array('Név',"Születési idő","Születési hely","TAJ szám","Telefonszám","Irsz.","Lakcím","Fénykép")
+				array('Név',"Születési idő","Születési hely","TAJ szám","Telefonszám","Irsz.","Lakcím","Osztály","Fénykép")
 			);
 		foreach($diakoklistaja as $lista)
 		{
-			array_push($table_data,array($lista['name'],$lista['dob'],$lista['szulhely'],$lista['taj'],$lista['tel'],$lista['irsz'],$lista['lakcim'],$lista['foto_link']));
+			array_push($table_data,array($lista['name'],$lista['dob'],$lista['szulhely'],$lista['taj'],$lista['tel'],$lista['irsz'],$lista['lakcim'],$lista['osztalyid'],$lista['foto_link']));
 		}
 		$lista=
 		[

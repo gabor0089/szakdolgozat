@@ -186,6 +186,61 @@ public function Main()
 		$this->load->view('users/csengrend',$adatok2);
 	}
 
+		public function Uzenetek()
+	{
+		$userid = $this->session->user_id;
+		$this->load->model('users_model');
+		$uzenetek=$this->users_model->Uzenetek($userid);
+		$data=['uzenetek'=>$uzenetek,'userid'=>$userid];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('users/uzenetek',$data);
+	}
+	public function egyuzenet($csoport,$userid)
+	{
+		$this->load->model('users_model');
+		$partnerek=explode('-',$csoport);
+		if($partnerek[0]==$userid)
+		{
+			$partner=$partnerek[1];
+		}
+		else
+		{
+			$partner=$partnerek[0];	
+		}
+		$usernev=$this->users_model->usernev($partner);
+		$egyuzi=$this->users_model->egyuzi($csoport,$userid);
+
+		$data=['uzenetek'=>$egyuzi,
+			   'partner'=>$usernev[0]['name'],
+			   'partnerid'=>$partner];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('users/uzenet',$data);
+		
+	}
+	public function Ujuzenet($partnerid=null)
+	{
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+
+		$this->load->view('users/ujuzenet');
+	}
+	public function Ujuzenetkuldes()
+	{
+		$felado=$this->input->post('felado');
+		$cimzett=$this->input->post('cimzett');
+		$szoveg=$this->input->post('uzenetszoveg');
+		$datum=date("Y-m-d H:i:s",time());
+		$csoport=$felado."-".$cimzett;
+		if($felado>$cimzett)
+			$csoport=$cimzett."-".$felado;
+		echo $felado." ".$cimzett." ".$szoveg." ".$datum." ".$csoport;
+		$this->load->model('users_model');
+		$this->users_model->ujuzenet($felado,$cimzett,$szoveg,$datum,$csoport);
+		redirect('Users/uzenetek');
+	}
+
 	public function Kilepes()
 	{
 		$this->session->sess_destroy();

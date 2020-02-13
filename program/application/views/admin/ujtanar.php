@@ -53,11 +53,11 @@
           ?>
           <?php foreach ($osztalyok as $o)
           {
-            echo "<input type='button' value=".$o['osztalynev']." onClick='Add(".$o[0].")'>";
+            echo "<BR><input type='button' value=".$o['osztalynev']." onClick='Add(".$o['osztalynev'].")'>";
         }
            ?>
           	
-          }
+          
 			<script>
 				function Add(szoveg)
 				{

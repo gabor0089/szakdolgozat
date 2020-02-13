@@ -40,8 +40,7 @@ class admin_model extends CI_Model
 
 	public function diakoklistaja()
 	{
-		$this->db->order_by("userid", "desc");
-		$query = $this->db->get_where('users', array('beosztas' => 4));
+		$query=$this->db->query('SELECT name,dob,szulhely,taj,tel,irsz,lakcim,osztalyok.osztalynev as osztalyid,foto_link from users,osztalyok where users.osztalyid=osztalyok.osztalyid AND beosztas=4 order by users.osztalyid,name');
 		$result_array=$query->result_array();
 		return $result_array;
 	}
@@ -117,14 +116,14 @@ class admin_model extends CI_Model
 	}
 	public function tantargyak()
 	{
-		$query1=$this->db->query("Select nev from tantargyak order by CHAR_LENGTH(nev),nev");
+		$query1=$this->db->query("SELECT nev from tantargyak order by CHAR_LENGTH(nev),nev");
 		$result_array=$query1->result_array();
 		return $result_array;
 		
 	}
 	public function osztalyok()
 	{	
-		$query2=$this->db->query("Select osztalynev from osztalyok order by osztalynev");
+		$query2=$this->db->query("SELECT osztalynev from osztalyok order by osztalyid");
 		$result_array=$query2->result_array();
 		return $result_array;
 		

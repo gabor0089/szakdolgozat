@@ -25,7 +25,8 @@
           <td><?=$lista[4]?></TD>
           <TD><?=$lista[5]?></TD>
           <td><?=$lista[6]?></TD>
-          <TD><a target="_blank" href="../uploads/<?=$lista[7]?>">Kép</a></TD>
+          <td><?=$lista[7]?></TD>
+          <TD><a target="_blank" href="../uploads/<?=$lista[8]?>">Kép</a></TD>
           </TR>
       <?php endforeach;?>
       </div>
