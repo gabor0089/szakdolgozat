@@ -3,13 +3,16 @@
 	<HEAD>
 		<meta charset="utf-8">
 	    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.css">
-	    <link rel="stylesheet" href="sttps://stackpats.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="ssa384-ggOyR0iXCbMQv3Xipma34MD+ds/1fQ784/j6cY/iJTQUOscWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="ssa384-ggOyR0iXCbMQv3Xipma34MD+ds/1fQ784/j6cY/iJTQUOscWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
     </HEAD>
 	<BODY>
 		<div class='row'>
-			<div class='kozepre'>
-				<H1>Órarend</H1>
+			<div class='col-md-12 text-center'><H1>Órarend</H1></div>
+		</div>
+		<div class='container'>
+		<div class='row'>
+
 				<?php
 					foreach ($orarend as $ora) 
 					{
@@ -48,21 +51,73 @@
 						}
 					}
 				?>
-				<TABLE class='orarend' border='0'>
-					<TR class='nap'><TD></TD><TD>Hétfő</TD><TD>Kedd</TD><TD>Szerda</TD><TD>Csütörtök</TD><TD>Péntek</TD></TR>
-					<TR><TD>0</TD><?php for($i=1;$i<6;$i++):?><?php if(isset($a[$i])):?><TD class='ora'><?=$a[$i]?></TD><?php else:?><TD></TD><?php endif;?><?php endfor;?></TD></TR>
-					<TR><TD>1</TD><?php for($i=1;$i<6;$i++):?><?php if(isset($b[$i])):?><TD class='ora'><?=$b[$i]?></TD><?php else:?><TD></TD><?php endif;?><?php endfor;?></TD></TR>
-					<TR><TD>2</TD><?php for($i=1;$i<6;$i++):?><?php if(isset($c[$i])):?><TD class='ora'><?=$c[$i]?></TD><?php else:?><TD></TD><?php endif;?><?php endfor;?></TD></TR>
-					<TR><TD>3</TD><?php for($i=1;$i<6;$i++):?><?php if(isset($d[$i])):?><TD class='ora'><?=$d[$i]?></TD><?php else:?><TD></TD><?php endif;?><?php endfor;?></TD></TR>
-					<TR><TD>4</TD><?php for($i=1;$i<6;$i++):?><?php if(isset($e[$i])):?><TD class='ora'><?=$e[$i]?></TD><?php else:?><TD></TD><?php endif;?><?php endfor;?></TD></TR>
-					<TR><TD>5</TD><?php for($i=1;$i<6;$i++):?><?php if(isset($f[$i])):?><TD class='ora'><?=$f[$i]?></TD><?php else:?><TD></TD><?php endif;?><?php endfor;?></TD></TR>
-					<TR><TD>6</TD><?php for($i=1;$i<6;$i++):?><?php if(isset($g[$i])):?><TD class='ora'><?=$g[$i]?></TD><?php else:?><TD></TD><?php endif;?><?php endfor;?></TD></TR>
-					<TR><TD>7</TD><?php for($i=1;$i<6;$i++):?><?php if(isset($h[$i])):?><TD class='ora'><?=$h[$i]?></TD><?php else:?><TD></TD><?php endif;?><?php endfor;?></TD></TR>
-					<TR><TD>8</TD><?php for($i=1;$i<6;$i++):?><?php if(isset($j[$i])):?><TD class='ora'><?=$j[$i]?></TD><?php else:?><TD></TD><?php endif;?><?php endfor;?></TD></TR>
-					<TR><TD>9</TD><?php for($i=1;$i<6;$i++):?><?php if(isset($k[$i])):?><TD class='ora'><?=$k[$i]?></TD><?php else:?><TD></TD><?php endif;?><?php endfor;?></TD></TR>
-					<TR><TD>10</TD><?php for($i=1;$i<6;$i++):?><?php if(isset($l[$i])):?><TD class='ora'><?=$l[$i]?></TD><?php else:?><TD></TD><?php endif;?><?php endfor;?></TD></TR>
-				</TABLE>
-			</div>
+
+				<div class="container">
+		    <table class="table table-striped table-hover table-sm">
+				<tr class="row">
+		            <td class="col-sm-1"></td>
+		            <td class="col-sm-2">Hétfő</td>
+		            <td class="col-sm-2">Kedd</td>
+		            <td class="col-sm-2">Szerda</td>
+		            <td class="col-sm-2">Csütörtök</td>
+		            <td class="col-sm-2">Péntek</td>
+		        </tr>
+		        <tr class='row'>
+		        	<td class='col-sm-1 text-center thick-border'>&nbsp<BR>0<BR>&nbsp</td><?php for($i=1;$i<6;$i++):?>
+					<?php if(isset($a[$i])):?><td class='col-sm-2 ora thick-border'><?=$a[$i]?></td><?php else:?><td class='col-sm-2 thick-border'>&nbsp<br>&nbsp<br>&nbsp</td><?php endif;?>
+		        	<?php endfor;?>
+		        </tr>
+		        <tr class='row'>
+		        	<td class='col-sm-1 text-center thick-border'>&nbsp<BR>1<BR>&nbsp</td><?php for($i=1;$i<6;$i++):?>
+					<?php if(isset($b[$i])):?><td class='col-sm-2 ora thick-border'><?=$b[$i]?></td><?php else:?><td class='col-sm-2 thick-border'>&nbsp<br>&nbsp<br>&nbsp</td><?php endif;?>
+		        	<?php endfor;?>
+		        </tr>
+		        <tr class='row'>
+		        	<td class='col-sm-1 text-center thick-border'>&nbsp<BR>2<BR>&nbsp</td><?php for($i=1;$i<6;$i++):?>
+					<?php if(isset($c[$i])):?><td class='col-sm-2 ora thick-border'><?=$c[$i]?></td><?php else:?><td class='col-sm-2 thick-border'>&nbsp<br>&nbsp<br>&nbsp</td><?php endif;?>
+		        	<?php endfor;?>
+		        </tr>
+		        <tr class='row'>
+		        	<td class='col-sm-1 text-center thick-border'>&nbsp<BR>3<BR>&nbsp</td><?php for($i=1;$i<6;$i++):?>
+					<?php if(isset($d[$i])):?><td class='col-sm-2 ora thick-border'><?=$d[$i]?></td><?php else:?><td class='col-sm-2 thick-border'>&nbsp<br>&nbsp<br>&nbsp</td><?php endif;?>
+		        	<?php endfor;?>
+		        </tr>
+		        <tr class='row'>
+		        	<td class='col-sm-1 text-center thick-border'>&nbsp<BR>4<BR>&nbsp</td><?php for($i=1;$i<6;$i++):?>
+					<?php if(isset($e[$i])):?><td class='col-sm-2 ora thick-border'><?=$e[$i]?></td><?php else:?><td class='col-sm-2 thick-border'>&nbsp<br>&nbsp<br>&nbsp</td><?php endif;?>
+		        	<?php endfor;?>
+		        </tr>
+		        <tr class='row'>
+		        	<td class='col-sm-1 text-center thick-border'>&nbsp<BR>5<BR>&nbsp</td><?php for($i=1;$i<6;$i++):?>
+					<?php if(isset($f[$i])):?><td class='col-sm-2 ora thick-border'><?=$f[$i]?></td><?php else:?><td class='col-sm-2 thick-border'>&nbsp<br>&nbsp<br>&nbsp</td><?php endif;?>
+		        	<?php endfor;?>
+		        </tr>
+		        <tr class='row'>
+		        	<td class='col-sm-1 text-center thick-border'>&nbsp<BR>6<BR>&nbsp</td><?php for($i=1;$i<6;$i++):?>
+					<?php if(isset($g[$i])):?><td class='col-sm-2 ora thick-border'><?=$g[$i]?></td><?php else:?><td class='col-sm-2 thick-border'>&nbsp<br>&nbsp<br>&nbsp</td><?php endif;?>
+		        	<?php endfor;?>
+		        </tr>
+		        <tr class='row'>
+		        	<td class='col-sm-1 text-center thick-border'>&nbsp<BR>7<BR>&nbsp</td><?php for($i=1;$i<6;$i++):?>
+					<?php if(isset($h[$i])):?><td class='col-sm-2 ora thick-border'><?=$h[$i]?></td><?php else:?><td class='col-sm-2 thick-border'>&nbsp<br>&nbsp<br>&nbsp</td><?php endif;?>
+		        	<?php endfor;?>
+		        </tr>
+		        <tr class='row'>
+		        	<td class='col-sm-1 text-center thick-border'>&nbsp<BR>8<BR>&nbsp</td><?php for($i=1;$i<6;$i++):?>
+					<?php if(isset($j[$i])):?><td class='col-sm-2 ora thick-border'><?=$j[$i]?></td><?php else:?><td class='col-sm-2 thick-border'>&nbsp<br>&nbsp<br>&nbsp</td><?php endif;?>
+		        	<?php endfor;?>
+		        </tr>
+		        <tr class='row'>
+		        	<td class='col-sm-1 text-center thick-border'>&nbsp<BR>9<BR>&nbsp</td><?php for($i=1;$i<6;$i++):?>
+					<?php if(isset($k[$i])):?><td class='col-sm-2 ora thick-border'><?=$k[$i]?></td><?php else:?><td class='col-sm-2 thick-border'>&nbsp<br>&nbsp<br>&nbsp</td><?php endif;?>
+		        	<?php endfor;?>
+		        </tr>
+		        <tr class='row'>
+		        	<td class='col-sm-1 text-center thick-border'>&nbsp<BR>10<BR>&nbsp</td><?php for($i=1;$i<6;$i++):?>
+					<?php if(isset($l[$i])):?><td class='col-sm-2 ora thick-border'><?=$l[$i]?></td><?php else:?><td class='col-sm-2 thick-border'>&nbsp<br>&nbsp<br>&nbsp</td><?php endif;?>
+		        	<?php endfor;?>
+		        </tr>
+		    </table>
 		</div>
 	</BODY>
 </HTML>		

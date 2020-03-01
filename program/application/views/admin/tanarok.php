@@ -11,15 +11,13 @@
 <h1 class='text-center'>Tanárok<a href='../Admin/Ujtanar' title='Új diák felvitele'>+</a></h1>
 <div class="container-fluid">
   <div class="row">
-    <div class="container">
-      <div class="row">
-      	<table border='1'>
+      	<table class='table table-borderless'>
       	
       	<div class="col-sm-3">
         <TR><TD>Név</TD><TD>Születési idő</TD><TD>Születési hely</TD><TD>TAJ szám</TD><TD>Telefonszám</TD><TD>Irsz.</TD><TD>Lakcím</TD><TD>Beosztás</TD><TD>Fénykép</TR>
 
       	<?php foreach($tanaroklistaja as $lista):?>
-          <tr>
+          <tr class='border-top border-dark'>
           <td><?=$lista[0]?></TD>
           <TD><?=$lista[1]?></TD>
           <td><?=$lista[2]?></TD>
@@ -31,16 +29,13 @@
           <TD><a target="_blank" href="../uploads/<?=$lista[8]?>"><img width='40' src='../uploads/<?=$lista[8]?>'></img></a><a download target="_blank" href="../uploads/<?=$lista[8]?>"><img width='30' src="../assets/img/letoltes.png"></img></a></TD>
           </TR>
       <?php endforeach;?>
+
       </div>
       </table>
-      
-      </div>
-    </div>
-  </div>
+
+  </div>&nbsp
 </div>
 
-
-<?PHP echo form_close();?>
 
 </body>
 </html>

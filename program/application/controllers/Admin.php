@@ -349,5 +349,24 @@ class Admin extends CI_Controller
 			$this->load->view($adatok['headerlink'],$adatok);
 			$this->load->view('admin/csengrend');
 	}
+	public function Tantargyak()
+	{
+		$this->load->model('admin_model');
+		$targyak=$this->admin_model->tantargyaklista();
+		$data=['targyak'=>$targyak];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('admin/tantargyak',$data);
+	}
+
+	public function Tantermek()
+	{
+		$this->load->model('admin_model');
+		$termek=$this->admin_model->tanteremlista();
+		$data=['termek'=>$termek];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('admin/tantermek',$data);
+	}
 
 }

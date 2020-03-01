@@ -47,10 +47,11 @@ class Users_model extends CI_Model
 									JOIN users t1 ON t1.userid = t.felado
 									JOIN users t2 ON t2.userid = t.cimzett
 									WHERE
-									t.felado=$userid OR
-									t.cimzett=$userid 
-									GROUP BY csoport");
-
+									t.uzenetid in(SELECT max(uzenetid) from uzenetek u
+										join users t1 on t1.userid=u.felado
+										join users t2 on t2.userid=u.cimzett
+										where u.cimzett='$userid' or u. felado='$userid'
+										group by u.csoport) order by datum desc");
 		$result_array=$query->result_array();
 		return $result_array;	
 	}
@@ -68,7 +69,7 @@ class Users_model extends CI_Model
 									WHERE
 									(t.felado=$userid OR
 									t.cimzett=$userid) AND
-									csoport='$csoport'");
+									csoport='$csoport' ORDER BY datum DESC");
 		$result_array=$query->result_array();
 		return $result_array;	
 	}

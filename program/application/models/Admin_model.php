@@ -1,5 +1,5 @@
 <?PHP
-class admin_model extends CI_Model
+class Admin_model extends CI_Model
 {
 	public function __construct()
 	{
@@ -172,7 +172,6 @@ class admin_model extends CI_Model
 			'szuloid'=>$idd[0]['userid'],
 			'gyermekid'=>$gyermekid[0]['userid']
 			);
-		//var_dump($data3);
 		$this->db->insert('szulogyermek',$data3);
 		
 
@@ -190,6 +189,19 @@ class admin_model extends CI_Model
 		$query = $this->db->get_where('users', array('beosztas' => 5));
 		$result_array=$query->result_array();
 		return $result_array;
+	}
+	public function tantargyaklista()
+	{
+		$query=$this->db->query("SELECT tantargyid,nev,osztaly,tanarid,users.name as tanarnev,osztalyok.osztalynev as osztalynev 
+									from tantargyak,users,osztalyok 
+									where users.userid=tantargyak.tanarid AND
+									tantargyak.osztaly=osztalyok.osztalyid order by nev");
+		return $query->result_array();
+	}
+	public function tanteremlista()
+	{
+		$query=$this->db->get('termek');
+		return $query->result_array();
 	}
 
 }

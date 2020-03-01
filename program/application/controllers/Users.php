@@ -186,7 +186,7 @@ public function Main()
 		$this->load->view('users/csengrend',$adatok2);
 	}
 
-		public function Uzenetek()
+	public function Uzenetek()
 	{
 		$userid = $this->session->user_id;
 		$this->load->model('users_model');
@@ -221,10 +221,15 @@ public function Main()
 	}
 	public function Ujuzenet($partnerid=null)
 	{
+		$userid = $this->session->user_id;
+		$this->load->model('users_model');
+		$partnernev=$this->users_model->usernev($partnerid);
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
-
-		$this->load->view('users/ujuzenet');
+		$data=['partner'=>$partnerid,
+				'userid'=>$userid,
+				'partnernev'=>$partnernev[0]['name']];
+		$this->load->view('users/ujuzenet',$data);
 	}
 	public function Ujuzenetkuldes()
 	{

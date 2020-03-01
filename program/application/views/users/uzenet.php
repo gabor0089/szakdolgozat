@@ -26,24 +26,32 @@
 		<div class='col-md-3'>Üzenetváltások vele: <?=$partner?></div>
 		<div class='col-md-3'><button class='btn btn-info' id='ujvalasz' onclick="ujvalaszablak()">Válasz</button></div>
 	</div>
+	<div class='row'>
+		<div class='col-md-12'>&nbsp</div>
+	</div>
 		<?php foreach ($uzenetek as $uzenet):?>
 			<div class='row'>
 				<div class='col-md-2'>	
 					<?=$uzenet['datum']?>
 				</div>
 				<?php if($uzenet['felado']==$userid):?>
-				<div class='col-md-4 text-left'>	
+				<div class='col-md-4 text-left bg-primary text-white rounded'>	
 						<?=$uzenet['uzenet']?>
-					</div>
-					<div class='col-md-2'>
+				</div>
+				<div class='col-md-2'>
 				</div>
 				<?php else:?>
 				<div class='col-md-2'>
-					</div>
-				<div class='col-md-4 text-right'>	
+				</div>
+				<div class='col-md-4 text-right bg-secondary text-white rounded'>	
 						<?=$uzenet['uzenet']?>
-			</div>
+				</div>
 				<?php endif;?>		
+			</div>
+			<div class='row'>
+				<div class='col-md-2'>
+					&nbsp
+				</div>
 			</div>
 		<?php endforeach;?>
 		<div class='row'>

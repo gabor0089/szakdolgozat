@@ -8,31 +8,26 @@
         </HEAD>
 	<BODY>
 	<h1 class='text-center'>Hiányzások</h1>
-<?php foreach ($datas as $d):?>
+<div class='container'>
 	<div class='row'>
-	<div class='col-md-2'>
+		<table class="table table-striped table-hover table-sm">
+<?php foreach ($datas as $d):?>
+<TR class='row'>
+	<TD class='col-md-2'>
 		<?php
 			$datum=$d['hianyzas_datum'];
 			$sorszam=date('N',strtotime($datum));
 			echo $d['hianyzas_datum']." ".$napok[$sorszam];
 		?>
-	</div>
-	<div class='col-md-1'>
-		<?=$d['ora']?>. óra 
-	</div>
-	<div class='col-md-1'>
-		<?=$d['perc']?> perc késés
-	</div>
-	<div class='col-md-1'>
-		<?=$d['tanarnev']?>
-	</div>
-	<div class='col-md-1'>
-		
-		<?=$statusz[$d['statusz']]?>
-	</div>
-</div>
-	
+	</TD>
+	<TD class='col-md-2'><?=$d['ora']?>. óra</TD>
+	<TD class='col-md-2'><?=$d['perc']?> perc késés</TD>
+	<TD class='col-md-2'><?=$d['tanarnev']?></TD>
+	<TD class='col-md-2'><?=$statusz[$d['statusz']]?></TD>
+</TR>
 <?php endforeach;?>
+</TABLE>
+		</div>
 	</div>
-	</body>
+</body>
 </Html>

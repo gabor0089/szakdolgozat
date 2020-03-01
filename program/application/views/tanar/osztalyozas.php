@@ -8,51 +8,94 @@
     </HEAD>
 	<BODY>
 	<H1 class='text-center'>Osztályozás</H1>
-		Dolgozatok link(?), ahonnan a dolgozatokra lehet egyszerre jegyet adni.
-		<?PHP echo form_open('tanar/ujjegyadas')?>
-<div class='row'>
-	<div class='col-md-3'>
-		<div class='form-group'>
-			<input type='text' class='form-control' oninput='updateResult(this.value)' placeholder='Diák neve...' autocomplete='off' required autofocus><BR>
- 			<SELECT id='result-list' name='diak' size='4'></SELECT>
+		<div class='row'>
+			<div class='col-md-1'>
+				&nbsp
+			</div>
+	        <div class='col-md-2'>
+	          <a>
+	            <button class='btn btn-primary' onclick="showDiv()">Csoportos/Egyéni jegyadás</button>
+	          </a>
+	        </div>
 		</div>
-	</div>
-	<div class='col-md-3'>
-		<div class='form-group'>
-			<input type='text' class='form-control' oninput='updateResult2(this.value)' placeholder='Tantárgy...' autocomplete='off' required><BR>
-			<SELECT id='result-list2' name='tantargy2' size='4'></SELECT>
+		<?PHP echo form_open('tanar/ujjegyadas')?>      
+		<div class='row' id='csopjegy' style="display:block;">
+			<div class='col-md-1'>
+				&nbsp
+			</div>
+			<div class='col-md-3 form-group'>
+	          <SELECT name='dolgozat' class='form-control'><OPTION>1. Témazáró</OPTION><OPTION>2. Témazáró</OPTION></SELECT>
+			</div>
+			<div class='col-md-3 form-group'>
+				<SELECT name='tema' class='form-control'><OPTION>Szódolgozat</OPTION><OPTION>Órai munka</OPTION></SELECT>
+			</div>			
+			<div class='col-md-3 form-group'>
+				<SELECT name='osztaly' class='form-control'><OPTION>9/A</OPTION><OPTION>9/B</OPTION></SELECT>
+			</div>
+			<div class='col-md-1 form-group'>
+				<button type='submit' class='form-control btn btn-primary'>Listázás</button>
+			</div>
 		</div>
-	</div>
-	<div class='col-md-3'>
-		<div class='form-group'>
-			<input type='text' name='jegy' class='form-control' placeholder='Jegy' value='3' required autofocus><BR>
-		</div>
-	</div>
-	<div class='col-md-3'>
-		<div class='form-group'>
-			<button type='submit' class='btn btn-primary btn-block'>Beküldés!</button>
-		</div>
-	</div>
-</div>
+			<?php echo form_close();?>
+		<div class='row' id='egyenjegy' style="display:block;">
+		<?PHP //echo form_open('tanar/ujjegyadas')?>
+		<?PHP echo form_open('tanar/jegyek')?>
+			<div class='col-md-1'>
+				&nbsp
+			</div>
+			<div class='col-md-3'>
+				<div class='form-group'>
+					<input type='text' class='form-control' oninput='updateResult(this.value)' placeholder='Diák neve...' autocomplete='off' required autofocus><BR>
+		 			<SELECT id='result-list' name='diak' size='10' multiple></SELECT>
+				</div>
+			</div>
+			<div class='col-md-3'>
+				<div class='form-group'>
+					<input type='text' class='form-control' oninput='updateResult2(this.value)' placeholder='Tantárgy...' autocomplete='off' required><BR>
+					<SELECT id='result-list2' name='tantargy2' size='10'></SELECT>
+				</div>
+			</div>
+<!--			<div class='col-md-1'>
+				<div class='form-group'>
+					<input type='number' name='jegy' class='form-control' placeholder='Jegy' value='3' required autofocus><BR>
+				</div>
+			</div>
+-->
+			<div class='col-md-2'>
+				<div class='form-group'>
+					<button type='submit' class='btn btn-primary btn-block'>Megtekintés</button>
+				</div>
+			</div><?PHP echo form_close();?>
 
+		</div>
 <?php
-var_dump($diakok);
+ini_set('xdebug.var_display_max_depth', '10');
+ini_set('xdebug.var_display_max_children', '256');
+ini_set('xdebug.var_display_max_data', '1024');
+$diakokuj=array();
+for ($i=0; $i < count($diakok); $i++) {
+	if(isset($diakok[$i])) 
+		$diakokuj[]=$diakok[$i];
+}
+$tantargyakuj=array();
+for ($i=0; $i < count($tantargyak); $i++) {
+	if(isset($tantargyak[$i])) 
+		$tantargyakuj[]=$tantargyak[$i];
+}
 
-?>
-<?PHP echo form_close();
 /////////////////////////////////////////////////////////////////
-$php_array = $diakok;
-$js_array = json_encode($php_array);
+$js_array = json_encode($diakokuj);
 echo "<script>";
 echo "var javascript_array = ".$js_array. ";";
 echo "</script>";
 
-$php_array = $tantargyak;
-$js_array2 = json_encode($php_array);
+$js_array2 = json_encode($tantargyakuj);
 echo "<script>";
 echo "var javascript_array2 = ".$js_array2. ";";
 echo "</script>";
 ?>
+	        </div>		
+		</div>
 <script>
 	function updateResult(query)
 	{
@@ -88,6 +131,21 @@ echo "</script>";
 		}
 		)
 	}
+    function showDiv() 
+    {
+      if(document.getElementById('csopjegy').style.display == "block")
+      {
+        document.getElementById('csopjegy').style.display = "none";
+        document.getElementById('egyenjegy').style.display = "block";
+      }
+      else
+      {
+        document.getElementById('csopjegy').style.display = "block";
+        document.getElementById('egyenjegy').style.display = "none";
+
+      } 
+    }
+
 </script>
 	</body>
 </Html>

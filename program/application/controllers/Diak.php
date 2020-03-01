@@ -58,11 +58,54 @@ class Diak extends CI_Controller
 			'iskolanev'=>$iskolanev
 		];
 	}
+	public function Alapadatok()
+	{
+		$this->load->model('diak_model');
+		$datas=$this->diak_model->alapadatok();
+		$adatok2=
+		[
+			'isnev'=>$datas[0]['iskolanev'],
+			'ignev'=>$datas[0]['igazgatonev'],
+			'cim'=>$datas[0]['iskolacim'],
+			'ev'=>$datas[0]['ev']
+		];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('diak/alapadatok',$adatok2);
+	}
+	public function Tanaraim()
+	{
+		$this->load->model('diak_model');
+		$userid=$this->session->user_id;
+		$osztalyidm=$this->diak_model->osztaly($userid);
+		$tanaraim=$this->diak_model->tanaraim($osztalyidm[0]['osztalyid']);
+		$adatok2=[
+		'tanaraim'=>$tanaraim
+		];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('diak/tanaraim',$adatok2);
+	}
+	public function Osztalyom()
+	{
+		$this->load->model('diak_model');
+		$userid=$this->session->user_id;
+		$osztalyidm=$this->diak_model->osztaly($userid);
+		$osztalyom=$this->diak_model->osztalyom($osztalyidm[0]['osztalyid']);
+		$adatok2=[
+		'osztalyom'=>$osztalyom
+		];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('diak/osztalyom',$adatok2);
+	}
+
 	public function Orarend()
 	{
 		$this->load->model('diak_model');
 		$userid = $this->session->user_id;
-		$orarend=$this->diak_model->orarend(1);
+		$osztalyidm=$this->diak_model->osztaly($userid);
+		$orarend=$this->diak_model->orarend($osztalyidm[0]['osztalyid']);
 		$orarend2=[
 		'orarend'=>$orarend,
 		];
@@ -78,14 +121,10 @@ class Diak extends CI_Controller
 		$set=$this->diak_model->jegy_set($userid);
 		if($set[0]['value']<0)//Táblázatosan jelenjenek meg!!!
 		{
-			$targyak=$this->diak_model->mindentargy($userid);
-			$jegyektargyak=array();
-			foreach ($targyak as $t)
-			{
-				$jegyektargyak[]=$t['tantargynev'];
-				$jegyektargyak[]=$jegyek=$this->diak_model->jegyektabla($userid,$t['tid']);
-			}
-			$jegyektargyak=['jegyektargyak'=>$jegyektargyak];
+			$osztalyidm=$this->diak_model->osztaly($userid);
+			$targyak=$this->diak_model->mindentargy($osztalyidm[0]['osztalyid']);		
+			$jegyek=$this->diak_model->jegyektabla($userid);		
+			$jegyektargyak=['targyak'=>$targyak,'jegyek'=>$jegyek];
 			$adatok=$this->Main();
 			$this->load->view($adatok['headerlink'],$adatok);
 			$this->load->view('diak/osztalyozastablazat',$jegyektargyak);

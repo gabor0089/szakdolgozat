@@ -59,6 +59,8 @@ echo form_open('tanar/Ujhianyzasfelvitel')?>
 	</div>
 		<div class='form-group'>
 			<input type='hidden' name='diakid' value='<?=$nevek['userid']?>' class='form-control'>
+			<input type='hidden' name='ora' value='<?=$ora?>' class='form-control'>
+			<input type='hidden' name='hianyzas_datum' value='<?=$datum?>' class='form-control'>
 		</div>
 	<div class='col-md-1'>
 		<div class='form-group'>

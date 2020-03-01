@@ -7,16 +7,24 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
     </HEAD>
 	<BODY>
-		<h1 class='text-center'>Csengetési rend</h1>
-		<div class="container">
-		    <table class="table table-striped">
-				<?php foreach ($datas as $data):?>
-		        <tr class="row">
-		            <td class="col-sm-1"><?=$data['ora']?>. óra</td>
-		            <td class="col-sm-3"><?=$data['kezdes']?> - <?=$data['vege']?></td>
-		        </tr>
-		    	<?php endforeach;?>
-		    </table>
-		</div>
-	</body>
+
+<h2 class='text-center'>Tantermek</h2>
+<div class="container-fluid">
+  <div class="row">
+      	<table border='1'>
+      	
+      	<div class="col-sm-3">
+      	<?php foreach($termek as $lista):?>
+          <tr>
+          <td><?=$lista['nev']?></td>
+          <td><?=$lista['megjegyzes']?></TD>
+          </TR>
+      <?php endforeach;?>
+      </div>
+      </table>
+      
+  </div>
+</div>
+
+</body>
 </html>

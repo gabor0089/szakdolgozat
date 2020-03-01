@@ -11,6 +11,25 @@ class diak_model extends CI_Model
 		$query=$this->db->query("SELECT osztalyid from users where userid='$userid'");
 		$result_array=$query->result_array();
 		return $result_array;
+	}
+	public function Tanaraim($osztalyid)
+	{
+		$query=$this->db->query("SELECT distinct(name),userid,tel,irsz,lakcim,foto_link,beosztas from 
+									users,tantargyak where 
+									tantargyak.osztaly='$osztalyid' AND tantargyak.tanarid=users.userid
+									order by name");
+		$result_array=$query->result_array();
+		return $result_array;
+	} 
+
+	public function Osztalyom($osztalyid)
+	{
+		$query=$this->db->query("SELECT distinct(name),userid,dob,tel,irsz,lakcim,foto_link from 
+									users where 
+									users.osztalyid='$osztalyid'
+									order by name");
+		$result_array=$query->result_array();
+		return $result_array;
 	} 
 
 	public function Orarend($id)
@@ -34,22 +53,22 @@ class diak_model extends CI_Model
 		$query=$this->db->query("SELECT tantargyak.nev as tantargynev,jegyek.jegy as jegy,jegyek.idopont as idopont,jegyek.megjegyzes as megjegyzes,users.name as tanar 
 							from tantargyak right join jegyek on tantargyak.tantargyid=jegyek.tantargyid 
 							join users on users.userid=jegyek.kiadta  
-							where jegyek.kikapta='$userid' AND tantargyak.megjegyzes like '1,%' order by idopont desc");
+							where jegyek.kikapta='$userid' order by idopont desc");
 		$result_array=$query->result_array();
 		return $result_array;
 	}
-	public function Jegyektabla($userid,$tid)
+	public function Jegyektabla($userid)
 	{
-		$query=$this->db->query("SELECT jegyek.jegy as jegy 
-							from tantargyak left join jegyek on tantargyak.tantargyid=jegyek.tantargyid 
-							where tantargyak.megjegyzes like '1,%' AND tantargyak.tantargyid='$tid' AND kikapta='$userid'");
+		$query=$this->db->query("SELECT jegy,tantargyid from jegyek 
+							where kikapta='$userid'");
 		$result_array=$query->result_array();
 		return $result_array;
 	}
-	public function Mindentargy($userid)
+	public function Mindentargy($osztalyid)
 	{
-		$query=$this->db->query("SELECT tantargyak.nev as tantargynev,tantargyak.tantargyid as tid from tantargyak 
-								where tantargyak.megjegyzes like '1,%' order by tantargyid");
+		$query=$this->db->query("SELECT tantargyak.nev as tantargynev,tantargyak.tantargyid as tid from tantargyak
+								where osztaly=$osztalyid 
+								order by tantargyid");
 		$result_array=$query->result_array();
 		return $result_array;
 	}

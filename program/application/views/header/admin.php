@@ -15,9 +15,9 @@
 <?=$iskolanev?>
 </span>
 <span class='header-name-exit'>
-<a href="<?php echo base_url();?>User/profil/<?=$userid?>"><?=$name?></a> (<?=$beosztas?>) 
+<a href="<?php echo base_url();?>User/profil/<?=$userid?>"><?=$name?></a> (<?=$beosztas?>)  <a class="hidden-sm hidden-xs" href='../Users/Kilepes'><img src="<?php echo base_url();?>assets/img/exit.png" height="15"></img></a>
+<BR> 
   <?php echo date("H:i:s",time());?> 
-  <a class="hidden-sm hidden-xs" href='../../../Users/Kilepes'><img src="<?php echo base_url();?>assets/img/exit.png" height="15"></img></a>
 </span>
 <header class="container-fluid">
   <div class="row">
@@ -28,6 +28,8 @@
             <a href="<?php echo base_url();?>Admin/csengrend">Csengetési rend</a>
             <a href="<?php echo base_url();?>Admin/diakok">Diákok</a>
             <a href="<?php echo base_url();?>Admin/tanarok">Tanárok</a>
+            <a href="<?php echo base_url();?>Admin/tantargyak">Tantárgyak</a>
+            <a href="<?php echo base_url();?>Admin/tantermek">Tantermek</a>
             <a href="<?php echo base_url();?>Admin/szulok">Szülők</a>
             <a href="<?php echo base_url();?>Users/uzenetek">Üzenetek</a>
 		        <a class="visible-sm visible-xs" href='../Users/Kilepes'>Kilépés</a>

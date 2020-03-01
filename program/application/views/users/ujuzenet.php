@@ -10,8 +10,17 @@
 	<H2 class='text-center'>Üzenetek<a href="<?php echo base_url();?>Users/ujuzenet">+</a></H2>
 	<div class="container-fluid vert_center">
 		<div class='row'>
-			<div class='col-md-3'>Üzenet küldése neki: XXX</div>
-			<div class='col-md-3'><input class='btn btn-primary' type='submit' value='Elküld!'></div>
+			<div class='col-md-3'>Üzenet küldése neki: <?=$partnernev?></div>
+		</div>
+		<div class='row'>
+			<div class='col-md-1'></div>
+			<div class='col-md-6' id='ujvalaszablak'>
+				<?php $hidden = array('felado' => $userid, 'cimzett' => $partner);
+				echo form_open('Users/ujuzenetkuldes','',$hidden);?>
+				<TEXTAREA name='uzenetszoveg' cols='50' rows='3'></TEXTAREA> <button class='btn btn-success' type='submit'>Küldés</button>
+				<?php echo form_close();?>
+			</div>
+		</div>
 		</div>
 	</div>
 	</body>
