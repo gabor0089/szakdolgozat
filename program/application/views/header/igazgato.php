@@ -16,7 +16,7 @@
     <ul class="navbar-nav mr-auto">
       <!--<img src="<?php echo base_url();?>assets/img/logo.png"></img>-->
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url();?>Admin/alapadatok">Alapadatok</a>
+        <a class="nav-link" href="<?php echo base_url();?>Igazgato/alapadatok">Alapadatok</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?php echo base_url();?>Admin/csengrend">Csengetési rend</a>

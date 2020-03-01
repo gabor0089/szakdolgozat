@@ -67,5 +67,11 @@ class szulo_model extends CI_Model
 		$this->db->set('value', 'value*-1', FALSE);
 		$this->db->update('users_sets');
 	}
+	public function alapadatok()
+	{
+		$query=$this->db->get('beallitasok');
+		$result_array=$query->result_array();
+		return $result_array;
+	}
 }
 ?>

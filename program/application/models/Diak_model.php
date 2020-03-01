@@ -68,5 +68,11 @@ class diak_model extends CI_Model
 		$result_array=$query->result_array();
 		return $result_array;
 	}
+	public function alapadatok()
+	{
+		$query=$this->db->get('beallitasok');
+		$result_array=$query->result_array();
+		return $result_array;
+	}
 }
 ?>

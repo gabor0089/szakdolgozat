@@ -9,7 +9,7 @@ class tanar_model extends CI_Model
 
 	public function Orarend($id)
 	{
-		$query=$this->db->query('SELECT datum,hanyadik_ora,milyennap,osztalyok.osztalynev as osztaly,tantargyak.nev as tantargy,orarend.teremid as terem 
+		$query=$this->db->query('SELECT datum,hanyadik_ora,milyennap,orarend.osztalyid as osztalyid,osztalyok.osztalynev as osztaly,orarend.tantargyid as tantargyid,tantargyak.nev as tantargy,orarend.teremid as terem 
 							from orarend left join osztalyok on orarend.osztalyid=osztalyok.osztalyid 
 										 join tantargyak on tantargyak.tantargyid=orarend.tantargyid
 							where tanarid='.$id.' order by milyennap,hanyadik_ora');
@@ -80,6 +80,33 @@ class tanar_model extends CI_Model
 		$query=$this->db->get('tantargyak');
 		$result_array=$query->result_array();
 		return $result_array;	
+	}
+	public function tanitotttargyak($userid)
+	{
+		$query=$this->db->get_where('tantargyak',array('tanarid'=>$userid));
+		return $query->result_array();
+	}
+	public function haladasinaplo($targyid)
+	{
+		$query=$this->db->query("SELECT 
+									osztalyok.osztalynev as osztalynev,
+									tantargyak.nev as tantargynev,
+									haladasi_naplo.datum as datum,
+									haladasi_naplo.hanyadik_ora as hanyadik_ora,
+									haladasi_naplo.tevekenyseg as tevekenyseg 
+								from
+									osztalyok,tantargyak,haladasi_naplo
+								where
+									haladasi_naplo.tantargyid=$targyid AND
+									haladasi_naplo.osztalyid=osztalyok.osztalyid AND
+									haladasi_naplo.tantargyid=tantargyak.tantargyid");
+		return $query->result_array();	
+	}
+	public function alapadatok()
+	{
+		$query=$this->db->get('beallitasok');
+		$result_array=$query->result_array();
+		return $result_array;
 	}
 }
 ?>

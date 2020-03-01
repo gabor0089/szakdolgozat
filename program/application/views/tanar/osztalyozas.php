@@ -35,7 +35,10 @@
 	</div>
 </div>
 
+<?php
+var_dump($diakok);
 
+?>
 <?PHP echo form_close();
 /////////////////////////////////////////////////////////////////
 $php_array = $diakok;
@@ -68,8 +71,6 @@ echo "</script>";
 		}
 		)
 	}
-</script>
-<script>
 	function updateResult2(query)
 	{
 		let resultList2 = document.querySelector("#result-list2");

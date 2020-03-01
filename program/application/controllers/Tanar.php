@@ -137,8 +137,38 @@ class Tanar extends CI_Controller
 		$jegy=$this->input->post('jegy');
 		$tanarid = $this->session->user_id;
 		$this->tanar_model->Ujjegy($tanarid,$diakid['userid'],$tantargyid['tantargyid'],$jegy);
-		$this->Osztalyozas();
-
-		
+		$this->Osztalyozas();		
 	}
+	public function Haladasinaplo($targyid=null)
+	{
+		$haladasinaplo=[];
+		$this->load->model('tanar_model');
+		if($targyid<>NULL)
+		{
+			$haladasinaplo=$this->tanar_model->haladasinaplo($targyid);
+		}
+		$adatok=$this->Main();
+		$userid = $this->session->user_id;
+		$tanitotttargyak=$this->tanar_model->tanitotttargyak($userid);
+		$data=[ 'tanitotttargyak'=>$tanitotttargyak,
+				'naplo'=>$haladasinaplo];
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('tanar/haladasinaplo',$data);
+	}
+	public function Alapadatok()
+	{
+		$this->load->model('tanar_model');
+		$datas=$this->tanar_model->alapadatok();
+		$adatok2=
+		[
+			'isnev'=>$datas[0]['iskolanev'],
+			'ignev'=>$datas[0]['igazgatonev'],
+			'cim'=>$datas[0]['iskolacim'],
+			'ev'=>$datas[0]['ev']
+		];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('tanar/alapadatok',$adatok2);
+	}
+
 }

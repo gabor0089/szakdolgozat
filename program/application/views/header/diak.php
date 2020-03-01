@@ -24,7 +24,7 @@
     <div class="container">
       <div class="row">
           <nav>
-            <a href="<?php echo base_url();?>Users/alapadatok">Alapadatok</a>
+            <a href="<?php echo base_url();?>Diak/alapadatok">Alapadatok</a>
             <a href="<?php echo base_url();?>Users/csengrend">Csengetési rend</a>
             <a href="<?php echo base_url();?>Diak/orarend">Órarend</a>
             <a href="<?php echo base_url();?>Diak/osztalyozas">Jegyeim</a>
