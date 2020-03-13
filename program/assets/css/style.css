@@ -91,3 +91,22 @@ a:hover
 	border-right: 1px solid black;
 	border-bottom: 1px solid black;
 }
+.bg-nev
+{
+	background-color: #b3ccff;
+}
+.bg-ora
+{
+	background-color: #99b3ff;
+}
+.bg-perc
+{
+	background-color: #99c2ff;
+}
+.table-hover tbody tr:hover td {
+    background: orange;
+}
+.sarga
+{
+	background-color: #ffff80;
+}
