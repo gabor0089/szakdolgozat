@@ -15,23 +15,26 @@
       <div class="row">
           <div class="col-sm-6 col-md-6">
 			<?PHP echo form_open_multipart('Admin/ujtanar');?>
-			<?php 
+			<?php /*
 				if($feltoltes!='sikertelen!') 
 				{
 					echo "A felvitel ".$feltoltes."<BR>";
 				}
-			?>
-            Név <input type='text' class='form-control' name='nev' value='' size='50' autocomplete='off' placeholder='Név' required>
-            Születési idő <input type='date' class='form-control' name='szulido' value='2001-04-02' autocomplete='off' placeholder='Születési idő' >
-			Születési hely <input type='text' class='form-control' name='szulhely' value='' autocomplete='off' placeholder='Születési hely' >
-			TAJ szám (kötőjelek és szóköz nélkül)<input type='text' class='form-control' name='taj' value='' autocomplete='off' placeholder='TAJ szám' >
-			Telefonszám (kötőjelek és szóköz nélkül)<input type='text' class='form-control' name='tel' value='' autocomplete='off' placeholder='Telefonszám' >
-			Irányítószám <input type='text' class='form-control' name='irsz' value='' autocomplete='off' placeholder='Irányítószám' >
-			Lakcím <input type='text' class='form-control' name='lakcim' value='' autocomplete='off' placeholder='Lakcím' >
-			Tantárgyai <input type='text' class='form-control' name='tantargyai' value='' autocomplete='off' placeholder='Tantárgyai...' >
-			Tanított osztályai <input type='text' class='form-control' name='osztalyai' id='osztalyai' value='' autocomplete='off' placeholder='Osztályok...' >
-			Osztályfőnök <input type='checkbox' class='form-control' name='lakcim'>
-			Osztály: <input type='text' class='form-control' name='ofo' autocomplete='off' placeholder='osztály' >
+				          <?php foreach ($osztalyok as $o)
+          {
+            echo "<BR><input type='button' value=".$o['osztalynev']." onClick='Add(".$o['osztalynev'].")'>";
+        }
+        */
+           ?>
+            Név <input type='text' class='form-control' name='nev' value='Kerekes Zita' size='50' autocomplete='off' placeholder='Név' required>
+            Születési idő <input type='date' class='form-control' name='szulido' value='1990-04-02' autocomplete='off' placeholder='Születési idő' >
+			Születési hely <input type='text' class='form-control' name='szulhely' value='Budapest' autocomplete='off' placeholder='Születési hely' >
+			TAJ szám (kötőjelek és szóköz nélkül)<input type='text' class='form-control' name='taj' value='014785235' autocomplete='off' placeholder='TAJ szám' >
+			Telefonszám (kötőjelek és szóköz nélkül)<input type='text' class='form-control' name='tel' value='06302558898' autocomplete='off' placeholder='Telefonszám' >
+			Irányítószám <input type='text' class='form-control' name='irsz' value='1108' autocomplete='off' placeholder='Irányítószám' >
+			Lakcím <input type='text' class='form-control' name='lakcim' value='Budapest, Kis utca 4.' autocomplete='off' placeholder='Lakcím' >
+			Osztályfőnök <input type='checkbox' class='form-control' name='ofopipa'>
+			Osztály: <input type='text' class='form-control' name='ofoosztaly' autocomplete='off' placeholder='osztály' >
 			Beosztás
 			<?php
 				$beosztasok = array(
@@ -48,14 +51,7 @@
           </div>
           <div class="col-sm-6 col-md-3"> Osztályok egymás alatt
           <?php
-//          var_dump($osztalyok);
-//          var_dump($tantargyak);
           ?>
-          <?php foreach ($osztalyok as $o)
-          {
-            echo "<BR><input type='button' value=".$o['osztalynev']." onClick='Add(".$o['osztalynev'].")'>";
-        }
-           ?>
           	
           
 			<script>

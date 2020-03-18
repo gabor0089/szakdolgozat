@@ -48,7 +48,7 @@
 			<input type='hidden' name='username' value='bogdanorsolya'><input type='hidden' name='password' value='bogdanorsolya'><input type='submit' disabled value='Igazgató'>
 			<?PHP echo form_close();?>
 			<?PHP echo form_open('Users/login');?>
-			<input type='hidden' name='username' value='bogdanorsolya'><input type='hidden' name='password' value='bogdanorsolya'><input type='submit' disabled value='Osztályfőnök'>
+			Kerekes Zita<input type='hidden' name='username' value='kerekeszita'><input type='hidden' name='password' value='kerekeszita'><input type='submit' value='Osztályfőnök'>
 			<?PHP echo form_close();?>
 			<?PHP echo form_open('Users/login');?>
 			Gál Vivien<input type='hidden' name='username' value='galvivien'><input type='hidden' name='password' value='galvivien'><input type='submit' value='Tanár'>

@@ -62,26 +62,27 @@ class Admin_model extends CI_Model
 		$result_array=$query->result_array();
 		return $result_array;
 	}
-	public function ujtanar($filename)
+	public function ujtanar($name,$dob,$szulhely,$taj,$tel,$irsz,$lakcim,$beosztas,$filename)
 	{
 		$data=array(
-		'name'=>$this->input->post('nev'),
-		'dob'=>$this->input->post('szulido'),
-		'szulhely'=>$this->input->post('szulhely'),
-		'taj'=>$this->input->post('taj'),
-		'tel'=>$this->input->post('tel'),
-		'irsz'=>$this->input->post('irsz'),
-		'lakcim'=>$this->input->post('lakcim'),
+		'name'=>$name,
+		'dob'=>$dob,
+		'szulhely'=>$szulhely,
+		'taj'=>$taj,
+		'tel'=>$tel,
+		'irsz'=>$irsz,
+		'lakcim'=>$lakcim,
 		'foto_link'=>$filename,
-		'beosztas'=>$this->input->post('beosztas')
+		'beosztas'=>$beosztas,
+		'osztalyid'=>0
 		);
 		$this->db->insert('users', $data);
+
 		$ekezettel=   array('á','é','í','ó','ö','ő','ú','ü','ű','Á','É','Í','Ó','Ö','Ő','Ú','Ü','Ű',' ');
 		$ekezetnelkul=array('a','e','i','o','o','o','u','u','u','a','e','i','o','o','o','u','u','u','');
-		$felhasznalonev=str_replace($ekezettel,$ekezetnelkul,$data['name']);
+		$felhasznalonev=str_replace($ekezettel,$ekezetnelkul,$name);
 		$felhasznalonev=strtolower($felhasznalonev);
 		$jelszo = md5($felhasznalonev);
-
 		$data2=array(
 			'username'=>$felhasznalonev,
 			'password'=>$jelszo);

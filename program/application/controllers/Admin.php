@@ -174,7 +174,19 @@ class Admin extends CI_Controller
 
 		else
 		{
-			$nev=$this->input->post('nev');
+			$name=$this->input->post('nev');
+			$dob=$this->input->post('szulido');
+			$szulhely=$this->input->post('szulhely');
+			$taj=$this->input->post('taj');
+			$tel=$this->input->post('tel');
+			$irsz=$this->input->post('irsz');
+			$lakcim=$this->input->post('lakcim');
+			$foto_link=$this->input->post('userfile');
+			$beosztas=$this->input->post('beosztas');
+
+			$ofopipa=$this->input->post('ofopipa');
+			$ofoosztaly=$this->input->post('ofoosztaly');
+			
 			$adatok2=
 			[
 				'feltoltes'=>'sikeres!'
@@ -186,23 +198,24 @@ class Admin extends CI_Controller
             $config['max_width']            = 1024;
             $config['max_height']           = 1024;
 
-                $this->load->library('upload', $config);
+            $this->load->library('upload', $config);
 
                 if ( ! $this->upload->do_upload('userfile'))
                 {
                         $error = array('error' => $this->upload->display_errors());
 
-                        $this->load->view('admin/ujtanar', $error);
+//                        $this->load->view('admin/ujtanar', $error);
+                        var_dump($error);
                 }
                 else
                 {
                 	echo "itt";
                     $data = array('upload_data' => $this->upload->data());
 					$filename=$data['upload_data']['file_name'];
-					$kesz=$this->admin_model->ujtanar($filename);
+					$kesz=$this->admin_model->ujtanar($name,$dob,$szulhely,$taj,$tel,$irsz,$lakcim,$beosztas,$filename);
 
-					$this->load->view($adatok['headerlink'],$adatok);
-					$this->load->view('admin/ujtanar',$adatok2);
+					//$this->load->view($adatok['headerlink'],$adatok);
+					//$this->load->view('admin/ujtanar',$adatok2);
                 }
 		}    
 	}	

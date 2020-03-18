@@ -9,11 +9,12 @@
 	<BODY>
 	<H1 class='text-center'>Jegyek</H1>
 	<H3 class='text-center'><?=$diaknev?> - <?=$tantargynev?></H3>
-		<?PHP echo form_open('tanar/ujjegyadas')?>      
+		<?PHP echo form_open('tanar/ujjegyadas2')?>      
 <div class='row'>
 <div class='col-md-2'>&nbsp</div>
-	<input type='text' name='tantargyid' value='<?=$tantargyid?>'>
-	<input type='text' name='diakid' value='<?=$diakid?>'>
+	<input type='hidden' name='tantargyid' value='<?=$jegyek[0]['tantargyid']?>'>
+	<input type='hidden' name='tanarid' value='<?=$jegyek[0]['kiadta']?>'>
+	<input type='hidden' name='diakid' value='<?=$jegyek[0]['kikapta']?>'>
 	<div class='col-md-1 form-row'>
 			<input type='text' name='jegy' class='form-control' placeholder='jegy'>
 	</div>
@@ -31,11 +32,7 @@
 				{ 
 					$osszeg+=$jegyek[$i]['jegy'];
 				}
-				$atlag=0;
-				if($jegyek<>null)
-				{
-					$atlag=round($osszeg/count($jegyek),2);
-				}
+				$atlag=round($osszeg/count($jegyek),2);
 			?>
 <div class='row'>
 			<div class='col-md-2 text-right font-weight-bold'>Átlag</div>

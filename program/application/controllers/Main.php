@@ -5,7 +5,7 @@ class Main extends CI_Controller
 	{
 		$userid = $this->session->user_id;
 		$items=$this->users_model->get_userdata($userid);
-		
+		$osztaly="";
 		switch($items[0]['beosztas'])
 		{
 			case '0':
@@ -17,6 +17,9 @@ class Main extends CI_Controller
 				$headerlink='header/igazgato';
 			break;
 			case '2':
+				$this->load->model('osztalyfonok_model');
+				$osztalynev=$this->osztalyfonok_model->osztalyom($userid);
+				$osztaly=$osztalynev[0]['osztalynev'];
 				$beosztasnev="osztályfőnök";
 				$headerlink='header/ofonok';
 			break;
@@ -33,11 +36,13 @@ class Main extends CI_Controller
 				$headerlink='header/szulo';
 			break;
 		}
+
 		$adatok=
 		[
 			'userid'=>$items[0]['userid'],
 			'name'=>$items[0]['name'],
-			'beosztas'=>$beosztasnev
+			'beosztas'=>$beosztasnev,
+			'osztaly'=>$osztaly
 		];
 		$this->load->view($headerlink,$adatok);
 	}

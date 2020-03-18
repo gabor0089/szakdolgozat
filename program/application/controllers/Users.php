@@ -62,6 +62,7 @@ class Users extends CI_Controller
 				$iskolanev=$this->users_model->iskolanev();
 				$iskolanev=$iskolanev[0]['iskolanev'];
 				$items=$this->users_model->get_userdata($userid);
+				$osztaly="";
 				switch($items[0]['beosztas'])
 				{
 					case '0':
@@ -73,6 +74,9 @@ class Users extends CI_Controller
 						$headerlink='header/igazgato';
 					break;
 					case '2':
+						$this->load->model('osztalyfonok_model');
+						$osztalynev=$this->osztalyfonok_model->osztalyom($userid);
+						$osztaly=$osztalynev[0]['osztalynev'];
 						$beosztasnev="osztályfőnök";
 						$headerlink='header/ofonok';
 					break;
@@ -95,7 +99,8 @@ class Users extends CI_Controller
 					'userid'=>$items[0]['userid'],
 					'name'=>$items[0]['name'],
 					'beosztas'=>$beosztasnev,
-					'iskolanev'=>$iskolanev
+					'iskolanev'=>$iskolanev,
+					'osztaly'=>$osztaly
 				];
 				if($headerlink=='header/szulo')
 				{
@@ -122,6 +127,7 @@ public function Main()
 		$iskolanev=$this->users_model->iskolanev();
 		$iskolanev=$iskolanev[0]['iskolanev'];
 		$items=$this->users_model->get_userdata($userid);
+		$osztaly="";
 		switch($items[0]['beosztas'])
 		{
 			case '0':
@@ -133,6 +139,9 @@ public function Main()
 				$headerlink='header/igazgato';
 			break;
 			case '2':
+				$this->load->model('osztalyfonok_model');
+				$osztalynev=$this->osztalyfonok_model->osztalyom($userid);
+				$osztaly=$osztalynev[0]['osztalynev'];
 				$beosztasnev="osztályfőnök";
 				$headerlink='header/ofonok';
 			break;
@@ -155,8 +164,10 @@ public function Main()
 			'userid'=>$items[0]['userid'],
 			'name'=>$items[0]['name'],
 			'beosztas'=>$beosztasnev,
-			'iskolanev'=>$iskolanev
+			'iskolanev'=>$iskolanev,
+			'osztaly'=>$osztaly
 		];
+		var_dump($adatok);
 	}
 		public function Alapadatok()
 		{

@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <HTML>
-	<HEAD>
-		<meta charset="utf-8">
+  <HEAD>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
     </HEAD>
-	<BODY>
+  <BODY>
 
-<p class='header-name-exit'><a href="<?php echo base_url();?>User/profil/<?=$name?>"><?=$name?></a> (<?=$beosztas?>) 
+<div class="visible-xs">XS</div>
+<div class="visible-sm">SM</div>
+<div class="visible-md">MD</div>
+<div class="visible-lg">LG</div>
+<span class='header-iskolanev'>
+<?=$iskolanev?>
+</span>
+<span class='header-name-exit'>
+<a href="<?php echo base_url();?>User/profil/<?=$userid?>"><?=$name?></a> (<?=$beosztas?>: <?=$osztaly?>) 
   <?php echo date("H:i:s",time());?> 
-  <a class='exit' href='../../../Users/Kilepes'><img src="<?php echo base_url();?>assets/img/exit.png" height="15"></img></a>
-<p>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="collapse navbar-collapse" id="navbarColor02">
-    <ul class="navbar-nav mr-auto">
-      <!--<img src="<?php echo base_url();?>assets/img/logo.png"></img>-->
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url();?>Ofonok/alapadatok">Alapadatok</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url();?>Admin/csengrend">Csengetési rend</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url();?>Admin/ujdiak">Új diák</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url();?>Admin/ujtanar">Új tanár</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url();?>Admin/ujszulo">Új szülő</a>
-      </li>
-    </ul>
+  <a class="hidden-sm hidden-xs" href="<?php echo base_url();?>Users/Kilepes"><img src="<?php echo base_url();?>assets/img/exit.png" height="15"></img></a>
+</span>
+<header class="container-fluid">
+  <div class="row">
+    <div class="container">
+      <div class="row">
+          <nav>
+            <a href="<?php echo base_url();?>Osztalyfonok/alapadatok">Alapadatok</a>
+            <a href="<?php echo base_url();?>Users/csengrend">Csengetési rend</a>
+            <a href="<?php echo base_url();?>Osztalyfonok/orarend">Órarend</a>
+            <a href="<?php echo base_url();?>Osztalyfonok/osztalyozas">Osztályozás</a>
+            <a href="<?php echo base_url();?>Osztalyfonok/hianyzas">Hiányzások</a>
+            <a href="<?php echo base_url();?>Users/uzenetek">Üzenetek</a>
+            <a class="visible-sm visible-xs" href="<?php echo base_url();?>Users/Kilepes">Kilépés</a>
+
+          </nav>
+      </div>
+    </div>
   </div>
-</nav>
+</header>
+
 </body>
 </html>

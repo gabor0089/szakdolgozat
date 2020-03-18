@@ -1,12 +1,11 @@
 <?PHP
 
-class Tanar extends CI_Controller
+class Osztalyfonok extends CI_Controller
 {
 	public function __construct()
 	{
 		parent::__construct();	
         $this->load->helper(array('form', 'url'));
-		$userid = $this->session->user_id;
 	}
 
     public function index()
@@ -33,6 +32,9 @@ class Tanar extends CI_Controller
 				$headerlink='header/igazgato';
 			break;
 			case '2':
+				$this->load->model('osztalyfonok_model');
+				$osztalynev=$this->osztalyfonok_model->osztalyom($userid);
+				$osztaly=$osztalynev[0]['osztalynev'];
 				$beosztasnev="osztályfőnök";
 				$headerlink='header/ofonok';
 			break;
@@ -55,20 +57,49 @@ class Tanar extends CI_Controller
 			'userid'=>$items[0]['userid'],
 			'name'=>$items[0]['name'],
 			'beosztas'=>$beosztasnev,
-			'iskolanev'=>$iskolanev
+			'iskolanev'=>$iskolanev,
+			'osztaly'=>$osztaly
 		];
 	}
 	public function Orarend()
 	{
-		$this->load->model('tanar_model');
 		$userid = $this->session->user_id;
-		$orarend=$this->tanar_model->orarend($userid);
+		
+		$this->load->model('osztalyfonok_model');
+		$adatok=$this->osztalyfonok_model->osztalyom($userid);
+		$osztalyomnev=$adatok[0]['osztalynev'];
+		$osztalyomid=$adatok[0]['osztalyid'];
+		$orarend=$this->osztalyfonok_model->orarend($osztalyomid);
+
+
 		$orarend2=[
 		'orarend'=>$orarend,
+		'osztalyom'=>$osztalyomnev
 		];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('tanar/orarend',$orarend2);
+		$this->load->view('osztalyfonok/orarend',$orarend2);
+	}
+	public function Osztalyozas()
+	{
+		$userid = $this->session->user_id;
+		$this->load->model('osztalyfonok_model');
+		$adatok=$this->osztalyfonok_model->osztalyom($userid);
+		$osztalyomnev=$adatok[0]['osztalynev'];
+		$osztalyomid=$adatok[0]['osztalyid'];
+
+		$tantargyak=$this->osztalyfonok_model->tantargyak($osztalyomid);
+
+		$nevek=$this->osztalyfonok_model->nevsor($osztalyomid);
+		$jegyek=$this->osztalyfonok_model->jegyek($tantargyak[0]['tantargyid']);
+		$data=['nevek'=>$nevek,
+				'tantargyidk'=>$tantargyak[0]['tantargyid'],
+				'tantargynevek'=>$tantargyak[0]['nev'],
+				'jegyek'=>$jegyek
+				];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('osztalyfonok/osztalyozas',$data);
 	}
 	public function Hianyzas()
 	{
@@ -105,72 +136,29 @@ class Tanar extends CI_Controller
 		$this->tanar_model->Ujhianyzasfelvitel($tanarid,$diakid,$ora,$perc,$hianyzas_datum);
 		$this->Ujhianyzas();
 	}
-	public function Osztalyozas() //EZ JÓ, EHHEZ NE NYÚLJ!!!
-	{
-		$this->load->model('tanar_model');
-		$diakok=$this->tanar_model->mindendiak();
-		$tantargyak=$this->tanar_model->tantargyak();
-		foreach($diakok as $nev)
-		{
-			$diakoknevei[]=$nev['name'];
-			$diakokid[]=$nev['userid'];
-		}
-		foreach($tantargyak as $targy)
-		{
-			$tantargyaknevei[]=$targy['nev']." ".$targy['osztaly'];
-		}
-		$diakoknevei=array_unique($diakoknevei);
-		$tantargyaknevei=array_unique($tantargyaknevei);
-		$data=[
-			'diakok' => $diakoknevei,
-			'tantargyak' => $tantargyaknevei
-		];
-		$adatok=$this->Main();
-		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('tanar/osztalyozas',$data);
-	}
-
-	public function Jegyek_egyeni()
-	{
-		$tanarid=$this->session->user_id;
-		$this->load->model('tanar_model');
-		$diak=$this->input->post('diak');
-		$diakid=$this->tanar_model->diakid($diak);
-		
-		$tantargy=$this->input->post('tantargy');
-		$szokozhelye=strrpos($tantargy, ' ', -1);
-		$osztaly = substr($tantargy,-1,$szokozhelye);
-		$targy = substr($tantargy,0,$szokozhelye);
-		$tantargyid=$this->tanar_model->tantargyid($targy,$osztaly);
-
-		echo "<BR>diák: ".$diak." ".$diakid['userid'];
-		echo "<BR>tantárgy: ".$tantargy."->".$targy." osztály: ".$osztaly;
-		echo "<BR>tantárgy azonosítója: ".$tantargyid['tantargyid'];
-		
-		$jegyek=$this->tanar_model->jegyek($diakid['userid'],$tantargyid['tantargyid']);
-		$data=[
-				'jegyek'=>$jegyek,
-				'tantargynev'=>$targy,
-				'tantargyid'=>$tantargyid['tantargyid'],
-				'diaknev'=>$diak,
-				'diakid'=>$diakid['userid']];
-				var_dump($data);
-		$adatok=$this->Main();
-		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('tanar/jegyek',$data);	
-	}
 	public function Ujjegyadas()
 	{
 		$this->load->model('tanar_model');
-		$diak=$this->input->post('diakid');
-		$tantargy=$this->input->post('tantargyid');
-		$megjegyzes=$this->input->post('megjegyzes');
+		$diak=$this->input->post('diak');
+		$tantargy=$this->input->post('tantargy2');
+		$diakid    =$this->tanar_model->diakid($diak);
+		$tantargyid=$this->tanar_model->tantargyid($tantargy);
 		$jegy=$this->input->post('jegy');
 		$tanarid = $this->session->user_id;
-		$this->tanar_model->Ujjegy($tanarid,$diak,$tantargy,$jegy,$megjegyzes);
+		$this->tanar_model->Ujjegy($tanarid,$diakid['userid'],$tantargyid['tantargyid'],$jegy);
 		$this->Osztalyozas();		
 	}
-
+	public function Ujjegyadas2()
+	{
+		$this->load->model('tanar_model');
+		$tanarid=$this->input->post('tanarid');
+		$diakid=$this->input->post('diakid');
+		$tantargyid=$this->input->post('tantargyid');
+		$jegy=$this->input->post('jegy');
+		$megjegyzes=$this->input->post('megjegyzes');
+		$this->tanar_model->Ujjegy($tanarid,$diakid,$tantargyid,$jegy,$megjegyzes);
+		$this->Jegyek($diakid,$tantargyid);		
+	}
 	public function Haladasinaplo($targyid=null)
 	{
 		$haladasinaplo=[];
@@ -199,8 +187,8 @@ class Tanar extends CI_Controller
 
 	public function Alapadatok()
 	{
-		$this->load->model('tanar_model');
-		$datas=$this->tanar_model->alapadatok();
+		$this->load->model('osztalyfonok_model');
+		$datas=$this->osztalyfonok_model->alapadatok();
 		$adatok2=
 		[
 			'isnev'=>$datas[0]['iskolanev'],
@@ -210,7 +198,7 @@ class Tanar extends CI_Controller
 		];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('tanar/alapadatok',$adatok2);
+		$this->load->view('osztalyfonok/alapadatok',$adatok2);
 	}
 	public function Kollegalista()
 	{
@@ -219,17 +207,17 @@ class Tanar extends CI_Controller
 		$data=['kollegak'=>$kollegalista];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('tanar/kollegak',$data);
+		$this->load->view('osztalyfonok/kollegak',$data);
 	}
 	public function Osztalylista()
 	{
 		$this->load->model('tanar_model');
 		$userid = $this->session->user_id;
-		$osztalylista=$this->tanar_model->osztalylista($userid);
+		$osztalylista=$this->osztalyfonok_model->osztalylista($userid);
 		$data=['osztalyok'=>$osztalylista];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('tanar/osztalyok',$data);
+		$this->load->view('osztalyfonok/osztalyok',$data);
 	}
 	public function Osztalynevsor($osztalyid)
 	{
@@ -242,6 +230,30 @@ class Tanar extends CI_Controller
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('tanar/osztalynevsor',$data);
+	}
+	public function Jegyek($diakid=null,$tantargyid=null)
+	{
+		$this->load->model('tanar_model');
+		if(!isset($tantargyid))
+		{
+			$diaknev=$this->input->post('diak');
+			$tantargynev=$this->input->post('tantargy2');
+			$diakid    =$this->tanar_model->diakid($diaknev);
+			$tantargyid=$this->tanar_model->tantargyid($tantargynev);
+			$jegyek=$this->tanar_model->jegyek($diakid['userid'],$tantargyid['tantargyid']);
+			$data=['jegyek'=>$jegyek,'tantargynev'=>$tantargynev,'diaknev'=>$diaknev];
+		}
+		else
+		{
+			$diaknev    =$this->tanar_model->diaknev($diakid);
+			$tantargynev=$this->tanar_model->tantargynev($tantargyid);
+			$jegyek=$this->tanar_model->jegyek($diakid,$tantargyid);
+			$data=['jegyek'=>$jegyek,'tantargynev'=>$tantargynev['nev'],'diaknev'=>$diaknev['name']];
+		}
+		$adatok=$this->Main();
+		//var_dump($data);
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('tanar/jegyek',$data);	
 	}
 
 }

@@ -14,12 +14,13 @@
 			</div>
 	        <div class='col-md-2'>
 	          <a>
-	            <button class='btn btn-primary' onclick="showDiv()">Csoportos/Egyéni jegyadás</button>
+	            <button class='btn btn-secondary' diabled onclick="showDivX()">Csoportos/Egyéni jegyadás</button>
 	          </a>
 	        </div>
 		</div>
-		<?PHP echo form_open('tanar/ujjegyadas')?>      
-		<div class='row' id='csopjegy' style="display:block;">
+		<?PHP //echo form_open('tanar/ujjegyadas')?>      
+		<?PHP echo form_open('tanar/jegyek_csoportos')?>      
+		<div class='row' id='csopjegy' style="display:none;">
 			<div class='col-md-1'>
 				&nbsp
 			</div>
@@ -38,29 +39,22 @@
 		</div>
 			<?php echo form_close();?>
 		<div class='row' id='egyenjegy' style="display:block;">
-		<?PHP //echo form_open('tanar/ujjegyadas')?>
-		<?PHP echo form_open('tanar/jegyek')?>
+		<?PHP echo form_open('tanar/jegyek_egyeni')?>
 			<div class='col-md-1'>
 				&nbsp
 			</div>
 			<div class='col-md-3'>
 				<div class='form-group'>
-					<input type='text' class='form-control' oninput='updateResult(this.value)' placeholder='Diák neve...' autocomplete='off' required autofocus><BR>
-		 			<SELECT id='result-list' name='diak' size='10' multiple></SELECT>
+					<input type='text' class='form-control' oninput='updateResult(this.value)' placeholder='Diák neve...' autocomplete='off' autofocus><BR>
+		 			<SELECT id='result-list' name='diak' size='10' required></SELECT>
 				</div>
 			</div>
 			<div class='col-md-3'>
 				<div class='form-group'>
-					<input type='text' class='form-control' oninput='updateResult2(this.value)' placeholder='Tantárgy...' autocomplete='off' required><BR>
-					<SELECT id='result-list2' name='tantargy2' size='10'></SELECT>
+					<input type='text' class='form-control' oninput='updateResult2(this.value)' placeholder='Tantárgy...' autocomplete='off'><BR>
+					<SELECT id='result-list2' name='tantargy' size='10' required></SELECT>
 				</div>
 			</div>
-<!--			<div class='col-md-1'>
-				<div class='form-group'>
-					<input type='number' name='jegy' class='form-control' placeholder='Jegy' value='3' required autofocus><BR>
-				</div>
-			</div>
--->
 			<div class='col-md-2'>
 				<div class='form-group'>
 					<button type='submit' class='btn btn-primary btn-block'>Megtekintés</button>
@@ -70,7 +64,7 @@
 		</div>
 <?php
 ini_set('xdebug.var_display_max_depth', '10');
-ini_set('xdebug.var_display_max_children', '256');
+ini_set('xdebug.var_display_max_children', '1024');
 ini_set('xdebug.var_display_max_data', '1024');
 $diakokuj=array();
 for ($i=0; $i < count($diakok); $i++) {
