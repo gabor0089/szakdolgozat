@@ -80,7 +80,7 @@ class Osztalyfonok extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('osztalyfonok/orarend',$orarend2);
 	}
-	public function Osztalyozas()
+	public function Osztalyozas($sorszam=null)
 	{
 		$userid = $this->session->user_id;
 		$this->load->model('osztalyfonok_model');
@@ -91,11 +91,15 @@ class Osztalyfonok extends CI_Controller
 		$tantargyak=$this->osztalyfonok_model->tantargyak($osztalyomid);
 
 		$nevek=$this->osztalyfonok_model->nevsor($osztalyomid);
-		$jegyek=$this->osztalyfonok_model->jegyek($tantargyak[0]['tantargyid']);
+		if($sorszam==null)
+			$sszam=0;
+		else $sszam=$sorszam;
+		$jegyek=$this->osztalyfonok_model->jegyek($tantargyak[$sszam]['tantargyid']);
 		$data=['nevek'=>$nevek,
-				'tantargyidk'=>$tantargyak[0]['tantargyid'],
-				'tantargynevek'=>$tantargyak[0]['nev'],
-				'jegyek'=>$jegyek
+				'tantargyidk'=>$tantargyak[$sszam]['tantargyid'],
+				'tantargynevek'=>$tantargyak[$sszam]['nev'],
+				'jegyek'=>$jegyek,
+				'sszam'=>$sszam,
 				];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
@@ -103,86 +107,50 @@ class Osztalyfonok extends CI_Controller
 	}
 	public function Hianyzas()
 	{
-		$adatok=$this->Main();
-		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('tanar/hianyzasok');
-	}
-	public function Ujhianyzas()
-	{
-		$this->load->model('tanar_model');
-		$osztaly=$this->input->post('osztaly');
-		$datum=$this->input->post('datum');
-		$ora=$this->input->post('ora');
-		$osztalyid=$this->tanar_model->osztalyid($osztaly);
-		$osztalyid=$osztalyid['osztalyid'];
-		$nevsor=$this->tanar_model->nevsor($osztalyid);
-		$nevsorhianyzas=[
-			'osztaly'=>$osztaly,
-			'datum'=>$datum,
-			'ora'=>$ora,
-			'nevsor'=>$nevsor];
-		$adatok=$this->Main();
-		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('tanar/hianyzasok',$nevsorhianyzas);		
-	}
-	public function Ujhianyzasfelvitel()
-	{
-		$tanarid=$this->session->user_id;
-		$this->load->model('tanar_model');
-		$diakid=$this->input->post('diakid');
-		$ora=$this->input->post('ora');
-		$hianyzas_datum=$this->input->post('hianyzas_datum');
-		$perc=$this->input->post('perc');
-		$this->tanar_model->Ujhianyzasfelvitel($tanarid,$diakid,$ora,$perc,$hianyzas_datum);
-		$this->Ujhianyzas();
-	}
-	public function Ujjegyadas()
-	{
-		$this->load->model('tanar_model');
-		$diak=$this->input->post('diak');
-		$tantargy=$this->input->post('tantargy2');
-		$diakid    =$this->tanar_model->diakid($diak);
-		$tantargyid=$this->tanar_model->tantargyid($tantargy);
-		$jegy=$this->input->post('jegy');
-		$tanarid = $this->session->user_id;
-		$this->tanar_model->Ujjegy($tanarid,$diakid['userid'],$tantargyid['tantargyid'],$jegy);
-		$this->Osztalyozas();		
-	}
-	public function Ujjegyadas2()
-	{
-		$this->load->model('tanar_model');
-		$tanarid=$this->input->post('tanarid');
-		$diakid=$this->input->post('diakid');
-		$tantargyid=$this->input->post('tantargyid');
-		$jegy=$this->input->post('jegy');
-		$megjegyzes=$this->input->post('megjegyzes');
-		$this->tanar_model->Ujjegy($tanarid,$diakid,$tantargyid,$jegy,$megjegyzes);
-		$this->Jegyek($diakid,$tantargyid);		
-	}
-	public function Haladasinaplo($targyid=null)
-	{
-		$haladasinaplo=[];
-		$this->load->model('tanar_model');
-		if($targyid<>NULL)
-		{
-			$haladasinaplo=$this->tanar_model->haladasinaplo($targyid);
-		}
-		$adatok=$this->Main();
 		$userid = $this->session->user_id;
-		$tanitotttargyak=$this->tanar_model->tanitotttargyak($userid);
-		$data=[ 'tanitotttargyak'=>$tanitotttargyak,
-				'naplo'=>$haladasinaplo];
+		$this->load->model('osztalyfonok_model');
+		$adatok=$this->osztalyfonok_model->osztalyom($userid);
+		$osztalyomnev=$adatok[0]['osztalynev'];
+		$osztalyomid=$adatok[0]['osztalyid'];
+		$nevek=$this->osztalyfonok_model->nevsor($osztalyomid);
+		$hianyzasok=$this->osztalyfonok_model->hianyzasok();
+		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('tanar/haladasinaplo',$data);
+		$data=array('nevek'=>$nevek,
+					'hianyzasok'=>$hianyzasok);
+		$this->load->view('osztalyfonok/hianyzasok',$data);
 	}
-	public function Haladasinaplokesz()
+	public function Reszletes_hianyzas($diakid=null)
 	{
-		$id=$this->input->post('naploid');
-		$targyid=$this->input->post('targyid');
-		$tev=$this->input->post('tev');
-		$this->load->model('tanar_model');
-		$this->tanar_model->haladasinaplokesz($id,$tev);
-		redirect('Tanar/Haladasinaplo/'.$targyid);
+		$userid = $this->session->user_id;
+		$this->load->model('osztalyfonok_model');
+		if(!isset($diakid))
+			$diakid=$this->input->post('userid');		
+		$hianyzas=$this->osztalyfonok_model->hianyzas($diakid);
+		$diaknev=$this->osztalyfonok_model->diaknev($diakid);
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$igazolasok = array(
+				''		=>'',
+		        'orvosi'=> 'Orvosi igazolás',
+		        'szuloi'=> 'Szülői igazolás',
+		        'tanari'=> 'Tanári igazolás',
+		        'egyeb' => 'Egyéb'
+		);
+		$data=array('hianyzas'=>$hianyzas,
+					'igazolasok'=>$igazolasok,
+					'diaknev'=>$diaknev['name']);
+		$this->load->view('osztalyfonok/hianyzasok_reszletes',$data);
+	}
+	public function Hianyzaskesz()
+	{
+		$this->load->model('osztalyfonok_model');
+		$diakid=$this->input->post('diakid');
+		$hianyzasid=$this->input->post('hianyzasid');
+		$tipus=$this->input->post('tipus');
+		$megjegyzes=$this->input->post('megjegyzes');
+		$this->osztalyfonok_model->hianyzas_mod($hianyzasid,$tipus,$megjegyzes);
+		$this->reszletes_hianyzas($diakid);
 	}
 
 	public function Alapadatok()
@@ -211,25 +179,25 @@ class Osztalyfonok extends CI_Controller
 	}
 	public function Osztalylista()
 	{
-		$this->load->model('tanar_model');
+		$this->load->model('osztalyfonok_model');
 		$userid = $this->session->user_id;
 		$osztalylista=$this->osztalyfonok_model->osztalylista($userid);
 		$data=['osztalyok'=>$osztalylista];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('osztalyfonok/osztalyok',$data);
+		$this->load->view('osztalyfonok/osztalyom',$data);
 	}
-	public function Osztalynevsor($osztalyid)
+	public function Osztalynevsor()
 	{
-		$this->load->model('tanar_model');
+		$this->load->model('osztalyfonok_model');
 		$userid = $this->session->user_id;
-		$osztalylista=$this->tanar_model->osztalylista($userid);
-		$osztalynevsor=$this->tanar_model->osztalynevsor($osztalyid);
-		$data=['osztalyok'=>$osztalylista,
+		$adatok=$this->osztalyfonok_model->osztalyom($userid);
+		$osztalynevsor=$this->osztalyfonok_model->osztalynevsor($adatok[0]['osztalyid']);
+		$data=[
 			   'nevek'=>$osztalynevsor];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('tanar/osztalynevsor',$data);
+		$this->load->view('osztalyfonok/osztalynevsor',$data);
 	}
 	public function Jegyek($diakid=null,$tantargyid=null)
 	{

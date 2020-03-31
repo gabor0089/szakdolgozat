@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
     </HEAD>
 	<BODY>
-<div class='h1 text-center'>Jegyek: <-<?=$tantargynevek?>-></div>
+<div class='h1 text-center'>Jegyek:
+<a href="<?php echo base_url();?>Osztalyfonok/Osztalyozas/<?=$sszam-1?>"><-</a>
+<?=$tantargynevek?>
+<a href="<?php echo base_url();?>Osztalyfonok/Osztalyozas/<?=$sszam+1?>">-></a></div>
 	<div class='container-fluid'>
 		<table class="table table-striped table-hover table-sm">
 			<?php for ($i=0;$i<count($nevek);$i++): ?>

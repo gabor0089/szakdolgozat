@@ -13,36 +13,26 @@
 <div class="container-fluid">
   <div class="row">
         <div class='col-md-2'>
-          <a href='<?=base_url()?>Tanar/alapadatok'>
+          <a href='<?=base_url()?>Osztalyfonok/alapadatok'>
             <button class='btn btn-primary'>Iskola adatai</button>
           </a>
         </div>
 
         <div class='col-md-2'>
-          <a href='<?=base_url()?>Tanar/Kollegalista'>
+          <a href='<?=base_url()?>Osztalyfonok/Kollegalista'>
             <button class='btn btn-primary'>Kollégák</button>
           </a>
         </div>
         <div class='col-md-2'>
-          <a href='<?=base_url()?>Tanar/Osztalylista'>
-            <button class='btn btn-primary'>Tanított osztályok</button>
+          <a href='<?=base_url()?>Osztalyfonok/Osztalynevsor'>
+            <button class='btn btn-primary'>Osztályom</button>
           </a>
         </div>
       </div>
       <div class='row'>
         <div class='col-md-2'>&nbsp</div>
       </div> 
-
-      <div class='row'>
-      <?php foreach ($osztalyok as $osztaly) :?>
-        <div class='col-md-2'>
-          <a href='<?=base_url()?>Tanar/osztalynevsor/<?=$osztaly['osztalyid']?>'>
-            <button class='btn btn-primary'><?=$osztaly['osztalynev']?></button>
-          </a>
-        </div>
-      <?php endforeach;?>  
-      </div>
-        <table class="table">
+      <table class="table table-striped table-hover table-sm">
           <thead>
             <tr>
               <th scope="col">Név</th>
@@ -54,9 +44,9 @@
             </tr>
           </thead>
           <tbody>
-            <?php for($i=1;$i<count($nevek);$i++):?>
+            <?php for($i=0;$i<count($nevek);$i++):?>
               <tr>
-                <th scope="row"><?=$i?>. <?=$nevek[$i]['name']?></th>
+                <th scope="row"><?=$i+1?>. <?=$nevek[$i]['name']?></th>
                 <td><?=$nevek[$i]['dob']?></td>
                 <td><?=$nevek[$i]['taj'][0].$nevek[$i]['taj'][1].$nevek[$i]['taj'][2]?>-<?=$nevek[$i]['taj'][3].$nevek[$i]['taj'][4].$nevek[$i]['taj'][5]?>-<?=$nevek[$i]['taj'][6].$nevek[$i]['taj'][7].$nevek[$i]['taj'][8]?></td>
                 <td><?=$nevek[$i]['tel'][0].$nevek[$i]['tel'][1]?>-<?=$nevek[$i]['tel'][2].$nevek[$i]['tel'][3]?> <?=$nevek[$i]['tel'][4].$nevek[$i]['tel'][5]?><?=$nevek[$i]['tel'][6]." ".$nevek[$i]['tel'][7]?><?=$nevek[$i]['tel'][8].$nevek[$i]['tel'][9]?><?=$nevek[$i]['tel'][10]?></td>

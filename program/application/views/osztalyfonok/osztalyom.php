@@ -10,8 +10,10 @@
 
 <div class='h2 text-center'>Adatok</div>
 
-    <div class="container-fluid">
-      <div class="row">
+<div class="container-fluid">
+  <div class="row">
+    <div class="container">
+      <div class='row'>
         <div class='col-md-2'>
           <a href='<?=base_url()?>Osztalyfonok/alapadatok'>
             <button class='btn btn-primary'>Iskola adatai</button>
@@ -29,29 +31,21 @@
           </a>
         </div>
       </div>
-      <table class="table table-striped table-hover table-sm">
-          <thead>
-            <tr>
-              <th scope="col">Név</th>
-              <th scope="col">Születési idő</th>
-              <th scope="col">Lakcím</th>
-              <th scope="col"></th><th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php for($i=1;$i<count($kollegak);$i++):?>
-              <tr class='sor'>
-                <th scope="row"><?=$kollegak[$i]['name']?></th>
-                <td><?=$kollegak[$i]['dob']?></td>
-                <td><?=$kollegak[$i]['irsz']?> <?=$kollegak[$i]['lakcim']?></td>
-                <td><a target="_blank" href="../uploads/<?=$kollegak[$i]['foto_link']?>">
-                  <img width="40" src="../uploads/<?=$kollegak[$i]['foto_link']?>"></img>
-                </a></td>
-                <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$kollegak[$i]['userid']?>'>Üzenet</a></td>
-              </tr>
-            <?php endfor;?>
-          </tbody>
-      </table>
+      <div class='row'>
+        <div class='col-md-2'>&nbsp</div>
+      </div> 
+
+      <div class='row'>
+      <?php foreach ($osztalyok as $osztaly) :?>
+        <div class='col-md-2'>
+          <a href='<?=base_url()?>Tanar/osztalynevsor/<?=$osztaly['osztalyid']?>'>
+            <button class='btn btn-primary'><?=$osztaly['osztalynev']?></button>
+          </a>
+        </div>
+      <?php endforeach;?>  
+      </div> 
     </div>
+  </div>
+</div>
 </body>
 </html>

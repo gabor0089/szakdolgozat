@@ -53,22 +53,6 @@ class osztalyfonok_model extends CI_Model
 		return $nevsor;
 	}
 
-	public function ujhianyzasfelvitel($tanarid,$diakid,$ora,$perc,$hianyzas_datum)
-	{
-		$datum=date("Y-m-d H:i:s",time());
-		$data = array(
-				'tanarid'=>$tanarid,
-				'diakid' => $diakid,
-				'ora'=>$ora,
-				'perc'=>$perc,
-				'rogz_datum'=>$datum,
-				'hianyzas_datum' => $hianyzas_datum,
-				'statusz' => 1,
-				); 		
-			$this->db->insert('hianyzasok', $data);
-		return true;
-
-	}
 	public function mindendiak()
 	{
 		$query = $this->db->get_where('users', array('beosztas' => 4));
@@ -119,6 +103,22 @@ class osztalyfonok_model extends CI_Model
 		$query=$this->db->get_where('osztalyok',array('ofo'=>$userid));
 		return $query->result_array();
 	}
+	public function hianyzasok()
+	{
+		$query=$this->db->query("SELECT * from hianyzasok");
+		return $query->result_array();
+	}
+	public function hianyzas($userid)
+	{
+		$query=$this->db->query("SELECT  hianyzasid,hianyzas_datum,diakid,ora,perc,statusz,tipus,megjegyzes, users.name as nev from hianyzasok,users where hianyzasok.tanarid=users.userid AND diakid='$userid'");
+		return $query->result_array();
+	}
+	public function hianyzas_mod($hianyzasid,$tipus,$megjegyzes)
+	{
+		$query=$this->db->query("UPDATE hianyzasok SET tipus='$tipus',megjegyzes='$megjegyzes',statusz=2 where hianyzasid='$hianyzasid'");
+		return $query;
+	}
+
 
 }
 ?>
