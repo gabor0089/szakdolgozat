@@ -12,7 +12,7 @@
 <a href="<?php echo base_url();?>Osztalyfonok/Osztalyozas/<?=$sszam-1?>"><-</a>
 <?=$tantargynevek?>
 <a href="<?php echo base_url();?>Osztalyfonok/Osztalyozas/<?=$sszam+1?>">-></a></div>
-	<div class='container-fluid'>
+	<div class='container'>
 		<table class="table table-striped table-hover table-sm">
 			<?php for ($i=0;$i<count($nevek);$i++): ?>
 			<tr class='row'>

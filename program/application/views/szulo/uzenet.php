@@ -30,7 +30,7 @@
 			<div class='col-md-2'></div>
 			<div class='col-md-6' id='ujvalaszablak' style="display:none;">
 				<?php $hidden = array('felado' => $userid, 'cimzett' => $partnerid);
-				echo form_open('Users/ujuzenetkuldes','',$hidden);?>
+				echo form_open('Szulo/ujuzenetkuldes','',$hidden);?>
 				<TEXTAREA name='uzenetszoveg' cols='50' rows='3' style="border:dotted 2px green;"></TEXTAREA> <button class='btn btn-success' type='submit'>Küldés</button>
 				<?php echo form_close();?>
 			</div>

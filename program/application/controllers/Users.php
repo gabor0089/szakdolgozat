@@ -256,7 +256,36 @@ public function Main()
 		$this->users_model->ujuzenet($felado,$cimzett,$szoveg,$datum,$csoport);
 		redirect('Users/uzenetek');
 	}
+	public function Profil($userid)
+	{	
+		$this->load->model('users_model');
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$useradatok=$this->users_model->useradatok($userid);
+		$data=array('useradatok'=>$useradatok);
+		$this->load->view('users/profil',$data);
+	}
+	public function Profilkesz($userid)
+	{
+		$this->load->model('users_model');
+		$nev=$this->input->post('name');
+		$email=$this->input->post('email');
+		$jelszo=$this->input->post('pw');
+		$irsz=$this->input->post('irsz');
+		$lakcim=$this->input->post('lakcim');
+		$tel=$this->input->post('tel');
+		$felulet=$this->input->post('felulet');
+		$this->users_model->profilmod($userid,$nev,$email,$irsz,$lakcim,$tel);
+		if(isset($jelszo))
+			$this->users_model->jelszomod($userid,$jelszo);
+		$this->users_model->feluletmod($userid,$felulet);
 
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$useradatok=$this->users_model->useradatok($userid);
+		$data=array('useradatok'=>$useradatok);
+		$this->load->view('users/profil',$data);
+	}
 	public function Kilepes()
 	{
 		$this->session->sess_destroy();

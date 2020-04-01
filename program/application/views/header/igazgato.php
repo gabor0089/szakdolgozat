@@ -7,7 +7,7 @@
     </HEAD>
 	<BODY>
 
-<p class='header-name-exit'><a href="<?php echo base_url();?>User/profil/<?=$name?>"><?=$name?></a> (<?=$beosztas?>) 
+<p class='header-name-exit'><a href="<?php echo base_url();?>Users/profil/<?=$name?>"><?=$name?></a> (<?=$beosztas?>) 
   <?php echo date("H:i:s",time());?> 
   <a class='exit' href='../../../Users/Kilepes'><img src="<?php echo base_url();?>assets/img/exit.png" height="15"></img></a>
 <p>

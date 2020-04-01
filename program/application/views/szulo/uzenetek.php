@@ -13,7 +13,7 @@
 			<div class='row'>
 				<div class='col-md-2'>
 				<?php $csoport=$uzi['csoport'];?>
-					<a href="<?php echo base_url();?>Users/egyuzenet/<?=$csoport?>/<?=$userid?>"><?=$uzi['datum']?></a>
+					<a href="<?php echo base_url();?>Szulo/egyuzenet/<?=$csoport?>/<?=$userid?>"><?=$uzi['datum']?></a>
 				</div>
 				<div class='col-md-2'>
 				<?php if($uzi['felado']==$userid)
@@ -25,10 +25,10 @@
 						$nev=$uzi['feladonev'];	
 					}
 					?>
-					<a href="<?php echo base_url();?>Users/egyuzenet/<?=$csoport?>/<?=$userid?>"><?=$nev?></a>
+					<a href="<?php echo base_url();?>Szulo/egyuzenet/<?=$csoport?>/<?=$userid?>"><?=$nev?></a>
 				</div>
 				<div class='col-md-4'>
-					<a href="<?php echo base_url();?>Users/egyuzenet/<?=$csoport?>/<?=$userid?>"><?=$uzi['uzenet']?></a>
+					<a href="<?php echo base_url();?>Szulo/egyuzenet/<?=$csoport?>/<?=$userid?>"><?=$uzi['uzenet']?></a>
 				</div>
 			</div><HR>
 		<?php endforeach;?>

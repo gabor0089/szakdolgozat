@@ -10,7 +10,7 @@
 
 <div class='h2 text-center'>Adatok</div>
 
-<div class="container-fluid">
+<div class="container">
   <div class="row">
     <div class="container">
       <div class='row'>

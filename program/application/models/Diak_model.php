@@ -45,8 +45,7 @@ class diak_model extends CI_Model
 	public function jegy_set($userid)
 	{
 		$query=$this->db->query("SELECT value from users_sets where userid='$userid' AND set_name='jegyek'");
-		$result_array=$query->result_array();
-		return $result_array;
+		return $query->result_array();
 	}
 	public function Jegyekidorend($userid)
 	{

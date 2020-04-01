@@ -8,7 +8,7 @@
    	</HEAD>
 	<BODY>
 	<h2 class='text-center'>Hiányzások - Késések</h2>
-	<h3 class='text-center'><?=$diaknev?></h3>
+	<h3 class='text-center'><a href='<?=base_url()?>/Osztalyfonok/hianyzas'><--</a><?=$diaknev?></h3>
 	<div class='container'>
 		<table class="table table-hover table-sm ">
 			<tr class='row'>
@@ -17,16 +17,17 @@
 				<td class='col-md-1 text-center'>perc</td>
 				<td class='col-md-2 text-center'>tanár</td>
 				<td class='col-md-1 text-center'>státusz</td>
-				<td class='col-md-1 text-center'>típus</td>
+				<td class='col-md-2 text-center'>típus</td>
 				<td class='col-md-2 text-center'>megjegyzés</td>
 			</tr>
 		<?php foreach ($hianyzas as $hiany):?>
+			<?php echo form_open('Osztalyfonok/hianyzaskesz');?>
+
 			<?php if($hiany['perc']==45):?>
 				<tr class='row sarga'>
 			<?php else:?>
 				<tr class='row'>
 			<?php endif;?>
-			<?php echo form_open('Osztalyfonok/hianyzaskesz');?>
 			<?php echo form_hidden('hianyzasid',$hiany['hianyzasid']);?>
 			<?php echo form_hidden('diakid',$hiany['diakid']);?>
 				<td class='col-md-2 text-left'><?=$hiany['hianyzas_datum']?></td>
@@ -48,11 +49,15 @@
 			<?php endif;?>
 			<?php if($hiany['statusz']==2):?><td class='col-md-1 bg-success text-center'></td><?php endif;?>
 			<?php if($hiany['statusz']==3):?><td class='col-md-1 bg-danger text-center'></td><?php endif;?>
-				<td class='col-md-1 text-center'><?=$hiany['tipus']?></td>
+			<?php if($hiany['tipus']=='orvosi'):?><td class='col-md-2 text-center'>orvosi</td><?php endif;?>
+			<?php if($hiany['tipus']=='szuloi'):?><td class='col-md-2 text-center'>szülői</td><?php endif;?>
+			<?php if($hiany['tipus']=='tanari'):?><td class='col-md-2 text-center'>tanári</td><?php endif;?>
+			<?php if($hiany['tipus']=='egyeb'):?><td class='col-md-2 text-center'>egyéb</td><?php endif;?>
+			<?php if($hiany['tipus']=='igazolatlan'):?><td class='col-md-2 text-center'>Igazolatlan</td><?php endif;?>
 				<td class='col-md-2 text-center'><?=$hiany['megjegyzes']?></td>
 				
-			<?php echo form_close();?>
 			</tr>
+			<?php echo form_close();?>
 		<?php endforeach;?>
 		</table>
 	</div>

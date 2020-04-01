@@ -28,6 +28,11 @@ class Users_model extends CI_Model
 		$result_array=$query->result_array();
 		return $result_array;
 	}
+	public function defaultfelulet($userid)
+	{
+		$query=$this->db->get_where('users_sets',['userid'=>$userid,'set_name'=>'default']);
+		return $query->result_array();
+	}
 	public function iskolanev()
 	{
 		$query=$this->db->get('beallitasok');
@@ -85,7 +90,38 @@ class Users_model extends CI_Model
 			);
 		$this->db->insert('uzenetek', $data);
 	}
-
+	public function useradatok($userid)
+	{
+		$query=$this->db->get_where('users',array('userid'=>$userid));
+		return $query->result_array();
+	}
+	public function profilmod($userid,$nev,$email,$irsz,$lakcim,$tel)
+	{
+		$data=array(
+			'name'=>$nev,
+			'email'=>$email,
+			'irsz'=>$irsz,
+			'lakcim'=>$lakcim,
+			'tel'=>$tel);
+		$this->db->where('userid',$userid);
+		$this->db->update('users',$data);
+	}
+	public function jelszomod($userid,$jelszo)
+	{
+		$enc_password=md5($jelszo);
+		$data=array(
+			'password'=>$enc_password);
+		$this->db->where('userid',$userid);
+		$this->db->update('login',$data);
+	}
+	public function feluletmod($userid,$felulet)
+	{
+		$data=array(
+			'value'=>$felulet);
+		$this->db->where('userid',$userid);
+		$this->db->where('set_name','default');
+		$this->db->update('users_sets',$data);
+	}
 }
 
 ?>

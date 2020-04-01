@@ -135,7 +135,8 @@ class Osztalyfonok extends CI_Controller
 		        'orvosi'=> 'Orvosi igazolás',
 		        'szuloi'=> 'Szülői igazolás',
 		        'tanari'=> 'Tanári igazolás',
-		        'egyeb' => 'Egyéb'
+		        'egyeb' => 'Egyéb',
+		        'igazolatlan' => 'IGAZOLATLAN'
 		);
 		$data=array('hianyzas'=>$hianyzas,
 					'igazolasok'=>$igazolasok,
@@ -149,7 +150,10 @@ class Osztalyfonok extends CI_Controller
 		$hianyzasid=$this->input->post('hianyzasid');
 		$tipus=$this->input->post('tipus');
 		$megjegyzes=$this->input->post('megjegyzes');
-		$this->osztalyfonok_model->hianyzas_mod($hianyzasid,$tipus,$megjegyzes);
+		if($tipus=="igazolatlan")
+		$this->osztalyfonok_model->hianyzas_mod($hianyzasid,$tipus,$megjegyzes,3);
+		else
+		$this->osztalyfonok_model->hianyzas_mod($hianyzasid,$tipus,$megjegyzes,2);
 		$this->reszletes_hianyzas($diakid);
 	}
 

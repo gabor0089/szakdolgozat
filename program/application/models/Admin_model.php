@@ -23,7 +23,13 @@ class Admin_model extends CI_Model
 			");
 		return $query;
 	}
-	public function csengrendkesz($k0,$k1,$k2,$k3,$k4,$k5,$k6,$k7,$k8,$k9,$k10,$v0,$v1,$v2,$v3,$v4,$v5,$v6,$v7,$v8,$v9,$v10)
+	public function csengrend()
+	{
+		$query=$this->db->get('csengetesirend');
+		return $query->result_array();
+	}
+	public function csengrendkesz($k0,$k1,$k2,$k3,$k4,$k5,$k6,$k7,$k8,$k9,$k10,
+								  $v0,$v1,$v2,$v3,$v4,$v5,$v6,$v7,$v8,$v9,$v10)
 	{
 		$query0=$this->db->query("UPDATE csengetesirend SET kezdes='$k0',vege='$v0' where ora=0");
 		$query1=$this->db->query("UPDATE csengetesirend SET kezdes='$k1',vege='$v1' where ora=1");
@@ -40,7 +46,7 @@ class Admin_model extends CI_Model
 
 	public function diakoklistaja()
 	{
-		$query=$this->db->query('SELECT name,dob,szulhely,taj,tel,irsz,lakcim,osztalyok.osztalynev as osztalyid,foto_link from users,osztalyok where users.osztalyid=osztalyok.osztalyid AND beosztas=4 order by users.osztalyid,name');
+		$query=$this->db->query('SELECT name,dob,szulhely,taj,tel,irsz,lakcim,email,osztalyok.osztalynev as osztalyid,foto_link from users,osztalyok where users.osztalyid=osztalyok.osztalyid AND beosztas=4 order by users.osztalyid,name');
 		$result_array=$query->result_array();
 		return $result_array;
 	}
@@ -113,6 +119,15 @@ class Admin_model extends CI_Model
 			'username'=>$felhasznalonev,
 			'password'=>$jelszo);
 		$this->db->insert('login',$data2);
+		$data3=array('userid'=>9999,
+						'set_name'=>'jegyek',
+						'value'=>1);
+		$utolsouserid=$this->db->query('SELECT userid from users order by userid desc limit 1');
+		$resultarray=$utolsouserid->result_array();
+		$data3=array('userid'=>$resultarray[0]['userid'],
+						'set_name'=>'jegyek',
+						'value'=>1);
+		$this->db->insert('users_sets',$data3);
 		
 	}
 	public function tantargyak()
@@ -191,18 +206,50 @@ class Admin_model extends CI_Model
 		$result_array=$query->result_array();
 		return $result_array;
 	}
-	public function tantargyaklista()
+	public function tantargyaklista($sorrend)
 	{
-		$query=$this->db->query("SELECT tantargyid,nev,osztaly,tanarid,users.name as tanarnev,osztalyok.osztalynev as osztalynev 
+		$query=$this->db->query("SELECT tantargyid,nev,osztaly,tanarid,
+									users.name as tanarnev,
+									osztalyok.osztalynev as osztalynev 
 									from tantargyak,users,osztalyok 
 									where users.userid=tantargyak.tanarid AND
-									tantargyak.osztaly=osztalyok.osztalyid order by nev");
+									tantargyak.osztaly=osztalyok.osztalyid order by $sorrend");
 		return $query->result_array();
 	}
+
+	public function tanarid($tanarnev)
+	{
+		$query=$this->db->query("SELECT userid from users where name='$tanarnev'");
+		$diakid=$query->row_array();
+		return $diakid;
+	}
+
+	public function Tantargyvaltozas($tantargyid,$tantargynev,$tanarid,$osztalyid)
+	{
+		$data=['nev'=>$tantargynev,
+				'osztaly'=>$osztalyid,
+				'tanarid'=>$tanarid];
+		$this->db->where('tantargyid',$tantargyid);
+		$this->db->update('tantargyak',$data);
+	}
+
+	public function osztalyid($osztaly)
+	{
+		$query=$this->db->query("SELECT osztalyid from osztalyok where osztalynev='$osztaly'");
+		$osztalyid=$query->row_array();
+		return $osztalyid;
+	}
+
+
 	public function tanteremlista()
 	{
 		$query=$this->db->get('termek');
 		return $query->result_array();
+	}
+	public function ujterem($terem,$megjegyzes)
+	{
+		$data=['nev'=>$terem,'megjegyzes'=>$megjegyzes];
+		$query=$this->db->insert('termek',$data);
 	}
 
 }

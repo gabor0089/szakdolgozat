@@ -6,16 +6,17 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
     </HEAD>
   <BODY>
-
+<!--
 <div class="visible-xs">XS</div>
 <div class="visible-sm">SM</div>
 <div class="visible-md">MD</div>
 <div class="visible-lg">LG</div>
+-->
 <span class='header-iskolanev'>
 <?=$iskolanev?>
 </span>
 <span class='header-name-exit'>
-<a href="<?php echo base_url();?>User/profil/<?=$userid?>"><?=$name?></a> (<?=$beosztas?>) 
+<a href="<?php echo base_url();?>Users/profil/<?=$userid?>"><?=$name?></a> (<?=$beosztas?>) 
   <?php echo date("H:i:s",time());?> 
   <a class="hidden-sm hidden-xs" href="<?php echo base_url();?>Users/Kilepes"><img src="<?php echo base_url();?>assets/img/exit.png" height="15"></img></a>
 </span>

@@ -10,7 +10,7 @@
 
 <h1 class='kozepre'>Alapadatok</h1>
 
-<div class="container-fluid">
+<div class="container">
   <div class="row">
     <div class="container">
       <div class="row">

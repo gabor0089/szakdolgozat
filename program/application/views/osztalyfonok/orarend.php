@@ -7,6 +7,7 @@
 	    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
     </HEAD>
 	<BODY>
+		<div class='container-fluid'>
 		<div class='row'>
 			<div class='col-md-12 text-center'><H1>Órarend <?=$osztalyom?></H1></div>
 		</div>
@@ -114,6 +115,7 @@
 		        	<?php endfor;?>
 		        </tr>
 		    </table>
+		</div>
 		</div>
 	</BODY>
 </HTML>		

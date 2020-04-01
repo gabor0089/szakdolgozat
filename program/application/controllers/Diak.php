@@ -154,7 +154,7 @@ class Diak extends CI_Controller
 		$this->load->model('diak_model');
 		$datas=$this->diak_model->hianyzasok($userid);
 		$napok=array('ismeretlen nap','hétfő','kedd','szerda','csütörtök','péntek','szombat','vasárnap');
-		$statusz=array('ismeretlen státusz','igazolatlan','igazolt');
+		$statusz=array('ismeretlen státusz','igazolandó','igazolt','igazolatlan');
 		$datas=[
 		'datas'=>$datas,
 		'napok'=>$napok,

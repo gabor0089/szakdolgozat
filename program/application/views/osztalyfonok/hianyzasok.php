@@ -8,7 +8,7 @@
    	</HEAD>
 	<BODY>
 	<h2 class='text-center'>Hiányzások - Késések</h2>
-	<div class='container-fluid'>
+	<div class='container'>
 		<table class="table table-hover table-sm ">
 			<tr class='row'>
 				<td class='col-md-2 bg-nev text-left'>Név</td>
@@ -16,7 +16,6 @@
 				<td class='col-md-1 bg-ora text-center'>Igazolatlan</td>
 				<td class='col-md-1 bg-ora text-center'>Igazolandó</td>
 				<td class='col-md-1 bg-ora text-center'>Összesen</td>
-				<td class='col-md-1 text-center'></td>
 				<td class='col-md-1 bg-perc text-center'>Igazolt</td>
 				<td class='col-md-1 bg-perc text-center'>Igazolatlan</td>
 				<td class='col-md-1 bg-perc text-center'>Igazolandó</td>
@@ -42,15 +41,14 @@
 					<?php if($hiany['statusz']==3 && $hiany['perc']<45) $osszkigazoltalan+=$hiany['perc'];?>
 				<?php endif;?>
 				<?php endforeach;?>
-			<td class='col-md-1 bg-ora'><?php if($osszhigazolt>0) echo $osszhigazolt." óra";else echo "";?></td>
-			<td class='col-md-1 bg-ora'><?php if($osszhigazoltalan>0) echo $osszhigazoltalan." óra";else echo "";?></td>
-			<td class='col-md-1 bg-ora'><?php if($osszhigazolando>0) echo $osszhigazolando." óra";else echo "";?></td>
-			<td class='col-md-1 bg-ora'><?php if($osszh>0) echo $osszh." óra";else echo "";?></td>
-			<td class='col-md-1'></td>
-			<td class='col-md-1 bg-perc'><?php if($osszkigazolt>0) echo $osszkigazolt." perc";else echo "";?></td>
-			<td class='col-md-1 bg-perc'><?php if($osszkigazoltalan>0) echo $osszkigazoltalan." perc";else echo "";?></td>
-			<td class='col-md-1 bg-perc'><?php if($osszkigazolando>0) echo $osszkigazolando." perc";else echo "";?></td>
-			<td class='col-md-1 bg-perc'><?php if($osszk>0) echo $osszk." perc";else echo "";?></td>
+			<td class='col-md-1 bg-ora text-center'><?php if($osszhigazolt>0) echo $osszhigazolt." óra";else echo "";?></td>
+			<td class='col-md-1 bg-ora text-center'><?php if($osszhigazoltalan>0) echo $osszhigazoltalan." óra";else echo "";?></td>
+			<td class='col-md-1 bg-ora text-center'><?php if($osszhigazolando>0) echo $osszhigazolando." óra";else echo "";?></td>
+			<td class='col-md-1 bg-ora text-center'><?php if($osszh>0) echo $osszh." óra";else echo "";?></td>
+			<td class='col-md-1 bg-perc text-center'><?php if($osszkigazolt>0) echo $osszkigazolt." perc";else echo "";?></td>
+			<td class='col-md-1 bg-perc text-center'><?php if($osszkigazoltalan>0) echo $osszkigazoltalan." perc";else echo "";?></td>
+			<td class='col-md-1 bg-perc text-center'><?php if($osszkigazolando>0) echo $osszkigazolando." perc";else echo "";?></td>
+			<td class='col-md-1 bg-perc text-center'><?php if($osszk>0) echo $osszk." perc";else echo "";?></td>
 			<td class='col-md-1'><button type='submit' class='btn btn-primary'>Részletek</button></td>
 		</tr>
 		<?php $osszh=0;$osszhigazolt=0;$osszhigazoltalan=0;$osszhigazolando=0;?>
