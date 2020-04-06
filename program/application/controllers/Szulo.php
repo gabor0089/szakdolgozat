@@ -72,6 +72,20 @@ class Szulo extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('szulo/orarend',$orarend2);
 	}
+	public function OrarendExport()
+	{
+		$this->load->library('mypdf');
+		$this->load->model('users_model');
+		$csengrend=$this->users_model->csengrend();
+		$this->load->model('diak_model');
+		$userid = $this->session->user_id;
+		$orarend=$this->diak_model->orarend(1);
+		$orarend2=[
+		'orarend'=>$orarend,
+		'csengrend'=>$csengrend
+		];
+		$this->mypdf->generate('szulo/orarend_pdf', $orarend2, 'laporan-mahasiswa', 'A4', 'landscape');
+	}
 ///////////////////////////////////////////////////////////////////////////
 	
 ////////////////////////////////////////////////////////////////////////////

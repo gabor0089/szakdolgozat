@@ -45,9 +45,6 @@
 			Bogdán Orsolya<input type='hidden' name='username' value='bogdanorsolya'><input type='hidden' name='password' value='bogdanorsolya'><input type='submit' value='Adminisztrátor'>
 			<?PHP echo form_close();?>
 			<?PHP echo form_open('Users/login');?>
-			<input type='hidden' name='username' value='bogdanorsolya'><input type='hidden' name='password' value='bogdanorsolya'><input type='submit' disabled value='Igazgató'>
-			<?PHP echo form_close();?>
-			<?PHP echo form_open('Users/login');?>
 			Kerekes Zita<input type='hidden' name='username' value='kerekeszita'><input type='hidden' name='password' value='kerekeszita'><input type='submit' value='Osztályfőnök'>
 			<?PHP echo form_close();?>
 			<?PHP echo form_open('Users/login');?>
@@ -65,21 +62,6 @@
 		<div class="col-md-5">
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-md-5 bejelentkez2">
-			<p>Bejelentkezéshez a felhasználónév/jelszó párosok:<BR>
-				adminisztrátor: bogdanorsolya<BR>
-				igazgató: ...fejlesztés alatt...<BR>
-				osztályfőnök: ...fejlesztés alatt...<BR>
-				tanár: galvivien<BR>
-				diak: budairoland<BR>
-				szulo: szekerestunde</p>
-		</div>
-		<div class="col-md-2">
-		</div>
-		<div class="col-md-5">
-		</div>
-	</div>	
 </div>
 </body>
 </html>

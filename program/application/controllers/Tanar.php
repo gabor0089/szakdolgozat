@@ -70,6 +70,20 @@ class Tanar extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('tanar/orarend',$orarend2);
 	}
+	public function OrarendExport()
+	{
+		$this->load->library('mypdf');
+		$this->load->model('users_model');
+		$csengrend=$this->users_model->csengrend();
+		$this->load->model('tanar_model');
+		$userid = $this->session->user_id;
+		$orarend=$this->tanar_model->orarend($userid);
+		$orarend2=[
+		'orarend'=>$orarend,
+		'csengrend'=>$csengrend
+		];
+		$this->mypdf->generate('tanar/orarend_pdf', $orarend2, 'laporan-mahasiswa', 'A4', 'landscape');
+	}
 	public function Hianyzas()
 	{
 		$adatok=$this->Main();

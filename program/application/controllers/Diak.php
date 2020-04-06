@@ -116,9 +116,9 @@ class Diak extends CI_Controller
 	public function OrarendExport()
 	{
 		$this->load->library('mypdf');
-		$this->load->model('diak_model');
 		$this->load->model('users_model');
 		$csengrend=$this->users_model->csengrend();
+		$this->load->model('diak_model');
 		$userid = $this->session->user_id;
 		$osztalyidm=$this->diak_model->osztaly($userid);
 		$orarend=$this->diak_model->orarend($osztalyidm[0]['osztalyid']);

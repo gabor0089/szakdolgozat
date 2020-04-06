@@ -8,7 +8,7 @@
     </HEAD>
 	<BODY>
 		<div class='row'>
-			<div class='col-md-12 text-center'><H1>Órarend</H1></div>
+			<div class='col-md-12 text-center'><H1>Órarend<a href="<?php echo base_url();?>Szulo/OrarendExport">Letöltés pdf-ben</a></H1></div>
 		</div>
 				<?php
 					foreach ($orarend as $ora) 
