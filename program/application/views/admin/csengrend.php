@@ -10,45 +10,25 @@
 <?PHP echo form_open('Admin/csengrend');?>
 
 <h1 class='text-center'>Csengetési rend módosítása</h1>
-<div class='container'>
-		<table class="table bordered table-striped table-hover table-sm">
-
-<TR class='row'><TD class='col-md-1'>0. óra</TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='k0' value='<?=$csengetes[0]['kezdes']?>'></TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='v0' value='<?=$csengetes[0]['vege']?>'></TD></TR>
-<TR class='row'><TD class='col-md-1'>1. óra</TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='k1' value='<?=$csengetes[1]['kezdes']?>'></TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='v1' value='<?=$csengetes[1]['vege']?>'></TD></TR>
-<TR class='row'><TD class='col-md-1'>2. óra</TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='k2' value='<?=$csengetes[2]['kezdes']?>'></TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='v2' value='<?=$csengetes[2]['vege']?>'></TD></TR>
-<TR class='row'><TD class='col-md-1'>3. óra</TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='k3' value='<?=$csengetes[3]['kezdes']?>'></TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='v3' value='<?=$csengetes[3]['vege']?>'></TD></TR>
-<TR class='row'><TD class='col-md-1'>4. óra</TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='k4' value='<?=$csengetes[4]['kezdes']?>'></TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='v4' value='<?=$csengetes[4]['vege']?>'></TD></TR>
-<TR class='row'><TD class='col-md-1'>5. óra</TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='k5' value='<?=$csengetes[5]['kezdes']?>'></TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='v5' value='<?=$csengetes[5]['vege']?>'></TD></TR>
-<TR class='row'><TD class='col-md-1'>6. óra</TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='k6' value='<?=$csengetes[6]['kezdes']?>'></TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='v6' value='<?=$csengetes[6]['vege']?>'></TD></TR>
-<TR class='row'><TD class='col-md-1'>7. óra</TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='k7' value='<?=$csengetes[7]['kezdes']?>'></TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='v7' value='<?=$csengetes[7]['vege']?>'></TD></TR>
-<TR class='row'><TD class='col-md-1'>8. óra</TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='k8' value='<?=$csengetes[8]['kezdes']?>'></TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='v8' value='<?=$csengetes[8]['vege']?>'></TD></TR>
-<TR class='row'><TD class='col-md-1'>9. óra</TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='k9' value='<?=$csengetes[9]['kezdes']?>'></TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='v9' value='<?=$csengetes[9]['vege']?>'></TD></TR>
-<TR class='row'><TD class='col-md-1'>10. óra</TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='k10' value='<?=$csengetes[10]['kezdes']?>'></TD><TD class='col-md-1'>
-	<input type='text' class='form-control' name='v10' value='<?=$csengetes[10]['vege']?>'></TD></TR>
+<div class='row'>
+	<div class='kozepre'>
+<TABLE border='1'>
+<TR><TD></TD></TR>
+<TR><TD>0.</TD><TD><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='k0' value='07:00'><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='v0' value='07:40'></TD></TR>
+<TR><TD>1.</TD><TD><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='k1' value='08:00'><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='v1' value='08:45'></TD></TR>
+<TR><TD>2.</TD><TD><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='k2' value='08:55'><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='v2' value='09:40'></TD></TR>
+<TR><TD>3.</TD><TD><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='k3' value='09:55'><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' vname='v3' value='10:40'></TD></TR>
+<TR><TD>4.</TD><TD><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='k4' value='10:50'><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='v4' value='11:35'></TD></TR>
+<TR><TD>5.</TD><TD><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='k5' value='11:45'><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='v5' value='12:30'></TD></TR>
+<TR><TD>6.</TD><TD><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='k6' value='12:40'><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='v6' value='13:25'></TD></TR>
+<TR><TD>7.</TD><TD><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='k7' value='13:40'><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='v7' value='14:20'></TD></TR>
+<TR><TD>8.</TD><TD><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='k8' value='14:25'><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='v8' value='15:05'></TD></TR>
+<TR><TD>9.</TD><TD><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='k9' value='15:10'><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='v9' value='15:50'></TD></TR>
+<TR><TD>10.</TD><TD><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='k10' value='15:55'><input type='text' class='form-control col-xs-4 col-sm-6 col-md-4' name='v10' value='16:40'></TD></TR>
 </TABLE>
 <button type='submit' class='btn btn-primary btn-block form-control col-sm-6 col-md-4'>Mentés</button>
 </div>
+<p>Itt még nem az adatbázisból jön az adat, de már oda ment!</p>
 </div>
 <?PHP echo form_close();?>
 

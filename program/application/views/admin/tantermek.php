@@ -9,13 +9,15 @@
 	<BODY>
 
 <h2 class='text-center'>Tantermek</h2>
-<div class="container">
-    <table class="table bordered table-striped table-hover table-sm">
-        <tr class='row'><td class='col-md-4'><a href='../Admin/Ujterem' title='Új terem felvitele'><button type='submit' class='btn btn-success'>+ Új terem felvitele</button></a></td></tr>
+<div class="container-fluid">
+  <div class="row">
+      	<table border='1'>
+      	
+      	<div class="col-sm-3">
       	<?php foreach($termek as $lista):?>
-          <tr class='row'>
-          <td class='col-md-1'><?=$lista['nev']?></td>
-          <td class='col-md-2'><?=$lista['megjegyzes']?></TD>
+          <tr>
+          <td><?=$lista['nev']?></td>
+          <td><?=$lista['megjegyzes']?></TD>
           </TR>
       <?php endforeach;?>
       </div>

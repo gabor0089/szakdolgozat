@@ -22,23 +22,12 @@ class tanar_model extends CI_Model
 		$diakid=$query->row_array();
 		return $diakid;
 	}
-	public function tantargyideredeti($tantargy,$osztaly)
+	public function tantargyid($tantargy,$osztaly)
 	{
 		$query=$this->db->query("SELECT tantargyid from tantargyak where nev='$tantargy' AND osztaly='$osztaly'");
 		$tantargyid=$query->row_array();
 		return $tantargyid;
 	}
-
-	public function tantargyid($tantargy,$osztaly)
-	{
-		$query=$this->db->query("SELECT tantargyid from 
-								tantargyak,osztalyok where 
-								osztalyok.osztalyid=tantargyak.osztaly AND 
-								tantargyak.nev='$tantargy' AND osztalyok.osztalynev='$osztaly'");
-		$tantargyid=$query->row_array();
-		return $tantargyid;
-	}
-
 	public function osztalyid($osztaly)
 	{
 		$query=$this->db->query("SELECT osztalyid from osztalyok where osztalynev='$osztaly'");
@@ -101,26 +90,9 @@ class tanar_model extends CI_Model
 		$result_array=$query->result_array();
 		return $result_array;	
 	}
-
-	public function mindensajatdiak($tanarid)
-	{
-		$query = $this->db->query("SELECT name,userid from users,tantargyak where tantargyak.osztaly=users.osztalyid AND tantargyak.tanarid='$tanarid' order by name");
-		$result_array=$query->result_array();
-		return $result_array;	
-	}
 	public function tantargyak()
 	{
 		$query=$this->db->get('tantargyak');
-		$result_array=$query->result_array();
-		return $result_array;	
-	}
-	public function sajattantargyak($userid)
-	{
-		$query=$this->db->query("SELECT tantargyak.nev as tantargy, 
-										osztalyok.osztalynev as osztaly
-										from tantargyak,osztalyok
-										where tantargyak.tanarid='$userid' AND
-										tantargyak.osztaly=osztalyok.osztalyid");
 		$result_array=$query->result_array();
 		return $result_array;	
 	}

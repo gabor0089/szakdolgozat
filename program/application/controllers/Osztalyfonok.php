@@ -64,11 +64,14 @@ class Osztalyfonok extends CI_Controller
 	public function Orarend()
 	{
 		$userid = $this->session->user_id;
+		
 		$this->load->model('osztalyfonok_model');
 		$adatok=$this->osztalyfonok_model->osztalyom($userid);
 		$osztalyomnev=$adatok[0]['osztalynev'];
 		$osztalyomid=$adatok[0]['osztalyid'];
 		$orarend=$this->osztalyfonok_model->orarend($osztalyomid);
+
+
 		$orarend2=[
 		'orarend'=>$orarend,
 		'osztalyom'=>$osztalyomnev
@@ -76,24 +79,6 @@ class Osztalyfonok extends CI_Controller
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('osztalyfonok/orarend',$orarend2);
-	}
-	public function OrarendExport()
-	{
-		$this->load->library('mypdf');
-		$userid = $this->session->user_id;
-		$this->load->model('osztalyfonok_model');
-		$this->load->model('users_model');
-		$csengrend=$this->users_model->csengrend();
-		$adatok=$this->osztalyfonok_model->osztalyom($userid);
-		$osztalyomnev=$adatok[0]['osztalynev'];
-		$osztalyomid=$adatok[0]['osztalyid'];
-		$orarend=$this->osztalyfonok_model->orarend($osztalyomid);
-		$orarend2=[
-		'orarend'=>$orarend,
-		'osztalyom'=>$osztalyomnev,
-		'csengrend'=>$csengrend
-		];
-		$this->mypdf->generate('osztalyfonok/orarend_pdf', $orarend2, 'laporan-mahasiswa', 'A4', 'landscape');
 	}
 	public function Osztalyozas($sorszam=null)
 	{

@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
     </HEAD>
 	<BODY>
-		<h1 class='text-center'>Csengetési rend</h1>
-		<div class="container">
-		    <table class="table table-striped">
-				<?php foreach ($datas as $data):?>
-		        <tr class="row">
-		            <td class="col-sm-1"><?=$data['ora']?>. óra</td>
-		            <td class="col-sm-3"><?=$data['kezdes']?> - <?=$data['vege']?></td>
-		        </tr>
-		    	<?php endforeach;?>
-		    </table>
+	<h1 class='text-center'>Csengetési rend</h1>
+	<div class='row'>
+		<div class='kozepre'>
+			<TABLE border='1'>
+				<?php
+				foreach ($datas as $data):?>
+					<TR><TD><?=$data['ora']?>. óra:</TD><TD><?=$data['kezdes']?></TD><TD>-</TD><TD><?=$data['vege']?></TD></TR>	
+				<?php endforeach;?>
+			</TABLE>
 		</div>
+	</div>
 	</body>
 </html>

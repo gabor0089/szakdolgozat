@@ -113,21 +113,6 @@ class Diak extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('diak/orarend',$orarend2);
 	}
-	public function OrarendExport()
-	{
-		$this->load->library('mypdf');
-		$this->load->model('users_model');
-		$csengrend=$this->users_model->csengrend();
-		$this->load->model('diak_model');
-		$userid = $this->session->user_id;
-		$osztalyidm=$this->diak_model->osztaly($userid);
-		$orarend=$this->diak_model->orarend($osztalyidm[0]['osztalyid']);
-		$orarend2=[
-		'orarend'=>$orarend,
-		'csengrend'=>$csengrend
-		];
-		$this->mypdf->generate('diak/orarend_pdf', $orarend2, 'laporan-mahasiswa', 'A4', 'landscape');
-	}
 
 	public function Osztalyozas()
 	{
@@ -169,7 +154,7 @@ class Diak extends CI_Controller
 		$this->load->model('diak_model');
 		$datas=$this->diak_model->hianyzasok($userid);
 		$napok=array('ismeretlen nap','hétfő','kedd','szerda','csütörtök','péntek','szombat','vasárnap');
-		$statusz=array('ismeretlen státusz','igazolandó','igazolt','igazolatlan');
+		$statusz=array('ismeretlen státusz','igazolatlan','igazolt');
 		$datas=[
 		'datas'=>$datas,
 		'napok'=>$napok,
@@ -183,5 +168,4 @@ class Diak extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('diak/kozlemenyek');
 	}
-
 }

@@ -9,24 +9,17 @@
 	<BODY>
 
 <h2 class='text-center'>Tantárgyak<a href='../Admin/Ujtantargy' title='Új Tantárgy felvitele'>+</a></h2>
-<div class="container">
-   <table class="table bordered table-striped table-hover table-sm">
-       	<tr class='row'>
-          <td class='col-md-2'><a href='../Tantargyak/nev'>Tantárgy neve</a></td>
-          <td class='col-md-1'><a href='../Tantargyak/osztaly'>Osztály</a></td>
-          <td class='col-md-2'><a href='../Tantargyak/tanarnev'>Tanár</a></td>
+<div class="container-fluid">
+  <div class="row">
+      	<table border='1'>
+      	
+      	<div class="col-sm-3">
+      	<?php foreach($targyak as $lista):?>
+          <tr>
+          <td><?=$lista['nev']?></td>
+          <td><?=$lista['osztalynev']?></TD>
+          <td><?=$lista['tanarnev']?></TD>
           </TR>
-          
-        <?php foreach($targyak as $lista):?>
-          <?php echo form_open('Admin/Tantargyvaltozas');?>
-          <tr class='row'>
-          <td class='col-md-2'><input type='text' class='form-control' name='tantargynev' value='<?=$lista['nev']?>'></td>
-          <td class='col-md-1'><input type='text' class='form-control' name='osztalynev' value='<?=$lista['osztalynev']?>'></td>
-          <td class='col-md-2'><input type='text' class='form-control' name='tanarnev' value='<?=$lista['tanarnev']?>'></td>
-          <input type='hidden' class='form-control' name='tantargyid' value='<?=$lista['tantargyid']?>'>
-          <td class='col-md-2'><button class='btn btn-primary'>Mentés!</button></td>
-          </TR>
-          <?php echo form_close();?>
       <?php endforeach;?>
       </div>
       </table>

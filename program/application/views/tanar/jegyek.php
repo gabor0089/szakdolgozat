@@ -9,12 +9,11 @@
 	<BODY>
 	<H1 class='text-center'>Jegyek</H1>
 	<H3 class='text-center'><?=$diaknev?> - <?=$tantargynev?></H3>
-	<div class='container'>
 		<?PHP echo form_open('tanar/ujjegyadas')?>      
 <div class='row'>
 <div class='col-md-2'>&nbsp</div>
-	<input type='hidden' name='tantargyid' value='<?=$tantargyid?>'>
-	<input type='hidden' name='diakid' value='<?=$diakid?>'>
+	<input type='text' name='tantargyid' value='<?=$tantargyid?>'>
+	<input type='text' name='diakid' value='<?=$diakid?>'>
 	<div class='col-md-1 form-row'>
 			<input type='text' name='jegy' class='form-control' placeholder='jegy'>
 	</div>
@@ -38,20 +37,21 @@
 					$atlag=round($osszeg/count($jegyek),2);
 				}
 			?>
-		    <table class="table table-striped table-hover table-sm">
-<tr class='row'>
-			<td class='col-md-2 text-right font-weight-bold'>Átlag</td>
-			<td class='col-md-1 text-center font-weight-bold'><?=$atlag?></td>
-			<td class='col-md-2'></td>
-		</tr>
+<div class='row'>
+			<div class='col-md-2 text-right font-weight-bold'>Átlag</div>
+			<div class='col-md-1 text-center font-weight-bold'><?=$atlag?></div>
+			<div class='col-md-2'></div>
+		</div>
 	<?php foreach ($jegyek as $jegy):?>
-		<tr class='row'>
-			<td class='col-md-2'><?=$jegy['idopont']?></td>
-			<td class='col-md-1 text-center'><?=$jegy['jegy']?></td>
-			<td class='col-md-2'><?=$jegy['megjegyzes']?></td>
-		</tr>
+		<div class='row'>
+			<div class='col-md-2'><?=$jegy['idopont']?></div>
+				<div class='col-md-1 text-center'>
+					<?=$jegy['jegy']?>
+				</div>
+			<div class='col-md-2'>
+					<?=$jegy['megjegyzes']?>
+			</div>
+		</div>
 	<?php endforeach;?>
-	</table>
-	</div>
 	</body>
 </Html>
