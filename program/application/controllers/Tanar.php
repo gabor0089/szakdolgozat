@@ -70,6 +70,20 @@ class Tanar extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('tanar/orarend',$orarend2);
 	}
+	public function OrarendExport()
+	{
+		$this->load->library('mypdf');
+		$this->load->model('users_model');
+		$csengrend=$this->users_model->csengrend();
+		$this->load->model('tanar_model');
+		$userid = $this->session->user_id;
+		$orarend=$this->tanar_model->orarend($userid);
+		$orarend2=[
+		'orarend'=>$orarend,
+		'csengrend'=>$csengrend
+		];
+		$this->mypdf->generate('tanar/orarend_pdf', $orarend2, 'laporan-mahasiswa', 'A4', 'landscape');
+	}
 	public function Hianyzas()
 	{
 		$adatok=$this->Main();
@@ -105,59 +119,59 @@ class Tanar extends CI_Controller
 		$this->tanar_model->Ujhianyzasfelvitel($tanarid,$diakid,$ora,$perc,$hianyzas_datum);
 		$this->Ujhianyzas();
 	}
-	public function Osztalyozas() //EZ JÓ, EHHEZ NE NYÚLJ!!!
+	public function Osztalyozas_diakok()
 	{
+		$kapottnev=$this->input->post('diaknev');
+		$userid=$this->session->user_id;
 		$this->load->model('tanar_model');
-		$diakok=$this->tanar_model->mindendiak();
-		$tantargyak=$this->tanar_model->tantargyak();
-		foreach($diakok as $nev)
-		{
-			$diakoknevei[]=$nev['name'];
-			$diakokid[]=$nev['userid'];
-		}
-		foreach($tantargyak as $targy)
-		{
-			$tantargyaknevei[]=$targy['nev']." ".$targy['osztaly'];
-		}
-		$diakoknevei=array_unique($diakoknevei);
-		$tantargyaknevei=array_unique($tantargyaknevei);
-		$data=[
-			'diakok' => $diakoknevei,
-			'tantargyak' => $tantargyaknevei
-		];
+		$diakok=$this->tanar_model->mindensajatdiak($userid,$kapottnev);
+		$data=['diakok'=>$diakok];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('tanar/osztalyozas',$data);
+		$this->load->view('tanar/osztalyozas_egyeni',$data);
 	}
-
+	public function Osztalyozas_tantargy()
+	{
+		$userid=$this->session->user_id;
+		$diakid=$this->input->post('diakid');
+		$this->load->model('tanar_model');
+		$targyak=$this->tanar_model->kozostargyak($userid,$diakid);
+		$diaknev=$this->tanar_model->diaknev($diakid);
+		$data=['targyak'=>$targyak,
+				'diaknev'=>$diaknev['name'],
+				'diakid'=>$diakid];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('tanar/osztalyozas_egyeni',$data);
+	}
+	public function Osztalyozas_egyeni() //EZ JÓ, EHHEZ NE NYÚLJ!!!
+	{
+		$userid=$this->session->user_id;
+		$this->load->model('tanar_model');
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('tanar/osztalyozas_egyeni');
+	}
 	public function Jegyek_egyeni()
 	{
-		$tanarid=$this->session->user_id;
 		$this->load->model('tanar_model');
-		$diak=$this->input->post('diak');
-		$diakid=$this->tanar_model->diakid($diak);
-		
-		$tantargy=$this->input->post('tantargy');
-		$szokozhelye=strrpos($tantargy, ' ', -1);
-		$osztaly = substr($tantargy,-1,$szokozhelye);
-		$targy = substr($tantargy,0,$szokozhelye);
-		$tantargyid=$this->tanar_model->tantargyid($targy,$osztaly);
-
-		echo "<BR>diák: ".$diak." ".$diakid['userid'];
-		echo "<BR>tantárgy: ".$tantargy."->".$targy." osztály: ".$osztaly;
-		echo "<BR>tantárgy azonosítója: ".$tantargyid['tantargyid'];
-		
-		$jegyek=$this->tanar_model->jegyek($diakid['userid'],$tantargyid['tantargyid']);
+		$tanarid=$this->session->user_id;
+		$diakid=$this->input->post('diakid');
+		$tantargyid=$this->input->post('tantargyid');
+		$diak=$this->tanar_model->diaknev($diakid);
+		$targy=$this->tanar_model->tantargynev($tantargyid);
+		$jegyek=$this->tanar_model->jegyek($diakid,$tantargyid);
+		$dolgozatok=$this->tanar_model->dolgozatok($tanarid,$tantargyid);
 		$data=[
 				'jegyek'=>$jegyek,
-				'tantargynev'=>$targy,
-				'tantargyid'=>$tantargyid['tantargyid'],
-				'diaknev'=>$diak,
-				'diakid'=>$diakid['userid']];
-				var_dump($data);
+				'tantargynev'=>$targy['nev'],
+				'tantargyid'=>$tantargyid,
+				'diaknev'=>$diak['name'],
+				'diakid'=>$diakid,
+				'dolgozatok'=>$dolgozatok];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('tanar/jegyek',$data);	
+		$this->load->view('tanar/jegyek',$data);
 	}
 	public function Ujjegyadas()
 	{
@@ -166,10 +180,142 @@ class Tanar extends CI_Controller
 		$tantargy=$this->input->post('tantargyid');
 		$megjegyzes=$this->input->post('megjegyzes');
 		$jegy=$this->input->post('jegy');
+		$dolgozatid=$this->input->post('dolgozat');
+		if(!isset($dolgozatid))
+		{
+			$dolgozatid=0;
+		}
 		$tanarid = $this->session->user_id;
-		$this->tanar_model->Ujjegy($tanarid,$diak,$tantargy,$jegy,$megjegyzes);
-		$this->Osztalyozas();		
+
+		$config['upload_path']          = './uploads/';
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['max_size']             = 100000;
+        $config['max_width']            = 1024;
+        $config['max_height']           = 1024;
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('userfile'))
+        {
+            $error = array('error' => $this->upload->display_errors());
+            echo $error;
+            $filename="";
+        }
+        else
+        {
+            $data = array('upload_data' => $this->upload->data());
+			$filename=$data['upload_data']['file_name'];
+		}
+		$this->tanar_model->diakdolgozatfeltoltes($diak,$filename,$dolgozatid);
+		$utolsoazon=$this->tanar_model->utolsodolgozatazon();
+   		$this->tanar_model->Ujjegy($tanarid,$diak,$tantargy,$jegy,$megjegyzes,$dolgozatid,$utolsoazon[0]['azon']);
+		$this->Jegyek_egyeni($diak,$tantargy);		
 	}
+
+	public function Csoportos_ujjegyadas()
+	{
+		$this->load->model('tanar_model');
+		$userid[]=$this->input->post('userid[]');
+		$jegy[]=$this->input->post('jegy[]');
+		$tantargy=$this->input->post('tantargyid');
+		$osztalyid=$this->input->post('osztalyid');
+		$megjegyzes=$this->input->post('megjegyzes');
+		$dolgozatid=$this->input->post('dolgozat');
+		$tanar=$this->session->user_id;
+		for ($i=0; $i < count($jegy[0]); $i++) 
+		{ 
+			if($jegy[0][$i]<>'')
+			{
+				if($dolgozatid=="")
+				{
+					$dolgozatid=0;
+					$utolsoazon[0]['azon']=0;
+				}
+				if(isset($fajl))
+				{
+					$config['upload_path']          = './uploads/dolgozatok/';
+			        $config['allowed_types']        = 'jpg|png|jpeg|pdf';
+			        $config['max_size']             = 100000;
+			        $config['max_width']            = 1024;
+			        $config['max_height']           = 1024;
+			        $this->load->library('upload', $config);
+
+			        if ( ! $this->upload->do_upload('fajl'))
+			        {
+			            $error = array('error' => $this->upload->display_errors());
+			            $filename="";
+			        }
+			        else
+			        {
+			            $data = array('upload_data' => $this->upload->data());
+						$filename=$data['upload_data']['file_name'];
+					}
+					$this->tanar_model->diakdolgozatfeltoltes($userid[0][$i],$filename,$dolgozatid);
+					$utolsoazon=$this->tanar_model->utolsodolgozatazon();
+				}
+				else
+				{
+					$utolsoazon[0]['azon']=0;
+				}
+				$this->tanar_model->ujjegy($tanar,$userid[0][$i],$tantargy,$jegy[0][$i],$megjegyzes,$dolgozatid,$utolsoazon[0]['azon']);
+				$this->jegyek_csoportos($osztalyid);
+			}
+		}
+	}
+
+
+	public function Osztalyozas_csoportos() //EZ JÓ, EHHEZ NE NYÚLJ!!!
+	{
+		$userid=$this->session->user_id;
+		$this->load->model('tanar_model');
+		$tanitottosztalyaim=$this->tanar_model->osztalylista($userid);
+		$data=['osztalyok'=>$tanitottosztalyaim];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('tanar/osztalyozas_csoportos',$data);
+	}
+	public function osztalyozas_csoportos_osztaly()
+	{
+		$userid=$this->session->user_id;
+		$osztalyid=$this->input->post('osztalyid');
+		$this->load->model('tanar_model');
+		$tanitotttantargyaim=$this->tanar_model->tanitotttargyakosztalyban($userid,$osztalyid);
+		$osztalynev=$this->tanar_model->osztalynev($osztalyid);
+		$data=['tantargyak'=>$tanitotttantargyaim,
+				'osztaly'=>$osztalynev['osztalynev'],
+				'osztalyid'=>$osztalyid];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('tanar/osztalyozas_csoportos',$data);	
+	}
+	public function jegyek_csoportos($osztalyid=null)
+	{
+		$userid=$this->session->user_id;
+		if($osztalyid==null)
+		{
+			$osztalyid=$this->input->post('osztalyid');
+		}
+		$tantargyid=$this->input->post('tantargyid');
+		$this->load->model('tanar_model');
+		$tantargynev=$this->tanar_model->tantargynev($tantargyid);
+		$nevsor=$this->tanar_model->osztalynevsor($osztalyid);
+		$jegyek=$this->tanar_model->osztalytargyjegy($osztalyid,$tantargyid);
+		$osztalynev=$this->tanar_model->osztalynev($osztalyid);
+		$dolgozatlista=$this->tanar_model->dolgozatlista1tantargy($userid,$tantargyid);
+		
+		$data=['jegyek'=>$jegyek,
+				'nevsor'=>$nevsor,
+				'osztalynev'=>$osztalynev['osztalynev'],
+				'osztaly'=>$osztalyid,
+				'tantargynev'=>$tantargynev['nev'],
+				'tantargyid'=>$tantargyid,
+				'dolgozatok'=>$dolgozatlista];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('tanar/jegyek_csoportos',$data);	
+	}
+
+
+
 
 	public function Haladasinaplo($targyid=null)
 	{
@@ -243,5 +389,25 @@ class Tanar extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('tanar/osztalynevsor',$data);
 	}
-
+	public function Dolgozatok()
+	{
+		$userid=$this->session->user_id;
+		$this->load->model('tanar_model');
+		$dolgozatlista=$this->tanar_model->dolgozatlista($userid);
+		$data=['dolgozatok'=>$dolgozatlista];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('tanar/dolgozatok',$data);
+	}
+	public function Dolgozatkesz()
+	{
+		$userid=$this->session->user_id;
+		$this->load->model('tanar_model');
+		$tantargyid=$this->input->post('tantargyid');
+		$datum=$this->input->post('datum');
+		$datum.=" ".$this->input->post('ido').":00";
+		$dolgozatcim=$this->input->post('dolgozatcim');
+		$this->tanar_model->ujdolgozat($tantargyid,$datum,$dolgozatcim,$userid);
+		$this->Dolgozatok();
+	}
 }

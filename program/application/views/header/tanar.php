@@ -29,8 +29,9 @@
             <a href="<?php echo base_url();?>Tanar/haladasinaplo">Haladási napló</a>
             <a href="<?php echo base_url();?>Users/csengrend">Csengetési rend</a>
             <a href="<?php echo base_url();?>Tanar/orarend">Órarend</a>
-            <a href="<?php echo base_url();?>Tanar/osztalyozas">Osztályozás</a>
+            <a href="<?php echo base_url();?>Tanar/osztalyozas_egyeni">Osztályozás</a>
             <a href="<?php echo base_url();?>Tanar/hianyzas">Hiányzások</a>
+            <a href="<?php echo base_url();?>Tanar/dolgozatok">Dolgozatok</a>
             <a href="<?php echo base_url();?>Users/uzenetek">Üzenetek</a>
             <a class="visible-sm visible-xs" href='../Users/Kilepes'>Kilépés</a>
 

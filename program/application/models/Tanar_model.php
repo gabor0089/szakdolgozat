@@ -22,18 +22,35 @@ class tanar_model extends CI_Model
 		$diakid=$query->row_array();
 		return $diakid;
 	}
-	public function tantargyid($tantargy,$osztaly)
+	public function tantargyideredeti($tantargy,$osztaly)
 	{
 		$query=$this->db->query("SELECT tantargyid from tantargyak where nev='$tantargy' AND osztaly='$osztaly'");
 		$tantargyid=$query->row_array();
 		return $tantargyid;
 	}
+
+	public function tantargyid($tantargy,$osztaly)
+	{
+		$query=$this->db->query("SELECT tantargyid from 
+								tantargyak,osztalyok where 
+								osztalyok.osztalyid=tantargyak.osztaly AND 
+								tantargyak.nev='$tantargy' AND osztalyok.osztalynev='$osztaly'");
+		$tantargyid=$query->row_array();
+		return $tantargyid;
+	}
+
 	public function osztalyid($osztaly)
 	{
 		$query=$this->db->query("SELECT osztalyid from osztalyok where osztalynev='$osztaly'");
 		$osztalyid=$query->row_array();
 		return $osztalyid;
 	}
+	public function osztalynev($osztalyid)
+	{
+		$query=$this->db->query("SELECT osztalynev from osztalyok where osztalyid='$osztalyid'");
+		return $query->row_array();
+	}
+
 	public function tantargynev($tantargyid)
 	{
 		$query=$this->db->query("SELECT nev from tantargyak where tantargyid='$tantargyid'");
@@ -52,8 +69,17 @@ class tanar_model extends CI_Model
 		$nevsor=$query->result_array();
 		return $nevsor;
 	}
-
-	public function ujjegy($tanar,$diakid,$tantargy,$jegy,$megjegyzes)
+	public function diakdolgozatfeltoltes($diakid,$filehelye,$dolgazon)
+	{
+		$data=['diakid'=>$diakid,'filehelye'=>$filehelye,'dolg_azon'=>$dolgazon];
+		$this->db->insert('diak_dolgozatok',$data);
+	}
+	public function utolsodolgozatazon()
+	{
+		$query=$this->db->query("SELECT azon from diak_dolgozatok order by azon desc limit 1");
+		return $query->result_array();
+	}
+	public function ujjegy($tanar,$diakid,$tantargy,$jegy,$megjegyzes,$dolgozatid,$diakdolgid)
 	{
 		$data = array(
 				'kikapta' => $diakid,
@@ -62,8 +88,8 @@ class tanar_model extends CI_Model
 				'tantargyid' => $tantargy,
 				'jeloles' => '3',
 				'megjegyzes' => $megjegyzes,
-				'dolgid' => rand(0,999),
-                'dolgfajlid' => rand(0,9999),
+				'dolgid' => $dolgozatid,
+                'dolgfajlid' => $diakdolgid,
 				); 		
 			$this->db->insert('jegyek', $data);
 		return true;
@@ -90,9 +116,39 @@ class tanar_model extends CI_Model
 		$result_array=$query->result_array();
 		return $result_array;	
 	}
+
+	public function mindensajatdiak($tanarid,$kapottnev)
+	{
+		$query = $this->db->query("SELECT name,userid from users,tantargyak where 
+									tantargyak.osztaly=users.osztalyid AND 
+									tantargyak.tanarid='$tanarid' AND
+									users.name like '%$kapottnev%' 
+									order by name");
+		$result_array=$query->result_array();
+		return $result_array;	
+	}
+	public function kozostargyak($userid,$diakid)
+	{
+		$query=$this->db->query("SELECT nev,tantargyid from 
+								tantargyak,users where 
+								tantargyak.tanarid='$userid' AND
+								users.userid='$diakid' AND
+								tantargyak.osztaly=users.osztalyid");
+		return $query->result_array();
+	}
 	public function tantargyak()
 	{
 		$query=$this->db->get('tantargyak');
+		$result_array=$query->result_array();
+		return $result_array;	
+	}
+	public function sajattantargyak($userid)
+	{
+		$query=$this->db->query("SELECT tantargyak.nev as tantargy, 
+										osztalyok.osztalynev as osztaly
+										from tantargyak,osztalyok
+										where tantargyak.tanarid='$userid' AND
+										tantargyak.osztaly=osztalyok.osztalyid");
 		$result_array=$query->result_array();
 		return $result_array;	
 	}
@@ -102,6 +158,14 @@ class tanar_model extends CI_Model
 									tantargyak,osztalyok where
 									tantargyak.osztaly=osztalyok.osztalyid AND
 									tantargyak.tanarid=$userid");
+		return $query->result_array();
+	}
+	public function tanitotttargyakosztalyban($userid,$osztalyid)
+	{
+		$query=$this->db->query("SELECT nev,tantargyid from 
+									tantargyak where
+									tantargyak.tanarid='$userid' AND
+									tantargyak.osztaly='$osztalyid'");
 		return $query->result_array();
 	}
 	public function haladasinaplo($targyid)
@@ -142,10 +206,10 @@ class tanar_model extends CI_Model
 	}
 	public function osztalylista($userid)
 	{
-		$query=$this->db->query("SELECT osztalyok.osztalynev,osztalyok.osztalyid from 
-									osztalyok,haladasi_naplo where 
-									osztalyok.osztalyid=haladasi_naplo.osztalyid AND 
-									haladasi_naplo.tanarid=$userid group by osztalynev");
+		$query=$this->db->query("SELECT osztalyok.osztalynev as osztaly,osztalyok.osztalyid as osztalyid from 
+									osztalyok,tantargyak where 
+									osztalyok.osztalyid=tantargyak.osztaly AND 
+									tantargyak.tanarid=$userid group by osztalyid");
 		return $query->result_array();
 	}	
 	public function osztalynevsor($osztalyid)
@@ -154,10 +218,69 @@ class tanar_model extends CI_Model
 		$query=$this->db->get_where('users',array('osztalyid'=>$osztalyid));
 		return $query->result_array();
 	}
+
 	public function jegyek($diakid,$tantargyid)
 	{
-		$this->db->order_by('idopont','DESC');
-		$query=$this->db->get_where('jegyek',array('kikapta'=>$diakid,'tantargyid'=>$tantargyid));
+		$query=$this->db->query("SELECT idopont,jegy,megjegyzes,
+								feltoltott_dolgozatok.dolgozatcim as dolgozat,
+								diak_dolgozatok.filehelye as file 
+								from jegyek,feltoltott_dolgozatok,diak_dolgozatok where 
+								jegyek.dolgid=feltoltott_dolgozatok.dolgozatid AND
+								diak_dolgozatok.dolg_azon=feltoltott_dolgozatok.dolgozatid AND
+								jegyek.kikapta='$diakid' AND 
+								jegyek.tantargyid='$tantargyid' ORDER BY 
+								idopont asc");
+		return $query->result_array();
+	}
+	public function osztalytargyjegy($osztalyid,$tantargyid)
+	{
+		$query=$this->db->query("SELECT	jegyek.idopont as idopont,
+										jegyek.jegy as jegy,
+										users.name as name,
+										jegyek.kikapta as userid from 
+										users left join jegyek on jegyek.kikapta=users.userid join 
+										osztalyok on osztalyok.osztalyid=users.osztalyid join 
+										tantargyak on tantargyak.tantargyid=jegyek.tantargyid AND
+										jegyek.tantargyid='$tantargyid' AND
+										osztalyok.osztalyid='$osztalyid'
+										");
+		return $query->result_array();
+	}
+	public function dolgozatlista($userid)
+	{
+		$query=$this->db->query("SELECT 
+								tantargyak.nev as tantargynev,
+								feltoltott_dolgozatok.datum as datum,
+								feltoltott_dolgozatok.dolgozatid as dolgozatid,
+								feltoltott_dolgozatok.dolgozatcim as dolgozatcim from 
+								tantargyak,feltoltott_dolgozatok where
+								feltoltott_dolgozatok.tanarid='$userid' AND
+								feltoltott_dolgozatok.tantargyid=tantargyak.tantargyid");
+		return $query->result_array();
+	}
+	public function dolgozatlista1tantargy($userid,$tantargyid)
+	{
+		$query=$this->db->query("SELECT 
+								feltoltott_dolgozatok.dolgozatid as dolgozatid,
+								feltoltott_dolgozatok.dolgozatcim as dolgozatcim from 
+								tantargyak,feltoltott_dolgozatok where
+								feltoltott_dolgozatok.tanarid='$userid' AND
+								feltoltott_dolgozatok.tantargyid='$tantargyid' AND
+								feltoltott_dolgozatok.tantargyid=tantargyak.tantargyid");
+		return $query->result_array();
+	}
+	public function ujdolgozat($tantargyid,$datum,$dolgozatcim,$userid)
+	{
+		$data=['tantargyid'=>$tantargyid,
+				'datum'=>$datum,
+				'tanarid'=>$userid,
+				'dolgozatcim'=>$dolgozatcim];
+		$this->db->insert('feltoltott_dolgozatok',$data);
+	}
+	public function dolgozatok($tanarid,$tantargyid)
+	{
+		$datum=date("Y-m-d H:i:s",time());
+		$query=$this->db->get_where('feltoltott_dolgozatok',array('tantargyid'=>$tantargyid,'tanarid'=>$tanarid,'datum<'=>$datum));
 		return $query->result_array();
 	}
 

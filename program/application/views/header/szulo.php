@@ -31,7 +31,7 @@
             <a href="<?php echo base_url();?>Szulo/orarend">Órarend</a>
             <a href="<?php echo base_url();?>Szulo/osztalyozas">Osztályzatok</a>
             <a href="<?php echo base_url();?>Szulo/hianyzas">Hiányzások</a>
-            <a href="<?php echo base_url();?>Users/uzenetek">Üzenetek</a>
+            <a href="<?php echo base_url();?>Szulo/uzenetek">Üzenetek</a>
             <a class="visible-sm visible-xs" href='../../../Users/Kilepes'>Kilépés</a>
 
           </nav>

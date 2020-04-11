@@ -64,13 +64,10 @@ class Admin extends CI_Controller
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
 		$diakoklistaja=$this->load->admin_model->diakoklistaja();
-		
-		$table_data=array(
-				array('Név',"Születési idő","Születési hely","TAJ szám","Telefonszám","Irsz.","Lakcím","Osztály","Fénykép")
-			);
+		$table_data=array();		
 		foreach($diakoklistaja as $lista)
 		{
-			array_push($table_data,array($lista['name'],$lista['dob'],$lista['szulhely'],$lista['taj'],$lista['tel'],$lista['irsz'],$lista['lakcim'],$lista['osztalyid'],$lista['foto_link']));
+			array_push($table_data,array($lista['name'],$lista['dob'],$lista['szulhely'],$lista['taj'],$lista['tel'],$lista['irsz'],$lista['lakcim'],$lista['email'],$lista['osztalyid'],$lista['foto_link']));
 		}
 		$lista=
 		[
@@ -79,10 +76,16 @@ class Admin extends CI_Controller
 		$this->load->view('admin/diakok',$lista);
 
 	}    
+	public function UjdiakExcel()
+	{
+		$this->load->helper('file');
+		$passz = read_file(base_url().'/excel/adatok.csv');
+		var_dump($passz);
+
+	}
 
 	public function Ujdiak()
 	{
-
 		$this->load->model('admin_model');
 		$this->form_validation->set_rules('nev','Diák neve','required');
 		
@@ -121,7 +124,6 @@ class Admin extends CI_Controller
                 }
                 else
                 {
-
                     $data = array('upload_data' => $this->upload->data());
 					$filename=$data['upload_data']['file_name'];
 					$kesz=$this->admin_model->ujdiak($filename);
@@ -358,18 +360,36 @@ class Admin extends CI_Controller
 				'cim'=>$datas[0]['iskolacim'],
 				'ev'=>$datas[0]['ev']
 			];*/
+			$csengetes=$this->admin_model->csengrend();
+			$data=['csengetes'=>$csengetes];
 			$adatok=$this->Main();
 			$this->load->view($adatok['headerlink'],$adatok);
-			$this->load->view('admin/csengrend');
+			$this->load->view('admin/csengrend',$data);
 	}
-	public function Tantargyak()
+	public function Tantargyak($sorrend=null)
 	{
+		$this->load->helper('url');
 		$this->load->model('admin_model');
-		$targyak=$this->admin_model->tantargyaklista();
+		//$mostrendezve = substr(strrchr(current_url(), "/"), 0);
+		if($sorrend==null)
+			$sorrend='nev';
+		$targyak=$this->admin_model->tantargyaklista($sorrend);
 		$data=['targyak'=>$targyak];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('admin/tantargyak',$data);
+	}
+	public function Tantargyvaltozas()
+	{
+		$this->load->model('admin_model');
+		$tantargyid=$this->input->post('tantargyid');
+		$tantargynev=$this->input->post('tantargynev');
+		$tanarnev=$this->input->post('tanarnev');
+		$tanarid=$this->admin_model->tanarid($tanarnev);
+		$osztalynev=$this->input->post('osztalynev');
+		$osztalyid=$this->admin_model->osztalyid($osztalynev);
+		$this->admin_model->Tantargyvaltozas($tantargyid,$tantargynev,$tanarid['userid'],$osztalyid['osztalyid']);
+		$this->Tantargyak();
 	}
 
 	public function Tantermek()
@@ -381,5 +401,21 @@ class Admin extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('admin/tantermek',$data);
 	}
+	public function Ujterem()
+	{
+		$this->load->model('admin_model');
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('admin/ujterem');
+	}
+	public function Ujteremkesz()
+	{
+		$this->load->model('admin_model');
+		$terem=$this->input->post('nev');
+		$megjegyzes=$this->input->post('megjegyzes');
+		$this->admin_model->ujterem($terem,$megjegyzes);
+		$this->Tantermek();
+	}
+
 
 }

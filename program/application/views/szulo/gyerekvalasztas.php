@@ -8,18 +8,18 @@
 	</HEAD>
 	<BODY>
 		<h1 class='text-center'>Gyerek váltás</h1>
-		<div class='col'>
-		</div>
+		<div class='container'>
 		<div class='row'>
-			<div class='kozepre'>
+			<div class='col-md-3'>
 			<?PHP echo form_open('Szulo/Chdchng');?>
 			<?php foreach ($mindengyerek as $gyerek):?>
-				<input type="radio" name="gyerek" value="<?=$gyerek['gyermekid']?>"><?=$gyerek['gyermeknev']?><BR>
+				<input type="radio" name="gyerek" id="<?=$gyerek['gyermekid']?>" value="<?=$gyerek['gyermekid']?>"> <label for='<?=$gyerek['gyermekid']?>'><?=$gyerek['gyermeknev']?></label><BR>
 			<?php endforeach;?>
 				<input type='submit' class='btn btn-primary' value='Váltás'>
 			<?PHP echo form_close();?>
 
 			</div>
+		</div>
 		</div>
 	</body>
 </Html>

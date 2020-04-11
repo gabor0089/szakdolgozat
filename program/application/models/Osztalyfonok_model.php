@@ -110,7 +110,12 @@ class osztalyfonok_model extends CI_Model
 	}
 	public function hianyzas($userid)
 	{
-		$query=$this->db->query("SELECT  hianyzasid,hianyzas_datum,diakid,ora,perc,statusz,tipus,megjegyzes, users.name as nev from hianyzasok,users where hianyzasok.tanarid=users.userid AND diakid='$userid' order by hianyzas_datum asc");
+		$query=$this->db->query("SELECT  hianyzasid,hianyzas_datum,diakid,ora,perc,statusz,tipus,megjegyzes, 
+								users.name as nev from 
+								hianyzasok,users 
+								where hianyzasok.tanarid=users.userid AND 
+								diakid='$userid' order by 
+								hianyzas_datum asc");
 		return $query->result_array();
 	}
 	public function hianyzas_mod($hianyzasid,$tipus,$megjegyzes,$statusz)

@@ -103,10 +103,42 @@ a:hover
 {
 	background-color: #99c2ff;
 }
-.table-hover tbody tr:hover td {
+.table-hover tbody tr:hover td 
+{
     background: orange;
 }
 .sarga
 {
 	background-color: #ffff80;
+}
+.btn-mute:hover, .btn-mute:focus
+{
+    border-color: #285e8e; /*set the color you want here*/
+}
+
+
+
+
+ul {
+    list-style: none;
+}
+li {
+    display: inline-block;
+    }
+input.jegyek {
+    visibility:hidden;
+}
+label {
+    cursor: pointer;
+    padding-left:10px;
+    padding-right:10px;
+}
+input:checked + label {
+    background: green;
+    color:white;
+}
+input:hover + label
+{
+	background:white;
+	color:black;
 }

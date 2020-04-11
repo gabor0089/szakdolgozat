@@ -26,7 +26,7 @@ class szulo_model extends CI_Model
 	}
 	public function Aktualgyerek($szuloid)
 	{
-		$query=$this->db->query("SELECT gyermekid,users.name as gyermeknev from szulogyermek,users where users.userid=szulogyermek.gyermekid AND 
+		$query=$this->db->query("SELECT gyermekid,users.osztalyid as osztalyid,users.name as gyermeknev from szulogyermek,users where users.userid=szulogyermek.gyermekid AND 
 			szuloid='$szuloid' AND hasznalt<>'0'");
 		$result_array=$query->result_array();
 		return $result_array;
