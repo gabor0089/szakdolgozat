@@ -299,6 +299,10 @@ class Admin extends CI_Controller
 		$this->form_validation->set_rules('ignev','Igazgató neve','required');
 		$this->form_validation->set_rules('cim','Iskola címe','required');
 		$this->form_validation->set_rules('ev','Év','required');
+		$this->form_validation->set_rules('evvegedatum','Évvége dátuma','required');
+		$this->form_validation->set_rules('evvegeido','Év vége ideje','required');
+		$this->form_validation->set_rules('erettsegidatum','Érettségi dátuma','required');
+		$this->form_validation->set_rules('erettsegiido','Érettségi ideje','required');
 
 		if($this->form_validation->run()===FALSE)
 		{
@@ -310,8 +314,12 @@ class Admin extends CI_Controller
 			$ignev=$this->input->post('ignev');
 			$cim=$this->input->post('cim');
 			$ev=$this->input->post('ev');
+			$evvegedatum=$this->input->post('evvegedatum');
+			$evvegeido=$this->input->post('evvegeido');
+			$erettsegidatum=$this->input->post('erettsegidatum');
+			$erettsegiido=$this->input->post('erettsegiido');
 
-			$kesz=$this->admin_model->alapadatokkesz($isnev,$ignev,$cim,$ev);
+			$kesz=$this->admin_model->alapadatokkesz($isnev,$ignev,$cim,$ev,$evvegedatum,$evvegeido,$erettsegidatum,$erettsegiido);
 		}
 			$datas=$this->admin_model->alapadatok();
 			$adatok2=
@@ -319,7 +327,11 @@ class Admin extends CI_Controller
 				'isnev'=>$datas[0]['iskolanev'],
 				'ignev'=>$datas[0]['igazgatonev'],
 				'cim'=>$datas[0]['iskolacim'],
-				'ev'=>$datas[0]['ev']
+				'ev'=>$datas[0]['ev'],
+				'evvegedatum'=>$datas[0]['evvegedatum'],
+				'evvegeido'=>$datas[0]['evvegeido'],
+				'erettsegidatum'=>$datas[0]['erettsegidatum'],
+				'erettsegiido'=>$datas[0]['erettsegiido']
 			];
 //////////////////////////////////////////
 		

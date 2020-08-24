@@ -58,7 +58,7 @@ class diak_model extends CI_Model
 	}
 	public function Jegyektabla($userid)
 	{
-		$query=$this->db->query("SELECT jegy,tantargyid from jegyek 
+		$query=$this->db->query("SELECT jegy,tantargyid,megjegyzes,idopont from jegyek 
 							where kikapta='$userid'");
 		$result_array=$query->result_array();
 		return $result_array;

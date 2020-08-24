@@ -17,7 +17,6 @@
             <button class='btn btn-primary'>Iskola adatai</button>
           </a>
         </div>
-
         <div class='col-md-2'>
           <a href='<?=base_url()?>Osztalyfonok/Kollegalista'>
             <button class='btn btn-primary'>Kollégák</button>
@@ -34,7 +33,25 @@
 			Az iskola neve: <input type='text' class='form-control' name='isnev' value='<?=$isnev?>' size='50' autocomplete='off' placeholder='Az iskola neve' readonly><br/>
       Igazgató neve: <input type='text' class='form-control' name='ignev' value='<?=$ignev?>'  autocomplete='off' placeholder='Igazgató neve' readonly><br/>
 			Iskola címe: <input type='text' class='form-control' name='cim' value='<?=$cim?>' autocomplete='off' placeholder='Az iskola címe' readonly><br/>
-			Aktuális tanév: <input type='text' class='form-control' name='ev' value='<?=$ev?>' autocomplete='off' placeholder='Aktuális tanév' readonly><br/>
+      Aktuális tanév: <input type='text' class='form-control' name='ev' value='<?=$ev?>' autocomplete='off' placeholder='Aktuális tanév' readonly><br/>
+      Év végi zárás: <input type='text' class='form-control' name='evvegizaras' value='<?=$evvegedatum?> <?=$evvegeido?>' autocomplete='off' readonly>
+      <?php 
+      $ma=date("Y-m-d",time());
+      $most=date("H:i:s",time());
+      if(($evvegedatum<$ma) || ($evvegedatum=$ma && $evvegeido<=$most)):?>
+          <?php echo form_open('Osztalyfonok/Evzaras');?>
+              <button class='btn btn-danger'>Félévzárás</button>
+          <?php echo form_close();?>
+      <?php endif;?>
+      <br/>
+      Érettségi: <input type='text' class='form-control' name='evvegizaras' value='<?=$erettsegidatum?> <?=$erettsegiido?>' autocomplete='off' readonly>
+      <?php if(($erettsegidatum<$ma) || ($erettsegidatum=$ma && $erettsegiido<=$most)):?>
+          <?php echo form_open('Osztalyfonok/erettsegi');?>
+            <button class='btn btn-danger'>Érettségi eredmények</button>
+          <?php echo form_close();?>
+      <?php endif;?>  
+
+      <br/>
 			   </div>
       </div>
 </div>

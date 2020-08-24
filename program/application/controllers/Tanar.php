@@ -144,7 +144,7 @@ class Tanar extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('tanar/osztalyozas_egyeni',$data);
 	}
-	public function Osztalyozas_egyeni() //EZ JÓ, EHHEZ NE NYÚLJ!!!
+	public function Osztalyozas_egyeni()
 	{
 		$userid=$this->session->user_id;
 		$this->load->model('tanar_model');
@@ -152,12 +152,19 @@ class Tanar extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('tanar/osztalyozas_egyeni');
 	}
-	public function Jegyek_egyeni()
+	public function Jegyek_egyeni($diak=null,$tantargy=null)
 	{
 		$this->load->model('tanar_model');
 		$tanarid=$this->session->user_id;
-		$diakid=$this->input->post('diakid');
-		$tantargyid=$this->input->post('tantargyid');
+		if($diak==null)
+			$diakid=$this->input->post('diakid');
+		else
+			$diakid=$diak;
+
+		if($tantargy==null)
+			$tantargyid=$this->input->post('tantargyid');
+		else
+			$tantargyid=$tantargy;
 		$diak=$this->tanar_model->diaknev($diakid);
 		$targy=$this->tanar_model->tantargynev($tantargyid);
 		$jegyek=$this->tanar_model->jegyek($diakid,$tantargyid);
@@ -175,6 +182,7 @@ class Tanar extends CI_Controller
 	}
 	public function Ujjegyadas()
 	{
+		$tanarid = $this->session->user_id;
 		$this->load->model('tanar_model');
 		$diak=$this->input->post('diakid');
 		$tantargy=$this->input->post('tantargyid');
@@ -185,29 +193,35 @@ class Tanar extends CI_Controller
 		{
 			$dolgozatid=0;
 		}
-		$tanarid = $this->session->user_id;
+		if(isset($userfile))
+		{
+			$config['upload_path']          = './uploads/';
+	        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+	        $config['max_size']             = 100000;
+	        $config['max_width']            = 1024;
+	        $config['max_height']           = 1024;
+	        $this->load->library('upload', $config);
 
-		$config['upload_path']          = './uploads/';
-        $config['allowed_types']        = 'gif|jpg|png|jpeg';
-        $config['max_size']             = 100000;
-        $config['max_width']            = 1024;
-        $config['max_height']           = 1024;
-        $this->load->library('upload', $config);
-
-        if ( ! $this->upload->do_upload('userfile'))
-        {
-            $error = array('error' => $this->upload->display_errors());
-            echo $error;
-            $filename="";
-        }
-        else
-        {
-            $data = array('upload_data' => $this->upload->data());
-			$filename=$data['upload_data']['file_name'];
+	        if ( ! $this->upload->do_upload('userfile'))
+	        {
+	            $error = array('error' => $this->upload->display_errors());
+	            $filename="";
+	            $dolgozatid=0;
+	            $utolsoazon[0]['azon']=0;
+	        }
+	        else
+	        {
+	            $data = array('upload_data' => $this->upload->data());
+				$filename=$data['upload_data']['file_name'];
+				$this->tanar_model->diakdolgozatfeltoltes($diak,$filename,$dolgozatid);
+				$utolsoazon=$this->tanar_model->utolsodolgozatazon();
+			}
 		}
-		$this->tanar_model->diakdolgozatfeltoltes($diak,$filename,$dolgozatid);
-		$utolsoazon=$this->tanar_model->utolsodolgozatazon();
-   		$this->tanar_model->Ujjegy($tanarid,$diak,$tantargy,$jegy,$megjegyzes,$dolgozatid,$utolsoazon[0]['azon']);
+		else
+		{
+			$utolsoazon[0]['azon']=0;	
+		}
+   		$query=$this->tanar_model->Ujjegy($tanarid,$diak,$tantargy,$jegy,$megjegyzes,$dolgozatid,$utolsoazon[0]['azon']);
 		$this->Jegyek_egyeni($diak,$tantargy);		
 	}
 
@@ -257,9 +271,9 @@ class Tanar extends CI_Controller
 					$utolsoazon[0]['azon']=0;
 				}
 				$this->tanar_model->ujjegy($tanar,$userid[0][$i],$tantargy,$jegy[0][$i],$megjegyzes,$dolgozatid,$utolsoazon[0]['azon']);
-				$this->jegyek_csoportos($osztalyid);
 			}
 		}
+		$this->jegyek_csoportos($osztalyid);
 	}
 
 
@@ -313,9 +327,6 @@ class Tanar extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('tanar/jegyek_csoportos',$data);	
 	}
-
-
-
 
 	public function Haladasinaplo($targyid=null)
 	{
@@ -394,7 +405,9 @@ class Tanar extends CI_Controller
 		$userid=$this->session->user_id;
 		$this->load->model('tanar_model');
 		$dolgozatlista=$this->tanar_model->dolgozatlista($userid);
-		$data=['dolgozatok'=>$dolgozatlista];
+		$tantargyak=$this->tanar_model->tanitotttargyak($userid);
+		$data=['dolgozatok'=>$dolgozatlista,
+				'tantargyak'=>$tantargyak];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('tanar/dolgozatok',$data);

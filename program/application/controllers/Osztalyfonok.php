@@ -181,7 +181,11 @@ class Osztalyfonok extends CI_Controller
 			'isnev'=>$datas[0]['iskolanev'],
 			'ignev'=>$datas[0]['igazgatonev'],
 			'cim'=>$datas[0]['iskolacim'],
-			'ev'=>$datas[0]['ev']
+			'ev'=>$datas[0]['ev'],
+			'evvegedatum'=>$datas[0]['evvegedatum'],
+			'evvegeido'=>$datas[0]['evvegeido'],
+			'erettsegidatum'=>$datas[0]['erettsegidatum'],
+			'erettsegiido'=>$datas[0]['erettsegiido']
 		];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
@@ -238,9 +242,90 @@ class Osztalyfonok extends CI_Controller
 			$data=['jegyek'=>$jegyek,'tantargynev'=>$tantargynev['nev'],'diaknev'=>$diaknev['name']];
 		}
 		$adatok=$this->Main();
-		//var_dump($data);
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('tanar/jegyek',$data);	
+	}
+	public function Evzaras()
+	{
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('osztalyfonok/evzaras');	
+	}
+	public function Erettsegi($userid=null)
+	{
+		$tanarid=$this->session->user_id;
+		$this->load->model('osztalyfonok_model');
+		if($userid<>null)
+		{
+			$diaknev=$this->osztalyfonok_model->diaknev($userid);
+			$kovetkezodiak=$this->osztalyfonok_model->kovetkezodiak($tanarid,$diaknev['name']);
+			$elozodiak=$this->osztalyfonok_model->elozodiak($tanarid,$diaknev['name']);
+			$erettsegiadatok=$this->osztalyfonok_model->erettsegiadatok($userid);
+			$data=[	'userid'=>$userid,
+					'diaknev'=>$diaknev['name'],
+					'kovuserid'=>$kovetkezodiak['userid'],
+					'kovusernev'=>$kovetkezodiak['name'],
+					'elozouserid'=>$elozodiak['userid'],
+					'elozousernev'=>$elozodiak['name'],
+					'erettsegiadatok'=>$erettsegiadatok
+					];
+		}
+		else
+		{
+			$elsodiak=$this->osztalyfonok_model->elsodiak($tanarid);
+			$kovetkezodiak=$this->osztalyfonok_model->kovetkezodiak($tanarid,$elsodiak['name']);
+			$data=[	'userid'=>$elsodiak['userid'],
+					'diaknev'=>$elsodiak['name'],
+					'kovuserid'=>$kovetkezodiak['userid'],
+					'kovusernev'=>$kovetkezodiak['name']
+			];
+		}
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('osztalyfonok/erettsegi',$data);	
+	}
+	public function Erettsegikesz()
+	{
+		$gomb=$this->input->post('gomb');
+		
+		$this->load->model('osztalyfonok_model');
+		$userid=$this->input->post('userid');
+
+		$magyarszint=$this->input->post('magyar');
+		$magyarszazalek=$this->input->post('magyarszazalek');
+	
+		$matekszint=$this->input->post('matek');
+		$matekszazalek=$this->input->post('matekszazalek');
+	
+		$toriszint=$this->input->post('tori');
+		$toriszazalek=$this->input->post('toriszazalek');
+	
+		$idegennyelv=$this->input->post('idegennyelv');
+		$nyelvszint=$this->input->post('nyelv');
+		$nyelvszazalek=$this->input->post('nyelvszazalek');
+	
+		$szabval=$this->input->post('szabval');
+		$szabvalszint=$this->input->post('szab');
+		$szabvalszazalek=$this->input->post('szabszazalek');
+		if($gomb=="kesz")
+		{
+			$this->osztalyfonok_model->erettsegikesz($userid,
+									$magyarszint,$magyarszazalek,
+									$matekszint,$matekszazalek,
+									$toriszint,$toriszazalek,
+									$idegennyelv,$nyelvszint,$nyelvszazalek,
+									$szabval,$szabvalszint,$szabvalszazalek);
+		}
+		if($gomb=="modosit")
+		{
+			$this->osztalyfonok_model->erettsegimod($userid,
+									$magyarszint,$magyarszazalek,
+									$matekszint,$matekszazalek,
+									$toriszint,$toriszazalek,
+									$idegennyelv,$nyelvszint,$nyelvszazalek,
+									$szabval,$szabvalszint,$szabvalszazalek);
+		}
+		$this->Erettsegi($userid);
 	}
 
 }

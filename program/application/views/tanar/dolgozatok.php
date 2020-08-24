@@ -22,15 +22,9 @@
           <tbody>
           <tr class='row' id='ujdolg' style="display:none;">
           <?PHP echo form_open('Tanar/dolgozatkesz');?>
-          <?php
-          $tantargyak=[
-            '1'=>'angol',
-            '2'=>'matek'
-          ];
-          ?>
               <td class='col-md-3'><SELECT name='tantargyid' class='form-control'>
               <?php foreach ($tantargyak as $t=>$value):?>
-               <OPTION value='<?=$t?>'><?=$value?></OPTION> 
+               <OPTION value='<?=$value['tantargyid']?>'><?=$value['nev']?> <?=$value['osztalynev']?></OPTION> 
               <?php endforeach;?>
               </SELECT></td>  
               <td class='col-md-2'><input type='date' class='form-control' name='datum'></td>

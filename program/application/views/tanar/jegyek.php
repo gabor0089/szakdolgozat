@@ -51,22 +51,27 @@
 				{
 					$atlag=round($osszeg/count($jegyek),2);
 				}
+			var_dump($jegyek);
 			?>
+
 	<table class="table table-striped table-hover table-sm">
 		<tr class='row'>
 			<td class='col-md-2 text-right font-weight-bold'>Átlag:</td>
 			<td class='col-md-1 text-left font-weight-bold'><?=$atlag?></td>
 			<td class='col-md-2 text-left font-weight-bold'>Megjegyzés</td>
-			<td class='col-md-6 text-left font-weight-bold'>Dolgozat</td>
-			
-			<td class='col-md-2'></td>
+			<td class='col-md-6 text-left font-weight-bold'>Dolgozat</td>	
+			<td class='col-md-1'></td>
 		</tr>
 	<?php foreach ($jegyek as $jegy):?>
 		<tr class='row'>
 			<td class='col-md-2'><?=$jegy['idopont']?></td>
 			<td class='col-md-1 text-left'><?=$jegy['jegy']?></td>
 			<td class='col-md-2'><?=$jegy['megjegyzes']?></td>
-			<td class='col-md-6'><a target="_blank" href="../../uploads/<?=$jegy['file']?>"><?=$jegy['dolgozat']?></a></td>
+			<td class='col-md-6'><?=$jegy['dolgozat']?>
+				<?php if(isset($jegy['file'])):?>
+					<a target="_blank" href="../../uploads/<?=$jegy['file']?>"><?=$jegy['file']?></a>
+				<?php endif;?>
+			</td>
 		</tr>
 	<?php endforeach;?>
 	</table>

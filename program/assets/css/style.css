@@ -29,7 +29,7 @@ a.gyermek
 }
 body
 {
-	background-color: #CAFAFE;
+	background-color: #a6bd42;
 }
 a
 {
@@ -141,4 +141,32 @@ input:hover + label
 {
 	background:white;
 	color:black;
+}
+div.popup
+{
+	display:none;
+}
+div:hover div.popup
+{
+	display:block;
+	position:absolute;
+}
+.forditott
+{
+	transform: rotate(90deg);
+}
+
+input.erettsegikozep {
+    visibility:hidden;
+}
+input.erettsegiemelt {
+    visibility:hidden;
+}
+input.erettsegikozep:checked + label {
+    background: green;
+    color:white;
+}
+input.erettsegiemelt:checked + label {
+    background: red;
+    color:white;
 }

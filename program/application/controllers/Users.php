@@ -62,6 +62,7 @@ class Users extends CI_Controller
 				$iskolanev=$this->users_model->iskolanev();
 				$iskolanev=$iskolanev[0]['iskolanev'];
 				$items=$this->users_model->get_userdata($userid);
+				$mainpage=$this->users_model->get_mainpage($userid);
 				$osztaly="";
 				switch($items[0]['beosztas'])
 				{

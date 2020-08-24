@@ -21,7 +21,7 @@
 					<?php foreach ($jegyek as $j):?>
 						<?php if($t['tid']==$j['tantargyid']):?>
 							<?php $osszeg+=$j['jegy'];$db++;?>
-							<span class='ora'>&nbsp&nbsp<?=$j['jegy']?>&nbsp&nbsp</span> 
+							<a href='#' title='<?=$j['megjegyzes']?> <?=$j['idopont']?>'><?=$j['jegy']?></a>&nbsp&nbsp 
 						<?php endif;?>
 					<?php endforeach;?>
 					</td>

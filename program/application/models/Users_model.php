@@ -28,6 +28,13 @@ class Users_model extends CI_Model
 		$result_array=$query->result_array();
 		return $result_array;
 	}
+	public function get_mainpage($userid)
+	{
+		$query=$this->db->query("SELECT value from users_sets where userid='$userid' AND set_name='default'	");
+		$result_array=$query->result_array();
+		return $result_array;
+	}
+
 	public function defaultfelulet($userid)
 	{
 		$query=$this->db->get_where('users_sets',['userid'=>$userid,'set_name'=>'default']);

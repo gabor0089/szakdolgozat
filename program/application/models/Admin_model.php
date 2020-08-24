@@ -13,13 +13,17 @@ class Admin_model extends CI_Model
 		$result_array=$query->result_array();
 		return $result_array;
 	}
-	public function alapadatokkesz($isnev,$ignev,$cim,$ev)
+	public function alapadatokkesz($isnev,$ignev,$cim,$ev,$evvegedatum,$evvegeido,$erettsegidatum,$erettsegiido)
 	{
 		$query=$this->db->query("UPDATE beallitasok SET 
 			iskolanev='$isnev',
 			igazgatonev='$ignev',
 			iskolacim='$cim',
-			ev='$ev'
+			ev='$ev',
+			evvegedatum='$evvegedatum',
+			evvegeido='$evvegeido',
+			erettsegidatum='$erettsegidatum',
+			erettsegiido='$erettsegiido'
 			");
 		return $query;
 	}

@@ -44,7 +44,7 @@
 					{
 						if($value2['userid']==$value['userid'])
 						{
-							echo $value2['jegy']."&nbsp&nbsp ";
+							echo "<a href='#' title='".$value2['megjegyzes']." ".$value2['idopont']."'>".$value2['jegy']."</a>&nbsp&nbsp ";
 							if($value2['jegy']<>0) $db++;
 							$osszeg+=$value2['jegy'];
 						}

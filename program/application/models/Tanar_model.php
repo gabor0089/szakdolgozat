@@ -122,7 +122,7 @@ class tanar_model extends CI_Model
 		$query = $this->db->query("SELECT name,userid from users,tantargyak where 
 									tantargyak.osztaly=users.osztalyid AND 
 									tantargyak.tanarid='$tanarid' AND
-									users.name like '%$kapottnev%' 
+									users.name like '%$kapottnev%' group by userid
 									order by name");
 		$result_array=$query->result_array();
 		return $result_array;	
@@ -157,7 +157,7 @@ class tanar_model extends CI_Model
 		$query=$this->db->query("SELECT tantargyak.nev as nev, osztalyok.osztalynev as osztalynev,tantargyak.tantargyid from 
 									tantargyak,osztalyok where
 									tantargyak.osztaly=osztalyok.osztalyid AND
-									tantargyak.tanarid=$userid");
+									tantargyak.tanarid=$userid ORDER BY nev asc,length(osztalynev) asc,osztalynev asc");
 		return $query->result_array();
 	}
 	public function tanitotttargyakosztalyban($userid,$osztalyid)
@@ -224,18 +224,20 @@ class tanar_model extends CI_Model
 		$query=$this->db->query("SELECT idopont,jegy,megjegyzes,
 								feltoltott_dolgozatok.dolgozatcim as dolgozat,
 								diak_dolgozatok.filehelye as file 
-								from jegyek,feltoltott_dolgozatok,diak_dolgozatok where 
-								jegyek.dolgid=feltoltott_dolgozatok.dolgozatid AND
-								diak_dolgozatok.dolg_azon=feltoltott_dolgozatok.dolgozatid AND
+								from jegyek left join 
+								feltoltott_dolgozatok on jegyek.dolgid=feltoltott_dolgozatok.dolgozatid left join 
+								diak_dolgozatok on diak_dolgozatok.diakid=jegyek.kikapta where
 								jegyek.kikapta='$diakid' AND 
-								jegyek.tantargyid='$tantargyid' ORDER BY 
-								idopont asc");
+								jegyek.tantargyid='$tantargyid' GROUP BY
+								jegyek.jegyid ORDER BY 
+								idopont desc");
 		return $query->result_array();
 	}
 	public function osztalytargyjegy($osztalyid,$tantargyid)
 	{
 		$query=$this->db->query("SELECT	jegyek.idopont as idopont,
 										jegyek.jegy as jegy,
+										jegyek.megjegyzes as megjegyzes,
 										users.name as name,
 										jegyek.kikapta as userid from 
 										users left join jegyek on jegyek.kikapta=users.userid join 

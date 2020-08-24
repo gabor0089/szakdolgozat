@@ -123,6 +123,76 @@ class osztalyfonok_model extends CI_Model
 		$query=$this->db->query("UPDATE hianyzasok SET tipus='$tipus',megjegyzes='$megjegyzes',statusz='$statusz' where hianyzasid='$hianyzasid'");
 		return $query;
 	}
+	public function erettsegikesz($userid,$magyarszint,$magyarszazalek,$matekszint,$matekszazalek,$toriszint,$toriszazalek,$idegennyelv,$nyelvszint,$nyelvszazalek,$szabval,$szabvalszint,$szabvalszazalek)
+	{
+		$datum=date("Y-m-d H:i:s",time());
+		$data=[
+			'magyarszint'=>$magyarszint,
+			'magyarszazalek'=>$magyarszazalek,
+			'matekszint'=>$matekszint,
+			'matekszazalek'=>$matekszazalek,
+			'toriszint'=>$toriszint,
+			'toriszazalek'=>$toriszazalek,
+			'idegennyelv'=>$idegennyelv,
+			'nyelvszint'=>$nyelvszint,
+			'nyelvszazalek'=>$nyelvszazalek,
+			'szabval'=>$szabval,
+			'szabvalszint'=>$szabvalszint,
+			'szabvalszazalek'=>$szabvalszazalek,
+			'userid'=>$userid,
+			'datum'=>$datum
+		];
+		$this->db->insert('erettsegi',$data);	
+	}
+	public function erettsegimod($userid,$magyarszint,$magyarszazalek,$matekszint,$matekszazalek,$toriszint,$toriszazalek,$idegennyelv,$nyelvszint,$nyelvszazalek,$szabval,$szabvalszint,$szabvalszazalek)
+	{
+		$datum=date("Y-m-d H:i:s",time());
+		$data=[
+			'magyarszint'=>$magyarszint,
+			'magyarszazalek'=>$magyarszazalek,
+			'matekszint'=>$matekszint,
+			'matekszazalek'=>$matekszazalek,
+			'toriszint'=>$toriszint,
+			'toriszazalek'=>$toriszazalek,
+			'idegennyelv'=>$idegennyelv,
+			'nyelvszint'=>$nyelvszint,
+			'nyelvszazalek'=>$nyelvszazalek,
+			'szabval'=>$szabval,
+			'szabvalszint'=>$szabvalszint,
+			'szabvalszazalek'=>$szabvalszazalek,
+			'datum'=>$datum
+		];
+		$this->db->where('userid', $userid);
+		$this->db->update('erettsegi',$data);	
+	}
+	public function elsodiak($userid)
+	{
+		$query=$this->db->query("SELECT userid,name from users,osztalyok where 
+									users.osztalyid=osztalyok.osztalyid AND 
+									osztalyok.ofo='$userid' order by name limit 1");
+		return $query->row_array();
+	}
+	public function kovetkezodiak($tanarid,$diaknev)
+	{
+		$query=$this->db->query("SELECT userid,name from users,osztalyok where 
+									users.osztalyid=osztalyok.osztalyid AND 
+									osztalyok.ofo='$tanarid' AND
+									name>'$diaknev'order by name limit 1");
+		return $query->row_array();
+	}
+	public function elozodiak($tanarid,$diaknev)
+	{
+		$query=$this->db->query("SELECT userid,name from users,osztalyok where 
+									users.osztalyid=osztalyok.osztalyid AND 
+									osztalyok.ofo='$tanarid' AND
+									name<'$diaknev'order by name desc limit 1");
+		return $query->row_array();
+	}
+	public function erettsegiadatok($userid)
+	{
+		$query=$this->db->get_where('erettsegi',array('userid'=>$userid));
+		return $query->row_array();
+	}
 
 
 }

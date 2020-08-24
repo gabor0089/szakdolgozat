@@ -21,7 +21,7 @@
 				<td class='col-md-9'>
 				<?php foreach ($jegyek as $jegy):?>
 					<?php if($nevek[$i]['userid']==$jegy['kikapta']):?>
-						&nbsp&nbsp<?=$jegy['jegy']?>&nbsp&nbsp
+						<a href='#' title='<?=$jegy['megjegyzes']?> <?=$jegy['idopont']?>'><?=$jegy['jegy']?></a>&nbsp&nbsp 
 					<?php endif;?>	
 				<?php endforeach;?>
 				</td>
