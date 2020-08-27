@@ -28,6 +28,7 @@
 			Telefonszám (kötőjelek és szóköz nélkül)<input type='text' class='form-control' name='tel' value='' autocomplete='off' placeholder='Telefonszám' >
 			Irányítószám <input type='text' class='form-control' name='irsz' value='' autocomplete='off' placeholder='Irányítószám' >
 			Lakcím <input type='text' class='form-control' name='lakcim' value='' autocomplete='off' placeholder='Lakcím' >
+			Email <input type='text' class='form-control' name='email' value='' autocomplete='off' placeholder='Email cím' >
 			Osztály
 			<?php
 				$osztalyok = array(

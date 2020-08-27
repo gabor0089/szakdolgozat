@@ -48,17 +48,43 @@ class Admin_model extends CI_Model
 		$query10=$this->db->query("UPDATE csengetesirend SET kezdes='$k10',vege='$v10' where ora=10");
 	}
 
-	public function diakoklistaja()
+	public function diakoklistaja($sorrend)
 	{
-		$query=$this->db->query('SELECT name,dob,szulhely,taj,tel,irsz,lakcim,email,osztalyok.osztalynev as osztalyid,foto_link from users,osztalyok where users.osztalyid=osztalyok.osztalyid AND beosztas=4 order by users.osztalyid,name');
+		$query=$this->db->query('SELECT name,dob,szulhely,taj,tel,irsz,lakcim,email,osztalyok.osztalynev as osztalyid,foto_link,userid from users,osztalyok where users.osztalyid=osztalyok.osztalyid AND beosztas=4 order by '.$sorrend);
 		$result_array=$query->result_array();
 		return $result_array;
 	}
-	public function tanaroklistaja()
+	public function diakokadatai($userid)
+	{
+		$this->db->from('users');
+		$this->db->where('userid',$userid);
+		$query=$this->db->get();
+		$result_array=$query->row_array();
+		return $result_array;
+	}
+	public function modosit_diak($name,$dob,$szulhely,$taj,$tel,$irsz,$lakcim,$email,$osztaly,$userid)
+	{
+		$data = array(
+        'name'  => $name,
+        'dob'  => $dob,
+        'szulhely' => $szulhely,
+        'taj' => $taj,
+        'tel' => $tel,
+        'irsz' => $irsz,
+        'lakcim' => $lakcim,
+        'email' => $email,
+        'osztalyid' => $osztaly
+		);
+		$this->db->where('userid',$userid);
+		$this->db->update('users', $data);
+		return true;
+	
+	}
+	public function tanaroklistaja($sorrend)
 	{
 		$this->db->from('users');
 		$beosztas=array(0,1,2,3);
-		$this->db->order_by("userid", "desc");
+		$this->db->order_by($sorrend);
 		$this->db->where_in('beosztas', $beosztas);
 		$query=$this->db->get();
 		$result_array=$query->result_array();
@@ -109,6 +135,7 @@ class Admin_model extends CI_Model
 		'tel'=>$this->input->post('tel'),
 		'irsz'=>$this->input->post('irsz'),
 		'lakcim'=>$this->input->post('lakcim'),
+		'email'=>$this->input->post('email'),
 		'foto_link'=>$filename,
 		'beosztas'=>4,
 		'osztalyid'=>$this->input->post('osztaly')
@@ -136,14 +163,14 @@ class Admin_model extends CI_Model
 	}
 	public function tantargyak()
 	{
-		$query1=$this->db->query("SELECT nev from tantargyak order by CHAR_LENGTH(nev),nev");
+		$query1=$this->db->query("SELECT nev,osztaly,tantargyid from tantargyak");
 		$result_array=$query1->result_array();
 		return $result_array;
 		
 	}
 	public function osztalyok()
 	{	
-		$query2=$this->db->query("SELECT osztalynev from osztalyok order by osztalyid");
+		$query2=$this->db->query("SELECT osztalynev,osztalyid from osztalyok order by osztalyid");
 		$result_array=$query2->result_array();
 		return $result_array;
 		
@@ -151,17 +178,13 @@ class Admin_model extends CI_Model
 	public function mindendiak()
 		{
 		$query0=$this->db->query("SELECT name from users where beosztas=4");
-//		$this->db->order_by("userid", "desc");
-//		$query = $this->db->get_where('users', array('beosztas' => 5));
 		$result_array=$query0->result_array();
 		return $result_array;
 		}
 
 	public function szuloklistaja()
 	{
-		$query0=$this->db->query("SELECT sz.name,sz.dob,sz.szulhely,sz.tel,sz.irsz,sz.lakcim,gy.name as gyerek from szulogyermek inner join users sz on(szulogyermek.szuloid=sz.userid) inner join users gy on(szulogyermek.gyermekid=gy.userid)");
-//		$this->db->order_by("userid", "desc");
-//		$query = $this->db->get_where('users', array('beosztas' => 5));
+		$query0=$this->db->query("SELECT sz.userid,sz.name,sz.dob,sz.szulhely,sz.tel,sz.irsz,sz.email,sz.lakcim,gy.name as gyerek from szulogyermek inner join users sz on(szulogyermek.szuloid=sz.userid) inner join users gy on(szulogyermek.gyermekid=gy.userid)");
 		$result_array=$query0->result_array();
 		return $result_array;
 	}
@@ -209,6 +232,22 @@ class Admin_model extends CI_Model
 		$query = $this->db->get_where('users', array('beosztas' => 5));
 		$result_array=$query->result_array();
 		return $result_array;
+	}
+	public function legutobbi_tanar()
+	{
+		$this->db->order_by("userid", "desc");
+		$this->db->limit(1);
+		$query = $this->db->get_where('users', array('beosztas' => 2)); // Ez az osztályfőnököket adja csak vissza, mert ez kell az osztályhoz hozzárendeléshez.
+		$result_array=$query->result_array();
+		//var_dump($result_array);
+		return $result_array;
+	}
+	public function ujofoosztaly($osztalyid,$ofoid)
+	{
+		$data=['ofo'=>$ofoid];
+		$this->db->where('osztalyid',$osztalyid);
+		$this->db->update('osztalyok',$data);
+		
 	}
 	public function tantargyaklista($sorrend)
 	{

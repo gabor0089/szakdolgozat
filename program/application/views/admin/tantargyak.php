@@ -8,7 +8,7 @@
     </HEAD>
 	<BODY>
 
-<h2 class='text-center'>Tantárgyak<a href='../Admin/Ujtantargy' title='Új Tantárgy felvitele'>+</a></h2>
+<h2 class='text-center'>Tantárgyak</h2>
 <div class="container">
    <table class="table bordered table-striped table-hover table-sm">
        	<tr class='row'>

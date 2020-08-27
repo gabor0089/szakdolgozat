@@ -58,68 +58,64 @@ class Admin extends CI_Controller
 			'iskolanev'=>$iskolanev
 		];
 	}
-	public function Diakok()
+	public function Diakok($sorrend='name')
 	{
 		$this->load->model('admin_model');
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
-		$diakoklistaja=$this->load->admin_model->diakoklistaja();
+		$diakoklistaja=$this->load->admin_model->diakoklistaja($sorrend);
 		$table_data=array();		
 		foreach($diakoklistaja as $lista)
 		{
-			array_push($table_data,array($lista['name'],$lista['dob'],$lista['szulhely'],$lista['taj'],$lista['tel'],$lista['irsz'],$lista['lakcim'],$lista['email'],$lista['osztalyid'],$lista['foto_link']));
+			array_push($table_data,array($lista['name'],$lista['dob'],$lista['szulhely'],$lista['taj'],$lista['tel'],$lista['irsz'],$lista['lakcim'],$lista['email'],$lista['osztalyid'],$lista['foto_link'],$lista['userid']));
 		}
 		$lista=
 		[
 			'diakoklistaja'=>$table_data
 		];
 		$this->load->view('admin/diakok',$lista);
-
 	}    
+	public function Diak_mod0($userid)
+	{
+		$this->load->model('admin_model');
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$diakokadatai=$this->load->admin_model->diakokadatai($userid);
+		$diakadatai=['diakokadatai'=>$diakokadatai];
+		$this->load->view('admin/modosit_diak',$diakadatai);
+	}
 	public function UjdiakExcel()
 	{
 		$this->load->helper('file');
 		$passz = read_file(base_url().'/excel/adatok.csv');
 		var_dump($passz);
-
 	}
 
 	public function Ujdiak()
 	{
 		$this->load->model('admin_model');
-		$this->form_validation->set_rules('nev','Diák neve','required');
-		
+		$this->form_validation->set_rules('nev','Diák neve','required');	
 		if($this->form_validation->run()===FALSE)
 		{
-			$adatok2=
-			[
-				'feltoltes'=>'sikertelen!'
-			];
+			$adatok2=['feltoltes'=>'sikertelen!'];
 			$adatok=$this->Main();
 			$this->load->view($adatok['headerlink'],$adatok);
 			$this->load->view('admin/ujdiak',$adatok2);
 		}
-
 		else
 		{
 			$nev=$this->input->post('nev');
-			$adatok2=
-			[
-				'feltoltes'=>'sikeres!'
-			];
+			$adatok2=['feltoltes'=>'sikeres!'];
 			$adatok=$this->Main();
 			$config['upload_path']          = './uploads/';
             $config['allowed_types']        = 'gif|jpg|png|jpeg';
             $config['max_size']             = 100000;
             $config['max_width']            = 1024;
             $config['max_height']           = 1024;
-
                 $this->load->library('upload', $config);
-
                 if ( ! $this->upload->do_upload('userfile'))
                 {
                         $error = array('error' => $this->upload->display_errors());
-
                         $this->load->view('admin/ujdiak', $error);
                 }
                 else
@@ -127,26 +123,55 @@ class Admin extends CI_Controller
                     $data = array('upload_data' => $this->upload->data());
 					$filename=$data['upload_data']['file_name'];
 					$kesz=$this->admin_model->ujdiak($filename);
-
 					$this->load->view($adatok['headerlink'],$adatok);
 					$this->load->view('admin/ujdiak',$adatok2);
                 }
-
 		}    
 	}
+	public function Diak_mod()
+	{
+		$this->load->model('admin_model');
+	
+		$userid=$this->input->post('userid');
+		$name=$this->input->post('name');
+		$dob=$this->input->post('dob');
+		$szulhely=$this->input->post('szulhely');
+		$taj=$this->input->post('taj');
+		$tel=$this->input->post('tel');
+		$irsz=$this->input->post('irsz');
+		$lakcim=$this->input->post('lakcim');
+		$email=$this->input->post('email');
+		$osztaly=$this->input->post('osztaly');
 
-	public function Tanarok()
+		$adatok=$this->Main();
+			
+		$kesz=$this->admin_model->modosit_diak($name,$dob,$szulhely,$taj,$tel,$irsz,$lakcim,$email,$osztaly,$userid);
+		redirect('Admin/diakok');
+	}    
+	
+	public function Tanarok($sorrend='name')
 	{
 		$this->load->model('admin_model');
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
-		$tanaroklistaja=$this->load->admin_model->tanaroklistaja();
+		$tanaroklistaja=$this->load->admin_model->tanaroklistaja($sorrend);
 		
 		$table_data=array();
 		foreach($tanaroklistaja as $lista)
 		{
 			$beosztasnev=$this->load->admin_model->beosztas($lista['beosztas']);
-			array_push($table_data,array($lista['name'],$lista['dob'],$lista['szulhely'],$lista['taj'],$lista['tel'],$lista['irsz'],$lista['lakcim'],$beosztasnev[0]['nev'],$lista['foto_link']));
+			array_push($table_data,array(
+				$lista['name'],
+				$lista['dob'],
+				$lista['szulhely'],
+				$lista['taj'],
+				$lista['tel'],
+				$lista['irsz'],
+				$lista['lakcim'],
+				$lista['email'],
+				$beosztasnev[0]['nev'],
+				$lista['foto_link'],
+				$lista['userid']));
 		}
 		$lista=
 		[
@@ -211,14 +236,15 @@ class Admin extends CI_Controller
                 }
                 else
                 {
-                	echo "itt";
                     $data = array('upload_data' => $this->upload->data());
 					$filename=$data['upload_data']['file_name'];
 					$kesz=$this->admin_model->ujtanar($name,$dob,$szulhely,$taj,$tel,$irsz,$lakcim,$beosztas,$filename);
-
-					//$this->load->view($adatok['headerlink'],$adatok);
-					//$this->load->view('admin/ujtanar',$adatok2);
-                }
+					$utolsotanar=$this->admin_model->legutobbi_tanar();
+					$kesz2=$this->admin_model->ujofoosztaly($ofoosztaly,$utolsotanar[0]['userid']);
+					var_dump($utolsotanar);
+					echo $ofoosztaly."-".$utolsotanar[0]['userid'];
+					redirect('Admin/tanarok');
+				} 
 		}    
 	}	
 	public function Szulok()
@@ -228,12 +254,19 @@ class Admin extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$szuloklistaja=$this->load->admin_model->szuloklistaja();
 		
-		$table_data=array(
-				array('Név',"Születési idő","Születési hely","Telefonszám","Irsz.","Lakcím","Gyermek(ek) neve")
-			);
+		$table_data=array();
 		foreach($szuloklistaja as $lista)
 		{
-			array_push($table_data,array($lista['name'],$lista['dob'],$lista['szulhely'],$lista['tel'],$lista['irsz'],$lista['lakcim'],$lista['gyerek']));
+			array_push($table_data,
+				array($lista['name'],
+					$lista['dob'],
+					$lista['szulhely'],
+					$lista['tel'],
+					$lista['irsz'],
+					$lista['lakcim'],
+					$lista['email'],
+					$lista['gyerek'],
+					$lista['userid']));
 		}
 
 		$lista=
