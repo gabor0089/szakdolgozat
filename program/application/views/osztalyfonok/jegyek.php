@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
     </HEAD>
 	<BODY>
+	<div class='container'>
 	<H1 class='text-center'>Jegyek</H1>
 	<H3 class='text-center'><?=$diaknev?> - <?=$tantargynev?></H3>
 		<?PHP echo form_open('tanar/ujjegyadas2')?>      
@@ -50,5 +51,6 @@
 			</div>
 		</div>
 	<?php endforeach;?>
+	</div>
 	</body>
 </Html>

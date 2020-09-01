@@ -33,7 +33,7 @@
             <a href="<?php echo base_url();?>Tanar/hianyzas">Hiányzások</a>
             <a href="<?php echo base_url();?>Tanar/dolgozatok">Dolgozatok</a>
             <a href="<?php echo base_url();?>Users/uzenetek">Üzenetek</a>
-            <a class="visible-sm visible-xs" href='../Users/Kilepes'>Kilépés</a>
+            <a class="visible-sm visible-xs" href='<?php echo base_url();?>Users/Kilepes'>Kilépés</a>
 
           </nav>
       </div>

@@ -290,6 +290,6 @@ public function Main()
 	public function Kilepes()
 	{
 		$this->session->sess_destroy();
-		redirect('../Users/login');
+		redirect('Users/login');
 	}
 } 

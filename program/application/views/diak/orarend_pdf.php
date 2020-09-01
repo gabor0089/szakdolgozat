@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
     </HEAD>
 	<BODY>
-		<?php
+			<?php
 					foreach ($orarend as $ora) 
 					{
 							$nap=$ora['milyennap'];
@@ -30,8 +30,8 @@
 							case 10:$l[$nap]=$tantargy."<BR>".$tanarnev."<BR>".$terem;break;
 						}
 					}
-				?>
-<font size='2'>
+			?>
+			<font size='2'>
 		    <table border='1' cellpadding='4'>
 				<tr>
 		            <td></td>
@@ -121,5 +121,5 @@
 		        </tr>
 		    </table>
 		</div>
-	</BODY>
+</BODY>
 </HTML>		

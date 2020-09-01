@@ -16,7 +16,7 @@
 <?=$iskolanev?>
 </span>
 <span class='header-name-exit'>
-<a href="<?php echo base_url();?>Users/profil/<?=$userid?>"><?=$name?></a> (<?=$beosztas?>)  <a class="hidden-sm hidden-xs" href='../Users/Kilepes'><img src="<?php echo base_url();?>assets/img/exit.png" height="15"></img></a>
+<a href="<?php echo base_url();?>Users/profil/<?=$userid?>"><?=$name?></a> (<?=$beosztas?>)  <a class="hidden-sm hidden-xs" href='<?php echo base_url();?>Users/Kilepes'><img src="<?php echo base_url();?>assets/img/exit.png" height="15"></img></a>
 <BR> 
   <?php echo date("H:i:s",time());?> 
 </span>
@@ -33,7 +33,7 @@
             <a href="<?php echo base_url();?>Admin/tantermek">Tantermek</a>
             <a href="<?php echo base_url();?>Admin/szulok">Szülők</a>
             <a href="<?php echo base_url();?>Users/uzenetek">Üzenetek</a>
-		        <a class="visible-sm visible-xs" href='../Users/Kilepes'>Kilépés</a>
+		        <a class="visible-sm visible-xs" href='<?php echo base_url();?>Users/kilepes'>Kilépés</a>
           </nav>
       </div>
     </div>

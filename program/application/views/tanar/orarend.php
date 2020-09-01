@@ -8,7 +8,7 @@
     </HEAD>
 	<BODY>
 		<div class='row'>
-			<div class='col-md-12 text-center'><H1>Órarend<a href="<?php echo base_url();?>Tanar/OrarendExport">Letöltés pdf-ben</a></H1></div>
+			<div class='col-md-12 text-center'><H1>Órarend<a href="<?php echo base_url();?>Tanar/OrarendExport"><img src='<?php echo base_url();?>assets/img/orarend_letoltes.png' width='50' height='50'></a></div>
 		</div>
 		<div class='container'>
 		<div class='row'>
@@ -26,34 +26,23 @@
 						switch($ora['hanyadik_ora'])
 						{
 							//$a jelenti a 0. órát, $b az 1.-t stb.
-							case 0:$a[$nap]="<a class='orarendlink' href='".base_url()."Tanar/osztaly/$osztalyid'>".$osztaly."</a><BR>
-											 <a class='orarendlink' href='".base_url()."Tanar/tantargy/$tantargyid'>".$tantargy."</a><BR><a class='orarendlink'>".$terem."</a>";break;
-							case 1:$b[$nap]="<a class='orarendlink' href='".base_url()."Tanar/osztaly/$osztalyid'>".$osztaly."</a><BR>
-											 <a class='orarendlink' href='".base_url()."Tanar/tantargy/$tantargyid'>".$tantargy."</a><BR><a class='orarendlink'>".$terem."</a>";break;
-							case 2:$c[$nap]="<a class='orarendlink' href='".base_url()."Tanar/osztaly/$osztalyid'>".$osztaly."</a><BR>
-											 <a class='orarendlink' href='".base_url()."Tanar/tantargy/$tantargyid'>".$tantargy."</a><BR><a class='orarendlink'>".$terem."</a>";break;
-							case 3:$d[$nap]="<a class='orarendlink' href='".base_url()."Tanar/osztaly/$osztalyid'>".$osztaly."</a><BR>
-											 <a class='orarendlink' href='".base_url()."Tanar/tantargy/$tantargyid'>".$tantargy."</a><BR><a class='orarendlink'>".$terem."</a>";break;
-							case 4:$e[$nap]="<a class='orarendlink' href='".base_url()."Tanar/osztaly/$osztalyid'>".$osztaly."</a><BR>
-											 <a class='orarendlink' href='".base_url()."Tanar/tantargy/$tantargyid'>".$tantargy."</a><BR><a class='orarendlink'>".$terem."</a>";break;
-							case 5:$f[$nap]="<a class='orarendlink' href='".base_url()."Tanar/osztaly/$osztalyid'>".$osztaly."</a><BR>
-											 <a class='orarendlink' href='".base_url()."Tanar/tantargy/$tantargyid'>".$tantargy."</a><BR><a class='orarendlink'>".$terem."</a>";break;
-							case 6:$g[$nap]="<a class='orarendlink' href='".base_url()."Tanar/osztaly/$osztalyid'>".$osztaly."</a><BR>
-											 <a class='orarendlink' href='".base_url()."Tanar/tantargy/$tantargyid'>".$tantargy."</a><BR><a class='orarendlink'>".$terem."</a>";break;
-							case 7:$h[$nap]="<a class='orarendlink' href='".base_url()."Tanar/osztaly/$osztalyid'>".$osztaly."</a><BR>
-											 <a class='orarendlink' href='".base_url()."Tanar/tantargy/$tantargyid'>".$tantargy."</a><BR><a class='orarendlink'>".$terem."</a>";break;
-							case 8:$j[$nap]="<a class='orarendlink' href='".base_url()."Tanar/osztaly/$osztalyid'>".$osztaly."</a><BR>
-											 <a class='orarendlink' href='".base_url()."Tanar/tantargy/$tantargyid'>".$tantargy."</a><BR><a class='orarendlink'>".$terem."</a>";break;
-							case 9:$k[$nap]="<a class='orarendlink' href='".base_url()."Tanar/osztaly/$osztalyid'>".$osztaly."</a><BR>
-											 <a class='orarendlink' href='".base_url()."Tanar/tantargy/$tantargyid'>".$tantargy."</a><BR><a class='orarendlink'>".$terem."</a>";break;
-							case 10:$l[$nap]="<a class='orarendlink' href='".base_url()."Tanar/osztaly/$osztalyid'>".$osztaly."</a><BR>
-											 <a class='orarendlink' href='".base_url()."Tanar/tantargy/$tantargyid'>".$tantargy."</a><BR><a class='orarendlink'>".$terem."</a>";break;
+							case 0:$a[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
+							case 1:$b[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
+							case 2:$c[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
+							case 3:$d[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
+							case 4:$e[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
+							case 5:$f[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
+							case 6:$g[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
+							case 7:$h[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
+							case 8:$j[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
+							case 9:$k[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
+							case 10:$l[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
 						}
 					}
 				?>
 
 				<div class="container">
-		    <table class="table table-striped table-hover table-sm">
+		    <table class="table table-striped table-sm">
 				<tr class="row">
 		            <td class="col-sm-1"></td>
 		            <td class="col-sm-2">Hétfő</td>

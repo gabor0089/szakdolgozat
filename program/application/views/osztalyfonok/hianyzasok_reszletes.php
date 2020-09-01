@@ -7,8 +7,8 @@
 	    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
    	</HEAD>
 	<BODY>
-	<h2 class='text-center'>Hiányzások - Késések</h2>
-	<h3 class='text-center'><a href='<?=base_url()?>/Osztalyfonok/hianyzas'><--</a><?=$diaknev?></h3>
+	<h3 class='text-center'><a href='<?=base_url()?>/Osztalyfonok/hianyzas'><button type='button' class='btn btn-primary'>vissza az összesítőhöz</button></a>Hiányzások - Késések részletes</h3>
+	<h3 class='text-center'><?=$diaknev?></h3>
 	<div class='container'>
 		<table class="table table-hover table-sm ">
 			<tr class='row'>

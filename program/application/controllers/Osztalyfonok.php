@@ -106,15 +106,23 @@ class Osztalyfonok extends CI_Controller
 		$tantargyak=$this->osztalyfonok_model->tantargyak($osztalyomid);
 
 		$nevek=$this->osztalyfonok_model->nevsor($osztalyomid);
+		$datas=$this->osztalyfonok_model->alapadatok();
+		
 		if($sorszam==null)
 			$sszam=0;
 		else $sszam=$sorszam;
 		$jegyek=$this->osztalyfonok_model->jegyek($tantargyak[$sszam]['tantargyid']);
+		$evvegijegyek=$this->osztalyfonok_model->evvegijegyek($tantargyak[$sszam]['tantargyid']);
+		if(count($evvegijegyek)==0)
+			$evvegijegyek=array();
 		$data=['nevek'=>$nevek,
 				'tantargyidk'=>$tantargyak[$sszam]['tantargyid'],
 				'tantargynevek'=>$tantargyak[$sszam]['nev'],
 				'jegyek'=>$jegyek,
 				'sszam'=>$sszam,
+				'evvegedatum'=>$datas[0]['evvegedatum'],
+				'evvegeido'=>$datas[0]['evvegeido'],
+				'evvegijegyek'=>$evvegijegyek
 				];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
@@ -222,35 +230,6 @@ class Osztalyfonok extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('osztalyfonok/osztalynevsor',$data);
 	}
-	public function Jegyek($diakid=null,$tantargyid=null)
-	{
-		$this->load->model('tanar_model');
-		if(!isset($tantargyid))
-		{
-			$diaknev=$this->input->post('diak');
-			$tantargynev=$this->input->post('tantargy2');
-			$diakid    =$this->tanar_model->diakid($diaknev);
-			$tantargyid=$this->tanar_model->tantargyid($tantargynev);
-			$jegyek=$this->tanar_model->jegyek($diakid['userid'],$tantargyid['tantargyid']);
-			$data=['jegyek'=>$jegyek,'tantargynev'=>$tantargynev,'diaknev'=>$diaknev];
-		}
-		else
-		{
-			$diaknev    =$this->tanar_model->diaknev($diakid);
-			$tantargynev=$this->tanar_model->tantargynev($tantargyid);
-			$jegyek=$this->tanar_model->jegyek($diakid,$tantargyid);
-			$data=['jegyek'=>$jegyek,'tantargynev'=>$tantargynev['nev'],'diaknev'=>$diaknev['name']];
-		}
-		$adatok=$this->Main();
-		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('tanar/jegyek',$data);	
-	}
-	public function Evzaras()
-	{
-		$adatok=$this->Main();
-		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('osztalyfonok/evzaras');	
-	}
 	public function Erettsegi($userid=null)
 	{
 		$tanarid=$this->session->user_id;
@@ -326,6 +305,27 @@ class Osztalyfonok extends CI_Controller
 									$szabval,$szabvalszint,$szabvalszazalek);
 		}
 		$this->Erettsegi($userid);
+	}
+	public function Evvege()
+	{
+		$this->load->model('osztalyfonok_model');
+		foreach ($_POST as $key => $value) 
+		{
+			if($key=="tantargyid")
+				$tantargyid=$value;
+		}
+		$tanar=$this->session->user_id;
+		foreach ($_POST as $key => $value)
+		{
+				$diakid=$key;
+				$jegy=$value;
+				$datum=date("Y-m-d H:i:s",time());
+				if($value<>"" && $key<>"tantargyid")
+				{
+					$this->osztalyfonok_model->evvegijegy($tantargyid,$jegy,$datum,$diakid);
+				}
+		}
+		$this->Osztalyozas();
 	}
 
 }

@@ -7,9 +7,13 @@
 	    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
    	</HEAD>
 	<BODY>
-	<h2 class='text-center'>Hiányzások - Késések</h2>
 	<div class='container'>
 		<table class="table table-hover table-sm ">
+			<tr class='row'>
+				<td class='col-md-2 bg-nev text-center h2'></td>
+				<td class='col-md-4 bg-ora text-center h2'>Hiányzások</td>
+				<td class='col-md-4 bg-perc text-center h2'>Késések</td>
+			</tr>
 			<tr class='row'>
 				<td class='col-md-2 bg-nev text-left'>Név</td>
 				<td class='col-md-1 bg-ora text-center'>Igazolt</td>

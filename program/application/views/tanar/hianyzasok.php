@@ -10,6 +10,7 @@
 	<h1 class='text-center'>Hiányzások</h1>
 				<?PHP echo form_open('tanar/ujhianyzas')?>
 <?php
+$ma=date("Y-m-d",time());
 if(!isset($nevsor))
 	{
 		$osztaly="";
@@ -25,7 +26,7 @@ if(!isset($nevsor))
 	</div>
 	<div class='col-md-2'>
 		<div class='form-group'>
-			<input type='date' name='datum' value='<?=$datum?>' class='form-control' required >
+			<input type='date' name='datum' value='<?=$ma?>' class='form-control' required >
 		</div>
 	</div>
 	<div class='col-md-2'>

@@ -39,7 +39,7 @@
       <?php foreach ($osztalyok as $osztaly) :?>
         <div class='col-md-2'>
           <a href='<?=base_url()?>Tanar/osztalynevsor/<?=$osztaly['osztalyid']?>'>
-            <button class='btn btn-primary'><?=$osztaly['osztalynev']?></button>
+            <button class='btn btn-primary'><?=$osztaly['osztaly']?></button>
           </a>
         </div>
       <?php endforeach;?>  

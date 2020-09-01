@@ -51,7 +51,6 @@
 				{
 					$atlag=round($osszeg/count($jegyek),2);
 				}
-			var_dump($jegyek);
 			?>
 
 	<table class="table table-striped table-hover table-sm">

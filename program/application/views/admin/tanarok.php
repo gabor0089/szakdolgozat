@@ -14,14 +14,14 @@
       <a href='../Admin/Ujtanar' title='Új tanár felvitele'><button type='submit' class='btn btn-success'>+ Új tanár felvitele</button></a>
         <table class="table bordered table-striped table-hover table-sm">
           <tr class='row small'>
-            <td class='col-md-1'><a href='../Admin/Tanarok/name'>Név</a></TD>
-            <TD class='col-md-1'><a href='../Admin/Tanarok/dob'>Születési dátum</a></TD>
-            <td class='col-md-1'><a href='../Tanarok/szulhely'>Születési hely</TD>
-            <TD class='col-md-1'><a href='../Tanarok/taj'>TAJ</TD>
-            <td class='col-md-1'><a href='../Tanarok/tel'>Telefonszám</TD>
-            <td class='col-md-2'><a href='../Tanarok/lakcim'>Lakcím</TD>
-            <td class='col-md-2'><a href='../Tanarok/lakcim'>Email cím</TD>
-            <td class='col-md-1'><a href='../Tanarok/email'>Beosztás</TD>
+            <td class='col-md-1'><a href='<?php echo base_url();?>Admin/Tanarok/name'>Név</a></TD>
+            <TD class='col-md-1'><a href='<?php echo base_url();?>Admin/Tanarok/dob'>Születési dátum</a></TD>
+            <td class='col-md-1'><a href='<?php echo base_url();?>Admin/Tanarok/szulhely'>Születési hely</TD>
+            <TD class='col-md-1'><a href='<?php echo base_url();?>Admin/Tanarok/taj'>TAJ</TD>
+            <td class='col-md-1'><a href='<?php echo base_url();?>Admin/Tanarok/tel'>Telefonszám</TD>
+            <td class='col-md-2'><a href='<?php echo base_url();?>Admin/Tanarok/lakcim'>Lakcím</TD>
+            <td class='col-md-2'><a href='<?php echo base_url();?>Admin/Tanarok/email'>Email cím</TD>
+            <td class='col-md-1'><a href='<?php echo base_url();?>Admin/Tanarok/beosztas'>Beosztás</TD>
             <TD class='col-md-1'>Fotó</TD>
           </TR>
             <?php foreach($tanaroklistaja as $lista):?>

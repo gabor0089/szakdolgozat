@@ -38,14 +38,10 @@
       <?php 
       $ma=date("Y-m-d",time());
       $most=date("H:i:s",time());
-      if(($evvegedatum<$ma) || ($evvegedatum=$ma && $evvegeido<=$most)):?>
-          <?php echo form_open('Osztalyfonok/Evzaras');?>
-              <button class='btn btn-danger'>Félévzárás</button>
-          <?php echo form_close();?>
-      <?php endif;?>
+      ?>
       <br/>
       Érettségi: <input type='text' class='form-control' name='evvegizaras' value='<?=$erettsegidatum?> <?=$erettsegiido?>' autocomplete='off' readonly>
-      <?php if(($erettsegidatum<$ma) || ($erettsegidatum=$ma && $erettsegiido<=$most)):?>
+      <?php if(($erettsegidatum<$ma) || ($erettsegidatum==$ma && $erettsegiido<=$most)):?>
           <?php echo form_open('Osztalyfonok/erettsegi');?>
             <button class='btn btn-danger'>Érettségi eredmények</button>
           <?php echo form_close();?>

@@ -139,7 +139,9 @@
     </tr>
     <tr class='row'>
         <td class='col-md-1'>
+            <?php if(isset($elozouserid)):?>
             <a href="<?php echo base_url();?>Osztalyfonok/erettsegi/<?=$elozouserid?>" title='<?=$elozousernev?>'><button type='button' class='btn btn-secondary form-control'><<</button></a>
+            <?php endif;?>
         </td>
         <td class='col-md-3'><button type='submit' name='gomb' value='kesz' class='btn btn-success form-control'><b>KÉSZ</b></button></td>
         <td class='col-md-2'><button type='submit' name='gomb' value='modosit' class='btn btn-warning form-control'><b>Módosít</b></button></td>

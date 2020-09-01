@@ -12,14 +12,14 @@
       <a href='../Admin/Ujdiak' title='Új diák felvitele'><button type='submit' class='btn btn-success'>+ Új diák felvitele</button></a>
         <table class="table bordered table-striped table-hover table-sm">
           <tr class='row small'>
-            <td class='col-md-1'><a href='../Admin/Diakok/name'>Név</a></TD>
-            <TD class='col-md-1'><a href='../Admin/Diakok/dob'>Születési dátum</a></TD>
-            <td class='col-md-1'><a href='../Admin/Diakok/szulhely'>Születési hely</TD>
-            <TD class='col-md-1'><a href='../Admin/Diakok/taj'>TAJ</TD>
-            <td class='col-md-1'><a href='../Admin/Diakok/tel'>Telefonszám</TD>
-            <td class='col-md-2'><a href='../Admin/Diakok/lakcim'>Lakcím</TD>
-            <td class='col-md-2'><a href='../Admin/Diakok/email'>E-mail cím</TD>
-            <td class='col-md-1'><a href='../Admin/Diakok/osztalyid'>Osztály</TD>
+            <td class='col-md-1'><a href='<?php echo base_url();?>Admin/Diakok/name'>Név</a></TD>
+            <TD class='col-md-1'><a href='<?php echo base_url();?>Admin/Diakok/dob'>Születési dátum</a></TD>
+            <td class='col-md-1'><a href='<?php echo base_url();?>Admin/Diakok/szulhely'>Születési hely</TD>
+            <TD class='col-md-1'><a href='<?php echo base_url();?>Admin/Diakok/taj'>TAJ</TD>
+            <td class='col-md-1'><a href='<?php echo base_url();?>Admin/Diakok/tel'>Telefonszám</TD>
+            <td class='col-md-2'><a href='<?php echo base_url();?>Admin/Diakok/lakcim'>Lakcím</TD>
+            <td class='col-md-2'><a href='<?php echo base_url();?>Admin/Diakok/email'>E-mail cím</TD>
+            <td class='col-md-1'><a href='<?php echo base_url();?>Admin/Diakok/osztalyid'>Osztály</TD>
             <TD class='col-md-1'>Fotó</TD>
           </TR>
             <?php foreach($diakoklistaja as $lista):?>
