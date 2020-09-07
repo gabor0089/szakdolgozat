@@ -37,12 +37,12 @@
       <?php foreach ($osztalyok as $osztaly) :?>
         <div class='col-md-2'>
           <a href='<?=base_url()?>Tanar/osztalynevsor/<?=$osztaly['osztalyid']?>'>
-            <button class='btn btn-primary'><?=$osztaly['osztalynev']?></button>
+            <button class='btn btn-primary'><?=$osztaly['osztaly']?></button>
           </a>
         </div>
       <?php endforeach;?>  
       </div>
-        <table class="table">
+        <table class="table table-sm">
           <thead>
             <tr>
               <th scope="col">Név</th>
@@ -64,8 +64,9 @@
                 <td><a target="_blank" href="../../uploads/<?=$nevek[$i]['foto_link']?>">
                   <img width="40" src="../uploads/<?=$nevek[$i]['foto_link']?>"></img>
                 </a></td>
-                <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$nevek[$i]['userid']?>'>Üzenet</a></td>
-              </tr>
+                <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$nevek[$i]['userid']?>' title='<?=$nevek[$i]['name']?>'><img src="<?php echo base_url();?>assets/img/boritek.png"></a></td>
+                <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$nevek[$i]['szuloid']?>' title='<?=$nevek[$i]['szulonev']?>'><img src="<?php echo base_url();?>assets/img/boritek.png"><img src="<?php echo base_url();?>assets/img/szulok.png"></a></td>
+              </tr><!--Ha kevsé tanuló jelenik meg, az azért van, mert nincs mindenkinek a szülője benne a adatbázisban-->
             <?php endfor;?>
           </tbody>
         </table>

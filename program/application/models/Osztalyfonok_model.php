@@ -93,8 +93,6 @@ class osztalyfonok_model extends CI_Model
 		$query=$this->db->get_where('users',array('osztalyid'=>$osztalyid));
 		*/
 		$query0=$this->db->query("SELECT gy.userid,gy.name,gy.dob,gy.taj,gy.szulhely,gy.tel,gy.irsz,gy.email,gy.lakcim,gy.foto_link,sz.name as szulonev,sz.userid as szuloid  from szulogyermek inner join users gy on(szulogyermek.gyermekid=gy.userid) inner join users sz on(szulogyermek.szuloid=sz.userid)");
-								  
-		
 		return $query0->result_array();
 	}
 	public function jegyek($tantargyid)

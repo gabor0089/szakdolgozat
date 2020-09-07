@@ -49,7 +49,7 @@
                 <td><a target="_blank" href="../uploads/<?=$tanaraim[$i]['foto_link']?>">
                   <img width="40" src="../uploads/<?=$tanaraim[$i]['foto_link']?>"></img>
                 </a></td>
-                <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$tanaraim[$i]['userid']?>'>Üzenet</a></td>
+                <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$tanaraim[$i]['userid']?>' title='<?=$tanaraim[$i]['name']?>'><img src="<?php echo base_url();?>assets/img/boritek.png"></a></td>
               </tr>
             <?php endfor;?>
           </tbody>
