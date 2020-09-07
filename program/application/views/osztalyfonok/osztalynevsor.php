@@ -54,7 +54,8 @@
                 <td><a target="_blank" href="../../uploads/<?=$nevek[$i]['foto_link']?>">
                   <img width="40" src="../uploads/<?=$nevek[$i]['foto_link']?>"></img>
                 </a></td>
-                <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$nevek[$i]['userid']?>'>Üzenet</a></td>
+                <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$nevek[$i]['userid']?>' title='<?=$nevek[$i]['name']?>'><img src="<?php echo base_url();?>assets/img/boritek.png"></a><img src="<?php echo base_url();?>assets/img/elvalaszto.png"></td>
+                <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$nevek[$i]['szuloid']?>' title='<?=$nevek[$i]['szulonev']?>'><img src="<?php echo base_url();?>assets/img/boritek.png"><img src="<?php echo base_url();?>assets/img/szulok.png"></a></td>
               </tr>
             <?php endfor;?>
           </tbody>

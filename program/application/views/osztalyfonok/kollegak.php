@@ -47,7 +47,7 @@
                 <td><a target="_blank" href="../uploads/<?=$kollegak[$i]['foto_link']?>">
                   <img width="40" src="../uploads/<?=$kollegak[$i]['foto_link']?>"></img>
                 </a></td>
-                <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$kollegak[$i]['userid']?>'>Üzenet</a></td>
+                <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$kollegak[$i]['userid']?>' title='<?=$kollegak[$i]['name']?>'><img src="<?php echo base_url();?>assets/img/boritek.png"></a></td>
               </tr>
             <?php endfor;?>
           </tbody>

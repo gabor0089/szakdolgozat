@@ -33,6 +33,7 @@
             <td class='col-md-2'><?=$lista[7]?></TD>
             <td class='col-md-1'><?=$lista[8]?></TD>
             <TD class='col-md-1'><a target="_blank" href="../uploads/<?=$lista[9]?>">Kép</a></TD>
+            <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$lista[10]?>' title='<?=$lista[0]?>'><img src="<?php echo base_url();?>assets/img/boritek.png"></a>
           </TR>
             <?php endforeach;?>
         </table>
