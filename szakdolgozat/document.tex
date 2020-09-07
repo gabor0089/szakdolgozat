@@ -23,20 +23,24 @@
 \tableofcontents
 
 \chapter*{Bevezetés}
-Mindannyian voltunk diákok, jártunk iskolába, és mindenki kapott jegyet. Az én időmben még papír alapon. A Naplóba. Már általános iskola végén sem értettem, hogy ha ennyi számítógép van már a világban, akkor miért nem használják egy ilyen területen, ahol sok az adminisztráció, és sok a hibázási lehetőség. Az évek során jutottam el arra a szintre, hogy képes vagyok egy ilyen alkalmazás megírására.
-Bízom benne, hogy hamarosan már mindenhol elektronikus naplót fognak használni, és miért is ne, esetleg pont ez a szakdolgozat lesz a jövő középiskolai elektronikus rendszerének az alapja.
+Mindannyian voltunk diákok, jártunk iskolába, és mindenki kapott jegyet. Az én időmben még papír alapon. A Naplóba. Már általános iskola végén sem értettem, hogy ha ennyi számítógép van már a világban, akkor miért nem használják egy ilyen területen, ahol sok az adminisztráció, és sok a hibázási lehetőség. Az évek során a tanulmányaim folytán jutottam el arra a szintre, hogy képes vagyok egy ilyen alkalmazás megírására.
+Bízom benne, hogy hamarosan már mindenhol csak elektronikus naplót fognak használni, és miért is ne, esetleg pont ez a szakdolgozat lesz a jövő középiskolai elektronikus rendszerének az alapja.
 
 
 \chapter{Probléma kifejtése}
 A jelenleg használatban lévő e-naplók a vélemények szerint bonyolultak, sok időt vesznek el az oktatóktól, az adminisztrátoroktól. Viszont nincsenek olyannyira kihasználva, amennyire a XXI. századi diákoknak szüksége lenne rá. A célom, hogy egy olyan alkalmazást készítsek el, ami kellően egyszerűen, gyorsan használható és szinte tökéletes.
 \chapter{Implementálás}
-A programkódot a Sublime Text programmal fogom írni. Az első tesztekhez a saját számítógépemen WampServer-t használok, mely a Windows-Apache-Mysql-PHP szavakból tevődik össze. Az adatbázisban az adattáblák 3NF-ben lesznek, előre láthatóan 12-13 tábla összekapcsolásából áll össze az alkalmazás.
+A forráskódot a Sublime Text 3 programmal írtam. Az első tesztekhez a saját számítógépemen WampServer-t használok, mely a Windows-Apache-Mysql-PHP szavakból tevődik össze. Az adatbázisban az adattáblák harmadik normálformában vannak, 19 tábla összekapcsolásából áll össze az alkalmazás.
 \chapter{Problémák, és megoldásuk a fejlesztés során}
-Ebben a fejezetben kifejtem, hogy az alkalmazás mely részénél futottam bele olyan problémákba, amit nem tudtam egyszerűen, könnyen átlépni. A tervem szerint először leírom a probléma felmerülésének helyét, leírását, majd több megoldást kipróbálok, végül leírom miért pont az adott megoldás lett a tökéletes.
+Ebben a fejezetben kifejtem, hogy az alkalmazás mely részénél futottam bele olyan problémákba, amit nem tudtam egyszerűen, könnyen átlépni. Először a probléma felmerülésének helyét, leírását adom meg, majd több megoldást kipróbálok, végül leírom miért pont az adott megoldás lett a tökéletes.
 \chapter{Felhasználói dokumentáció}
-Képernyőképeket természetesen majd csak a projekt végén tudok készíteni, hiszen addig akármi, akármennyit módosulhat. Itt is rátérek majd, hogy melyik menüpont miért éppen oda került, illetve a legfőbb funkciókat is bemutatom az adott képernyőképen.
+Ebben a fejezetben a felhasználók számára, világosan, érthetően, képernyőképekkel illusztrálva írom le a program működésének minden olyan funkcióját, amire szükségük lehet az alkalmazás használata során.
 \chapter{Továbbfejlesztési lehetőségek}
-Szeretnék egy olyan rendszert megalkotni, ami már-már továbbfejleszthetetlen. De természetesen ilyen nem létezik, soha nem is fog. Szintén a már majdnem kész program esetébe fogok tudni beszámolni erről alaposabban.
+Szeretnék egy olyan rendszert megalkotni, ami már-már továbbfejleszthetetlen. De természetesen ilyen nem létezik, soha nem is fog. Minden programban vannak továbbfejlesztési lehetőségek.
+\section{Órarend}
+Egy elektronikus naplóban kézenfekvő megoldás, ha az órarendet is már az alkalmazás készíti el. Ahhoz, hogy ezt el lehessen készíteni, szükség van a tanárok, az osztályok, és a tantermek rögzítésére. Természetesen nem megfeledkezve a tantárgyakról, ami minden osztály esetében más és más. Ezek az adatok az általam készített programokban természetesen megvannak, így már csak maga az órarend generálásra lenne hátra. Ennek a megalkotása viszont felérne egy újabb fél éves fejlesztési folyamattal.
+\section{Házi feladatok}
+Ugyanúgy, ahogyan a jelenlegi programban a dolgozatok meg vannak valósítva, meg lehet ugyanezt a házi feladatra is valósítani. A  tanár kiadja a feladatot online, és a diákok otthon megcsinálva, feltölthetik a naplóba, ahonnan a tanár letöltés, nyomtatás, és piros toll használata nélkül egyszerűen tudná ellenőrizni. 
 \chapter{Összefoglalás}
 Ebbe a fejezetbe kerül a probléma ismételt leírása, valamint a megoldásával együtt egy következtetés levonás.
 \begin{thebibliography}{}
