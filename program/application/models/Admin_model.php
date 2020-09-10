@@ -90,6 +90,31 @@ class Admin_model extends CI_Model
 		$result_array=$query->result_array();
 		return $result_array;
 	}
+	public function tanarokadatai($userid)
+	{
+		$this->db->from('users');
+		$this->db->where('userid',$userid);
+		$query=$this->db->get();
+		$result_array=$query->row_array();
+		return $result_array;
+	}
+	public function modosit_tanar($name,$dob,$szulhely,$taj,$tel,$irsz,$lakcim,$email,$osztaly,$userid)
+	{
+		$data = array(
+        'name'  => $name,
+        'dob'  => $dob,
+        'szulhely' => $szulhely,
+        'taj' => $taj,
+        'tel' => $tel,
+        'irsz' => $irsz,
+        'lakcim' => $lakcim,
+        'email' => $email,
+        'osztalyid' => $osztaly
+		);
+		$this->db->where('userid',$userid);
+		$this->db->update('users', $data);
+		return true;
+	}
 	public function beosztas($beosztas)
 	{
 		$this->db->from('beosztasok');
@@ -177,17 +202,28 @@ class Admin_model extends CI_Model
 	}
 	public function mindendiak()
 		{
-		$query0=$this->db->query("SELECT name from users where beosztas=4");
+		$query0=$this->db->query("SELECT name,userid from users where beosztas=4");
 		$result_array=$query0->result_array();
 		return $result_array;
 		}
 
 	public function szuloklistaja()
 	{
-		$query0=$this->db->query("SELECT sz.userid,sz.name,sz.dob,sz.szulhely,sz.tel,sz.irsz,sz.email,sz.lakcim,gy.name as gyerek from szulogyermek inner join users sz on(szulogyermek.szuloid=sz.userid) inner join users gy on(szulogyermek.gyermekid=gy.userid)");
+//		$query0=$this->db->query("SELECT sz.userid,sz.name,sz.dob,sz.szulhely,sz.tel,sz.irsz,sz.email,sz.lakcim,gy.userid as gyerekid from szulogyermek inner join users sz on(szulogyermek.szuloid=sz.userid) inner join users gy on(szulogyermek.gyermekid=gy.userid) group by sz.userid");
+		$query0=$this->db->query("SELECT * from users where beosztas=5");
 		$result_array=$query0->result_array();
+
 		return $result_array;
 	}
+	public function szulokadatai($userid)
+	{
+		$this->db->from('users');
+		$this->db->where('userid',$userid);
+		$query=$this->db->get();
+		$result_array=$query->row_array();
+		return $result_array;
+	}
+
 	public function ujszulo()
 	{
 		$data=array(
@@ -217,6 +253,31 @@ class Admin_model extends CI_Model
 			);
 		$this->db->insert('szulogyermek',$data3);
 		
+
+	}
+	public function modosit_szulo($name,$dob,$szulhely,$taj,$tel,$irsz,$lakcim,$email,$osztaly,$userid)
+	{
+		$data = array(
+        'name'  => $name,
+        'dob'  => $dob,
+        'szulhely' => $szulhely,
+        'taj' => $taj,
+        'tel' => $tel,
+        'irsz' => $irsz,
+        'lakcim' => $lakcim,
+        'email' => $email,
+        'osztalyid' => $osztaly
+		);
+		$this->db->where('userid',$userid);
+		$this->db->update('users', $data);
+		return true;
+	}
+	public function szulogyerekei($userid)
+	{
+		$query=$this->db->query("SELECT name,userid from users,szulogyermek where users.userid=szulogyermek.gyermekid AND 
+				szulogyermek.szuloid=$userid");
+		$result_array=$query->result_array();
+		return $result_array;
 
 	}
 	public function gyermekidkeres($nev)

@@ -247,35 +247,90 @@ class Admin extends CI_Controller
 				} 
 		}    
 	}	
+	public function Tanar_mod0($userid)
+	{
+		$this->load->model('admin_model');
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$tanarokadatai=$this->load->admin_model->tanarokadatai($userid);
+		$tanaradatai=['tanarokadatai'=>$tanarokadatai];
+		$this->load->view('admin/modosit_tanar',$tanaradatai);
+	}
+	public function Tanar_mod()
+	{
+		$this->load->model('admin_model');
+	
+		$userid=$this->input->post('userid');
+		$name=$this->input->post('name');
+		$dob=$this->input->post('dob');
+		$szulhely=$this->input->post('szulhely');
+		$taj=$this->input->post('taj');
+		$tel=$this->input->post('tel');
+		$irsz=$this->input->post('irsz');
+		$lakcim=$this->input->post('lakcim');
+		$email=$this->input->post('email');
+		$osztaly=$this->input->post('osztaly');
+
+		$adatok=$this->Main();
+			
+		$kesz=$this->admin_model->modosit_tanar($name,$dob,$szulhely,$taj,$tel,$irsz,$lakcim,$email,$osztaly,$userid);
+		redirect('Admin/tanarok');
+	}    
+
+
 	public function Szulok()
 	{
 		$this->load->model('admin_model');
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
 		$szuloklistaja=$this->load->admin_model->szuloklistaja();
+		$mindengyerek=$this->load->admin_model->mindendiak();
 		
-		$table_data=array();
-		foreach($szuloklistaja as $lista)
-		{
-			array_push($table_data,
-				array($lista['name'],
-					$lista['dob'],
-					$lista['szulhely'],
-					$lista['tel'],
-					$lista['irsz'],
-					$lista['lakcim'],
-					$lista['email'],
-					$lista['gyerek'],
-					$lista['userid']));
-		}
-
 		$lista=
 		[
-			'szuloklistaja'=>$table_data
+			'szuloklistaja'=>$szuloklistaja,
+			'mindendiak'=>$mindengyerek
 		];
 		$this->load->view('admin/szulok',$lista);
 
+	}   
+	public function Szulo_mod()
+	{
+		$this->load->model('admin_model');
+	
+		$userid=$this->input->post('userid');
+		$name=$this->input->post('name');
+		$dob=$this->input->post('dob');
+		$szulhely=$this->input->post('szulhely');
+		$taj=$this->input->post('taj');
+		$tel=$this->input->post('tel');
+		$irsz=$this->input->post('irsz');
+		$lakcim=$this->input->post('lakcim');
+		$email=$this->input->post('email');
+		
+		$adatok=$this->Main();
+			
+		$kesz=$this->admin_model->modosit_szulo($name,$dob,$szulhely,$taj,$tel,$irsz,$lakcim,$email,$osztaly,$userid);
+		redirect('Admin/szulok');
 	}    
+	public function Szulo_mod0($userid)
+	{
+		$this->load->model('admin_model');
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$szulokadatai=$this->load->admin_model->szulokadatai($userid);
+		$szuloadatai=['szulokadatai'=>$szulokadatai];
+		$gyerekei=$this->load->admin_model->szulogyerekei($userid);
+		$adatok=['gyerekek'=>$gyerekei,'szulokadatai'=>$szuloadatai];
+		$this->load->view('admin/modosit_szulo',$adatok);
+	}
+
+	public function Szulogyermekmutat($szuloid)
+	{
+		$gyerekek=array("Egyik gyerek","Másik gyerek");
+		$this->load->view('admin/szulok',$gyerekek);
+		
+	} 
 
 
 	public function Ujszulo()
