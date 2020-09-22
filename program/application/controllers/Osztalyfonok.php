@@ -112,9 +112,6 @@ class Osztalyfonok extends CI_Controller
 			$sszam=0;
 		else $sszam=$sorszam;
 		$jegyek=$this->osztalyfonok_model->jegyek($tantargyak[$sszam]['tantargyid']);
-		$evvegijegyek=$this->osztalyfonok_model->evvegijegyek($tantargyak[$sszam]['tantargyid']);
-		if(count($evvegijegyek)==0)
-			$evvegijegyek=array();
 		$data=['nevek'=>$nevek,
 				'tantargyidk'=>$tantargyak[$sszam]['tantargyid'],
 				'tantargynevek'=>$tantargyak[$sszam]['nev'],
@@ -122,7 +119,6 @@ class Osztalyfonok extends CI_Controller
 				'sszam'=>$sszam,
 				'evvegedatum'=>$datas[0]['evvegedatum'],
 				'evvegeido'=>$datas[0]['evvegeido'],
-				'evvegijegyek'=>$evvegijegyek
 				];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
@@ -151,7 +147,7 @@ class Osztalyfonok extends CI_Controller
 			$diakid=$this->input->post('userid');		
 		$hianyzas=$this->osztalyfonok_model->hianyzas($diakid);
 		$diaknev=$this->osztalyfonok_model->diaknev($diakid);
-		$adatok=$this->Main();
+		$adatok2k=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
 		$igazolasok = array(
 				''		=>'',
@@ -306,7 +302,36 @@ class Osztalyfonok extends CI_Controller
 		}
 		$this->Erettsegi($userid);
 	}
-	public function Evvege()
+	public function Evvege($sorszam=null)
+	{
+		$userid = $this->session->user_id;
+		$this->load->model('osztalyfonok_model');
+		$adatok=$this->osztalyfonok_model->osztalyom($userid);
+		$osztalyomnev=$adatok[0]['osztalynev'];
+		$osztalyomid=$adatok[0]['osztalyid'];
+
+		$tantargyak=$this->osztalyfonok_model->tantargyak($osztalyomid);
+
+		$nevek=$this->osztalyfonok_model->nevsor($osztalyomid);
+		$datas=$this->osztalyfonok_model->alapadatok();
+		if($sorszam==null)
+			$sszam=0;
+		else $sszam=$sorszam;
+		$evvegijegyek=$this->osztalyfonok_model->evvegijegyek($tantargyak[$sszam]['tantargyid'],$adatok[0]['osztalyid']);
+		if(count($evvegijegyek)==0)
+			$evvegijegyek=array();
+		$data=['nevek'=>$nevek,
+				'tantargyidk'=>$tantargyak[$sszam]['tantargyid'],
+				'tantargynevek'=>$tantargyak[$sszam]['nev'],
+				'sszam'=>$sszam,
+				'evvegijegyek'=>$evvegijegyek
+				];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('osztalyfonok/osztalyozas_evvege',$data);
+
+	}
+	public function Evvegekesz()
 	{
 		$this->load->model('osztalyfonok_model');
 		foreach ($_POST as $key => $value) 
@@ -325,7 +350,8 @@ class Osztalyfonok extends CI_Controller
 					$this->osztalyfonok_model->evvegijegy($tantargyid,$jegy,$datum,$diakid);
 				}
 		}
-		$this->Osztalyozas();
+		//var_dump($_POST);
+		$this->Evvege($tantargyid);
 	}
 
 }

@@ -10,47 +10,44 @@
 	<BODY>
 	<div class='container'>
 		<div class='row'>
-			<div class='col-md-12 h2 text-center'>Jegyek</div>
+			<div class='col-md-12 h2 text-center'>Év végi jegyek</div>
 		</div>
 		<div class='row'>
-			<div class='col-md-2 h3 text-right'><a href="<?php echo base_url();?>Osztalyfonok/Osztalyozas/<?=$sszam-1?>">előző</a></div>
+			<div class='col-md-2 h3 text-right'><a href="<?php echo base_url();?>Osztalyfonok/Evvege/<?=$sszam-1?>">előző</a></div>
 			<div class='col-md-8 text-center h3'><?=$tantargynevek?></div>
-			<div class='col-md-2 h3 text-left'><a href="<?php echo base_url();?>Osztalyfonok/Osztalyozas/<?=$sszam+1?>">következő</a></div>
+			<div class='col-md-2 h3 text-left'><a href="<?php echo base_url();?>Osztalyfonok/Evvege/<?=$sszam+1?>">következő</a></div>
 		</div>
 		<table class="table table-striped table-hover table-sm">
+			<?php echo form_open('Osztalyfonok/evvegekesz');?>
 			<tr class='row'>
 				<td class='col-md-1'></td>
 				<td class='col-md-2'></td>
-				<td class='col-md-7'></td>
-				<td class='col-md-1'>Átlag</td>
+				<td class='col-md-1 text-center'>
+					<?php 
+						$ma=date("Y-m-d",time());
+      					$most=date("H:i:s",time());
+      				?>
+      							Év végi osztályzat
+      			</td>
 			</tr>
-			<?php for ($i=0;$i<count($nevek);$i++):?>
+			<?php for ($i=0;$i<count($evvegijegyek);$i++):?>
 				<tr class='row'>
 					<td class='col-md-1 text-right'><?=$i+1?>.</td>
-					<td class='col-md-2'><?=$nevek[$i]['name']?></td>
-					<td class='col-md-7'>
-					<?php $osszeg=0;$db=0;?>
-					<?php foreach ($jegyek as $jegy):?>
-						<?php if($nevek[$i]['userid']==$jegy['kikapta'] && $jegy['jeloles']<>0):?>
-							<a href='#' title='<?=$jegy['megjegyzes']?> <?=$jegy['idopont']?>'><?=$jegy['jegy']?></a>&nbsp&nbsp 
-							<?php 
-								$osszeg=$osszeg+$jegy['jegy'];
-								$db++;
-							?>
-						<?php endif;?>	
-					<?php endforeach;?>
-					</td>
-					<td class='col-md-1'>
-						<?php
-							if($db<>0) 
-							{
-								$atlag=$osszeg/$db;
-								echo number_format($atlag,2);
-							}
-						?>
+					<td class='col-md-2'><?=$evvegijegyek[$i]['name']?></td>
+					<td class='col-md-1 text-center'>
+						<?php if($evvegijegyek[$i]['jegy']==0):?>
+							<input type='text' class='form-control' maxlength='1' name='<?=$nevek[$i]['userid']?>' value=''>	
+						<?php else:?>
+							<?=$evvegijegyek[$i]['jegy'];?>
+						<?php endif;?>
 					</td>
 				</tr>
 			<?php endfor;?>
+			<tr class='row'>
+					<td class='col-md-12 text-right'><button class='btn btn-danger'>Mentés</button></td>
+			</tr>
+			<input type='hidden' name='tantargyid' value='<?=$tantargyidk?>'>
+			<?php echo form_close();?>
 		</table>
 <?php
 	ini_set('xdebug.var_display_max_depth', '10');
