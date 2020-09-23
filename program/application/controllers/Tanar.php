@@ -363,7 +363,10 @@ class Tanar extends CI_Controller
 			'isnev'=>$datas[0]['iskolanev'],
 			'ignev'=>$datas[0]['igazgatonev'],
 			'cim'=>$datas[0]['iskolacim'],
-			'ev'=>$datas[0]['ev']
+			'ev'=>$datas[0]['ev'],
+			'evvegedatum'=>$datas[0]['evvegedatum'],
+			'evvegeido'=>$datas[0]['evvegeido'],
+			
 		];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
@@ -423,4 +426,75 @@ class Tanar extends CI_Controller
 		$this->tanar_model->ujdolgozat($tantargyid,$datum,$dolgozatcim,$userid);
 		$this->Dolgozatok();
 	}
+	public function Evvege($sorszam=null)
+	{
+		$userid = $this->session->user_id;
+		$this->load->model('tanar_model');
+		$tanitotttargyak=$this->tanar_model->tanitotttargyak($userid);
+		
+		//$tantargyak=$this->tanar_model->tanitotttargyak($userid);
+		//$osztalylista=$this->tanar_model->osztalylista($userid);
+		//$datas=$this->tanar_model->alapadatok();
+		
+		/*$evvegijegyek=$this->tanar_model->evvegijegyek($tantargyak[$sszam]['tantargyid'],$adatok[0]['osztalyid']);
+		if(count($evvegijegyek)==0)
+			$evvegijegyek=array();
+		$data=['nevek'=>$nevek,
+				'tantargyidk'=>$tantargyak[$sszam]['tantargyid'],
+				'tantargynevek'=>$tantargyak[$sszam]['nev'],
+				'sszam'=>$sszam,
+				'evvegijegyek'=>$evvegijegyek
+				];
+		*/
+		$data=['targyak'=>$tanitotttargyak];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('tanar/osztalyozas_targyak',$data);
+
+	}
+	public function Evvege1targy($tantargyid)
+	{
+		$userid = $this->session->user_id;
+		$this->load->model('tanar_model');
+		$tantargynev=$this->tanar_model->tantargynev($tantargyid);
+		$osztalyid=$this->tanar_model->osztalyid($tantargynev['osztalynev']);
+		$evvegijegyek=$this->tanar_model->evvegijegyek($tantargyid,$osztalyid['osztalyid']);
+		if(count($evvegijegyek)==0)
+			$evvegijegyek=array();
+		$data=['evvegijegyek'=>$evvegijegyek,
+				'targynev'=>$tantargynev,
+				'tantargyid'=>$tantargyid];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('tanar/osztalyozas_evvege',$data);
+
+
+	}
+	public function Evvegekesz()
+	{
+		$this->load->model('tanar_model');
+		$tantargyid=0;
+		foreach ($_POST as $key => $value) 
+		{
+			if($key=="tantargyid")
+			{
+				$tantargyid=$value;
+				break;
+			}
+		}
+		$tanar=$this->session->user_id;
+		foreach ($_POST as $key => $value)
+		{
+				$diakid=$key;
+				$jegy=$value;
+				$datum=date("Y-m-d H:i:s",time());
+
+				if($value<>"" && $key<>"tantargyid")
+				{
+					$this->tanar_model->evvegijegy($tantargyid,$jegy,$datum,$diakid);
+				}
+		}
+		$this->Evvege1targy($tantargyid);
+	}
+
 }

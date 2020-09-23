@@ -37,7 +37,16 @@
             Igazgató neve: <input type='text' class='form-control' name='ignev' value='<?=$ignev?>'  autocomplete='off' placeholder='Igazgató neve' readonly><br/>
 			Iskola címe: <input type='text' class='form-control' name='cim' value='<?=$cim?>' autocomplete='off' placeholder='Az iskola címe' readonly><br/>
 			Aktuális tanév: <input type='text' class='form-control' name='ev' value='<?=$ev?>' autocomplete='off' placeholder='Aktuális tanév' readonly><br/>
-			</div>
+			<?php 
+      $ma=date("Y-m-d",time());
+      $most=date("H:i:s",time());
+      ?>
+      Év végi zárás: <input type='text' class='form-control' name='evvegizaras' value='<?=$evvegedatum?> <?=$evvegeido?>' autocomplete='off' readonly>
+      <?php if(($evvegedatum<$ma) || ($evvegedatum==$ma && $evvegeido<=$most)):?>
+           <a href="<?php echo base_url();?>Tanar/Evvege"><button class='btn btn-danger'>Év végi eredmények</button></a>
+      <?php endif;?>  
+      
+      </div>
       </div>
     </div>
   </div>
