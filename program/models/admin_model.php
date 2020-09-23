@@ -272,7 +272,14 @@ class Admin_model extends CI_Model
 		$this->db->update('users', $data);
 		return true;
 	}
+	public function szulogyerekei($userid)
+	{
+		$query=$this->db->query("SELECT name,userid from users,szulogyermek where users.userid=szulogyermek.gyermekid AND 
+				szulogyermek.szuloid=$userid");
+		$result_array=$query->result_array();
+		return $result_array;
 
+	}
 	public function gyermekidkeres($nev)
 	{
 		$query=$this->db->query("SELECT userid from users where name='$nev'");
@@ -305,7 +312,7 @@ class Admin_model extends CI_Model
 	}
 	public function tantargyaklista($sorrend)
 	{
-		$query=$this->db->query("SELECT tantargyid,nev,osztaly,tanarid,
+		$query=$this->db->query("SELECT tantargyid,nev,osztaly,tanarid,oraszam,
 									users.name as tanarnev,
 									osztalyok.osztalynev as osztalynev 
 									from tantargyak,users,osztalyok 
@@ -348,7 +355,14 @@ class Admin_model extends CI_Model
 		$data=['nev'=>$terem,'megjegyzes'=>$megjegyzes];
 		$query=$this->db->insert('termek',$data);
 	}
-
+	public function ujtantargy($nev,$osztalyid,$tanarid,$oraszam)
+	{
+		$data=['nev'=>$nev,
+				'osztaly'=>$osztalyid,
+				'tanarid'=>$tanarid,
+				'oraszam'=>$oraszam];
+		$query=$this->db->insert('tantargyak',$data);
+	}
 }
 
 ?>

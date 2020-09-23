@@ -53,7 +53,9 @@ class tanar_model extends CI_Model
 
 	public function tantargynev($tantargyid)
 	{
-		$query=$this->db->query("SELECT nev from tantargyak where tantargyid='$tantargyid'");
+		$query=$this->db->query("SELECT tantargyak.nev,osztalyok.osztalynev from 
+				tantargyak,osztalyok where 
+					osztalyok.osztalyid=tantargyak.osztaly AND tantargyid='$tantargyid'");
 		$tantargynev=$query->row_array();
 		return $tantargynev;
 	}
@@ -214,7 +216,11 @@ class tanar_model extends CI_Model
 	}	
 	public function osztalynevsor($osztalyid)
 	{
-		$query0=$this->db->query("SELECT gy.userid,gy.name,gy.dob,gy.taj,gy.szulhely,gy.tel,gy.irsz,gy.email,gy.lakcim,gy.foto_link,sz.name as szulonev,sz.userid as szuloid  from szulogyermek inner join users gy on(szulogyermek.gyermekid=gy.userid) inner join users sz on(szulogyermek.szuloid=sz.userid)");
+		$query0=$this->db->query("SELECT gy.userid,gy.name,gy.dob,gy.taj,gy.szulhely,gy.tel,gy.irsz,gy.email,gy.lakcim,
+				gy.foto_link,sz.name as szulonev,sz.userid as szuloid from 
+					szulogyermek right join 
+						users gy on(szulogyermek.gyermekid=gy.userid) left join
+							users sz on(szulogyermek.szuloid=sz.userid) where gy.osztalyid=$osztalyid order by gy.name");
 		return $query0->result_array();
 	}
 
@@ -283,6 +289,24 @@ class tanar_model extends CI_Model
 		$datum=date("Y-m-d H:i:s",time());
 		$query=$this->db->get_where('feltoltott_dolgozatok',array('tantargyid'=>$tantargyid,'tanarid'=>$tanarid,'datum<'=>$datum));
 		return $query->result_array();
+	}
+	public function evvegijegyek($tantargyid,$osztalyid)
+	{
+		$query=$this->db->query("SELECT users.name,users.userid,jegyek_evvegi.jegy,jegyek_evvegi.tantargyid from 
+			users left join jegyek_evvegi on users.userid=jegyek_evvegi.userid where 
+    			users.osztalyid=$osztalyid AND (jegyek_evvegi.tantargyid=$tantargyid OR jegyek_evvegi.tantargyid IS NULL) order by name");
+		return $query->result_array();
+	}
+
+	public function evvegijegy($tantargyid,$jegy,$datum,$diakid)
+	{
+		$data=[
+			'tantargyid'=>$tantargyid,
+			'jegy'=>$jegy,
+			'datum'=>$datum,
+			'userid'=>$diakid
+		];
+		$this->db->insert('jegyek_evvegi',$data);			
 	}
 
 }

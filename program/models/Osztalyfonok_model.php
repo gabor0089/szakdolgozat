@@ -99,6 +99,14 @@ class osztalyfonok_model extends CI_Model
 	{
 		$this->db->order_by('idopont','ASC');
 		$query=$this->db->get_where('jegyek',array('tantargyid'=>$tantargyid));
+		//$query=$this->db->query("SELECT jegyid,kiadta,kikapta,idopont,jegy,tantargyid,jeloles,megjegyzes,dolgid, dolgfajlid,jegyek_evvegi.tantargyid,jegyek_evvegi.jegy,jegyek_evvegi.datum from jegyek,jegyek_evvegi where tantargyid=$tantargyid AND jegyek_evvegi.userid=jegyek.kikapta");
+		return $query->result_array();
+	}
+	public function evvegijegyek($tantargyid,$osztalyid)
+	{
+		$query=$this->db->query("SELECT users.name,jegyek_evvegi.jegy,jegyek_evvegi.tantargyid from 
+			users left join jegyek_evvegi on users.userid=jegyek_evvegi.userid where 
+    			users.osztalyid=$osztalyid AND (jegyek_evvegi.tantargyid=$tantargyid OR jegyek_evvegi.tantargyid IS NULL) order by name");
 		return $query->result_array();
 	}
 	public function osztalyom($userid)
@@ -195,6 +203,17 @@ class osztalyfonok_model extends CI_Model
 	{
 		$query=$this->db->get_where('erettsegi',array('userid'=>$userid));
 		return $query->row_array();
+	}
+	public function evvegijegy($tantargyid,$jegy,$datum,$diakid)
+	{
+		$data=[
+			'tantargyid'=>$tantargyid,
+			'jegy'=>$jegy,
+			'datum'=>$datum,
+			'userid'=>$diakid
+		];
+//		var_dump($data);
+		$this->db->insert('jegyek_evvegi',$data);			
 	}
 
 

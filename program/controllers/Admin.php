@@ -320,9 +320,10 @@ class Admin extends CI_Controller
 		$this->load->view($adatok['headerlink'],$adatok);
 		$szulokadatai=$this->load->admin_model->szulokadatai($userid);
 		$szuloadatai=['szulokadatai'=>$szulokadatai];
-		$this->load->view('admin/modosit_szulo',$szuloadatai);
+		$gyerekei=$this->load->admin_model->szulogyerekei($userid);
+		$adatok=['gyerekek'=>$gyerekei,'szulokadatai'=>$szuloadatai];
+		$this->load->view('admin/modosit_szulo',$adatok);
 	}
-
 
 	public function Szulogyermekmutat($szuloid)
 	{
@@ -465,11 +466,20 @@ class Admin extends CI_Controller
 			$this->load->view($adatok['headerlink'],$adatok);
 			$this->load->view('admin/csengrend',$data);
 	}
+	public function Ujtantargy()
+	{
+		$this->load->model('admin_model');
+		$nev=$_POST['tantargynev'];
+		$osztalyid=$this->admin_model->osztalyid($_POST['osztalynev']);
+		$tanarid=$this->admin_model->tanarid($_POST['tanarnev']);
+		$oraszam=$_POST['oraszam'];
+		$this->admin_model->ujtantargy($nev,$osztalyid['osztalyid'],$tanarid['userid'],$oraszam);
+		$this->Tantargyak();
+	}
 	public function Tantargyak($sorrend=null)
 	{
 		$this->load->helper('url');
 		$this->load->model('admin_model');
-		//$mostrendezve = substr(strrchr(current_url(), "/"), 0);
 		if($sorrend==null)
 			$sorrend='nev';
 		$targyak=$this->admin_model->tantargyaklista($sorrend);
