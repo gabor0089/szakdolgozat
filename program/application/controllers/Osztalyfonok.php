@@ -108,7 +108,7 @@ class Osztalyfonok extends CI_Controller
 		$nevek=$this->osztalyfonok_model->nevsor($osztalyomid);
 		$datas=$this->osztalyfonok_model->alapadatok();
 		
-		if($sorszam==null)
+		if($sorszam==null || $sorszam>count($tantargyak)-1 || $sorszam<0)
 			$sszam=0;
 		else $sszam=$sorszam;
 		$jegyek=$this->osztalyfonok_model->jegyek($tantargyak[$sszam]['tantargyid']);
@@ -139,15 +139,13 @@ class Osztalyfonok extends CI_Controller
 					'hianyzasok'=>$hianyzasok);
 		$this->load->view('osztalyfonok/hianyzasok',$data);
 	}
-	public function Reszletes_hianyzas($diakid=null)
+	public function Reszletes_hianyzas($diakid)
 	{
 		$userid = $this->session->user_id;
 		$this->load->model('osztalyfonok_model');
-		if(!isset($diakid))
-			$diakid=$this->input->post('userid');		
 		$hianyzas=$this->osztalyfonok_model->hianyzas($diakid);
 		$diaknev=$this->osztalyfonok_model->diaknev($diakid);
-		$adatok2k=$this->Main();
+		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
 		$igazolasok = array(
 				''		=>'',
@@ -159,7 +157,8 @@ class Osztalyfonok extends CI_Controller
 		);
 		$data=array('hianyzas'=>$hianyzas,
 					'igazolasok'=>$igazolasok,
-					'diaknev'=>$diaknev['name']);
+					'diaknev'=>$diaknev['name'],
+					'adatok'=>$adatok);
 		$this->load->view('osztalyfonok/hianyzasok_reszletes',$data);
 	}
 	public function Hianyzaskesz()

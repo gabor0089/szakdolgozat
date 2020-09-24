@@ -24,7 +24,7 @@
 			<?php echo form_open('Osztalyfonok/hianyzaskesz');?>
 
 			<?php if($hiany['perc']==45):?>
-				<tr class='row sarga'>
+				<tr class='row text-danger'>
 			<?php else:?>
 				<tr class='row'>
 			<?php endif;?>
