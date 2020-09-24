@@ -27,6 +27,7 @@
 			Email <input type='text' class='form-control' name='email' value='<?=$diakokadatai['email']?>' autocomplete='off' placeholder='Email cím' >
 			Osztály
 			<?php
+				$selected=$diakokadatai['osztalyid'];
 				$osztalyok = array(
 		        	'1'         => '9/A',
 		        	'2'         => '9/B',
@@ -41,7 +42,7 @@
 		        	'11'         => '12/B',
 		        	'12'         => '12/C'
 				);
-				echo form_dropdown('osztaly', $osztalyok);
+				echo form_dropdown('osztaly', $osztalyok,$selected);
 			?>
 			<BR>
 			<button type='submit' class='btn btn-primary btn-block'>Módosít!</button>
