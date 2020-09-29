@@ -241,8 +241,8 @@ class Admin extends CI_Controller
 					$kesz=$this->admin_model->ujtanar($name,$dob,$szulhely,$taj,$tel,$irsz,$lakcim,$beosztas,$filename);
 					$utolsotanar=$this->admin_model->legutobbi_tanar();
 					$kesz2=$this->admin_model->ujofoosztaly($ofoosztaly,$utolsotanar[0]['userid']);
-					var_dump($utolsotanar);
-					echo $ofoosztaly."-".$utolsotanar[0]['userid'];
+					//var_dump($utolsotanar);
+					//echo $ofoosztaly."-".$utolsotanar[0]['userid'];
 					redirect('Admin/tanarok');
 				} 
 		}    
@@ -377,6 +377,7 @@ class Admin extends CI_Controller
 
             $data = array('upload_data' => $this->upload->data());
 			$kesz=$this->admin_model->ujszulo();
+			redirect('Admin/szulok');
 		}    
 	}
 	public function Alapadatok()
@@ -466,11 +467,20 @@ class Admin extends CI_Controller
 			$this->load->view($adatok['headerlink'],$adatok);
 			$this->load->view('admin/csengrend',$data);
 	}
+	public function Ujtantargy()
+	{
+		$this->load->model('admin_model');
+		$nev=$_POST['tantargynev'];
+		$osztalyid=$this->admin_model->osztalyid($_POST['osztalynev']);
+		$tanarid=$this->admin_model->tanarid($_POST['tanarnev']);
+		$oraszam=$_POST['oraszam'];
+		$this->admin_model->ujtantargy($nev,$osztalyid['osztalyid'],$tanarid['userid'],$oraszam);
+		$this->Tantargyak();
+	}
 	public function Tantargyak($sorrend=null)
 	{
 		$this->load->helper('url');
 		$this->load->model('admin_model');
-		//$mostrendezve = substr(strrchr(current_url(), "/"), 0);
 		if($sorrend==null)
 			$sorrend='nev';
 		$targyak=$this->admin_model->tantargyaklista($sorrend);
@@ -488,7 +498,8 @@ class Admin extends CI_Controller
 		$tanarid=$this->admin_model->tanarid($tanarnev);
 		$osztalynev=$this->input->post('osztalynev');
 		$osztalyid=$this->admin_model->osztalyid($osztalynev);
-		$this->admin_model->Tantargyvaltozas($tantargyid,$tantargynev,$tanarid['userid'],$osztalyid['osztalyid']);
+		$oraszam=$this->input->post('oraszam');
+		$this->admin_model->Tantargyvaltozas($tantargyid,$tantargynev,$tanarid['userid'],$osztalyid['osztalyid'],$oraszam);
 		$this->Tantargyak();
 	}
 
