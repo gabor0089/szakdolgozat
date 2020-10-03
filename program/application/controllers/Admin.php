@@ -230,8 +230,6 @@ class Admin extends CI_Controller
                 if ( ! $this->upload->do_upload('userfile'))
                 {
                         $error = array('error' => $this->upload->display_errors());
-
-//                        $this->load->view('admin/ujtanar', $error);
                         var_dump($error);
                 }
                 else
@@ -340,8 +338,6 @@ class Admin extends CI_Controller
 		
 		if($this->form_validation->run()===FALSE)
 		{
-
-			//////////////
 			$diakok=$this->admin_model->mindendiak();
 			$diakok_nevei=array();
 			foreach ($diakok as $diaknev)
@@ -356,7 +352,6 @@ class Admin extends CI_Controller
 				'diakok_nevei'=>$diakok_nevei,
 				'feltoltes'=>'sikeres!'
 			];
-			///////////
 			$adatok=$this->Main();
 			$this->load->view($adatok['headerlink'],$adatok);
 			$this->load->view('admin/ujszulo',$adatok2);

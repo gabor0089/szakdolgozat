@@ -209,7 +209,6 @@ class Admin_model extends CI_Model
 
 	public function szuloklistaja()
 	{
-//		$query0=$this->db->query("SELECT sz.userid,sz.name,sz.dob,sz.szulhely,sz.tel,sz.irsz,sz.email,sz.lakcim,gy.userid as gyerekid from szulogyermek inner join users sz on(szulogyermek.szuloid=sz.userid) inner join users gy on(szulogyermek.gyermekid=gy.userid) group by sz.userid");
 		$query0=$this->db->query("SELECT * from users where beosztas=5");
 		$result_array=$query0->result_array();
 
@@ -249,9 +248,17 @@ class Admin_model extends CI_Model
 		$gyermekid=$this->gyermekidkeres($this->input->post('diak'));
 		$data3=array(
 			'szuloid'=>$idd[0]['userid'],
-			'gyermekid'=>$gyermekid[0]['userid']
+			'gyermekid'=>$gyermekid[0]['userid'],
+			'hasznalt'=>$gyermekid[0]['userid']
 			);
 		$this->db->insert('szulogyermek',$data3);
+		$data4=array(
+			'userid'=>$idd[0]['userid'],
+			'value'=>1,
+			'set_name'=>jegyek
+			);
+		$this->db->insert('users_sets',$data4);
+
 		
 
 	}
