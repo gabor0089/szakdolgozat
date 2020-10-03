@@ -177,6 +177,7 @@ class tanar_model extends CI_Model
 									osztalyok.osztalynev as osztalynev,
 									tantargyak.nev as tantargynev,
 									tantargyak.tantargyid as tantargyid,
+									tantargyak.oraszam as oraszam,
 									haladasi_naplo.datum as datum,
 									haladasi_naplo.hanyadik_ora as hanyadik_ora,
 									haladasi_naplo.tevekenyseg as tevekenyseg 
@@ -224,22 +225,24 @@ class tanar_model extends CI_Model
 		return $query0->result_array();
 	}
 
-	public function jegyek($diakid,$tantargyid)
+	public function jegyek($diakid,$tantargyid,$ev)
 	{
+		$ev2=$ev+1;
 		$query=$this->db->query("SELECT idopont,jegy,megjegyzes,
 								feltoltott_dolgozatok.dolgozatcim as dolgozat,
 								diak_dolgozatok.filehelye as file 
 								from jegyek left join 
 								feltoltott_dolgozatok on jegyek.dolgid=feltoltott_dolgozatok.dolgozatid left join 
 								diak_dolgozatok on diak_dolgozatok.diakid=jegyek.kikapta where
-								jegyek.kikapta='$diakid' AND 
+								jegyek.kikapta='$diakid' AND jegyek.idopont between '$ev-09-01' AND '$ev2-09-01' AND 
 								jegyek.tantargyid='$tantargyid' GROUP BY
 								jegyek.jegyid ORDER BY 
 								idopont desc");
 		return $query->result_array();
 	}
-	public function osztalytargyjegy($osztalyid,$tantargyid)
+	public function osztalytargyjegy($osztalyid,$tantargyid,$ev)
 	{
+		$ev2=$ev+1;
 		$query=$this->db->query("SELECT	jegyek.idopont as idopont,
 										jegyek.jegy as jegy,
 										jegyek.megjegyzes as megjegyzes,
@@ -248,7 +251,7 @@ class tanar_model extends CI_Model
 										users left join jegyek on jegyek.kikapta=users.userid join 
 										osztalyok on osztalyok.osztalyid=users.osztalyid join 
 										tantargyak on tantargyak.tantargyid=jegyek.tantargyid AND
-										jegyek.tantargyid='$tantargyid' AND
+										jegyek.tantargyid='$tantargyid' AND jegyek.idopont between '$ev-09-01' AND '$ev2-09-01' AND
 										osztalyok.osztalyid='$osztalyid'
 										");
 		return $query->result_array();
@@ -259,10 +262,13 @@ class tanar_model extends CI_Model
 								tantargyak.nev as tantargynev,
 								feltoltott_dolgozatok.datum as datum,
 								feltoltott_dolgozatok.dolgozatid as dolgozatid,
-								feltoltott_dolgozatok.dolgozatcim as dolgozatcim from 
-								tantargyak,feltoltott_dolgozatok where
+								feltoltott_dolgozatok.dolgozatcim as dolgozatcim,
+								osztalyok.osztalynev as osztalynev from 
+								tantargyak,feltoltott_dolgozatok,osztalyok where
 								feltoltott_dolgozatok.tanarid='$userid' AND
-								feltoltott_dolgozatok.tantargyid=tantargyak.tantargyid");
+								feltoltott_dolgozatok.tantargyid=tantargyak.tantargyid AND
+								osztalyok.osztalyid=tantargyak.osztaly AND
+								tantargyak.tantargyid=feltoltott_dolgozatok.tantargyid");
 		return $query->result_array();
 	}
 	public function dolgozatlista1tantargy($userid,$tantargyid)

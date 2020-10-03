@@ -22,7 +22,7 @@
 		</div>
 		<div class='row'>
 		<?php if($naplo<>null):?>
-			<div class='col-md-12 text-center h3'><?=$naplo[0]['osztalynev']?> <?=$naplo[0]['tantargynev']?></div>
+			<div class='col-md-12 text-center h2'><?=$naplo[0]['osztalynev']?> <?=$naplo[0]['tantargynev']?> (<?=$naplo[0]['oraszam']?> tanóra)</div>
 		</div>
 		<?php foreach ($naplo as $n):?>
 			<?php

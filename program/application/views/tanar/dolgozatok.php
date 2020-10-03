@@ -15,8 +15,9 @@
     <table class="table table-striped table-hover table-sm">
           <tr class='row'><td><button class='btn btn-primary' onclick='ujdolg()'>Új dolgozat</button></td></tr>
             <tr class='row'>
-              <th class="col-md-3">Tantárgy</th>
-              <th class="col-md-3">Dátum</th>
+              <th class="col-md-2">Tantárgy</th>
+              <th class="col-md-1">Osztály</th>
+              <th class="col-md-2">Dátum</th>
               <th class="col-md-3">Dolgozat címe</th>
             </tr>
           <tbody>
@@ -28,15 +29,16 @@
               <?php endforeach;?>
               </SELECT></td>  
               <td class='col-md-2'><input type='date' class='form-control' name='datum'></td>
-              <td class='col-md-1'><input type='time' class='form-control' name='ido'></td>  
-              <td class='col-md-3'><input type='text' class='form-control' name='dolgozatcim'></td>
+              <td class='col-md-2'><input type='text' class='form-control' name='dolgozatcim'></td>
               <td class='col-md-1'><input type='submit' class='btn btn-primary'></td>
               <?php echo form_close();?>
             </tr>
-          <?php foreach ($dolgozatok as $dolg):?>
+            <?php foreach ($dolgozatok as $dolg):?>
             <tr class='row'>
-              <td class='col-md-3'><?=$dolg['tantargynev']?></td>  
-              <td class='col-md-2'><?=$dolg['datum']?></td>  
+              <?php $datum_egesz=explode(" ",$dolg['datum']);?>
+              <td class='col-md-2'><?=$dolg['tantargynev']?></td>  
+              <td class='col-md-1'><?=$dolg['osztalynev']?></td>  
+              <td class='col-md-2'><?=$datum_egesz[0]?></td>  
               <td class='col-md-3'><?=$dolg['dolgozatcim']?></td>
             </tr>
           <?php endforeach;?>
