@@ -262,6 +262,19 @@ class Admin_model extends CI_Model
 		
 
 	}
+	public function gyermekhozzaad($szuloid,$gyereknev)
+	{
+		$gyermekid=$this->gyermekidkeres($gyereknev);
+		
+		$data3=array(
+			'szuloid'=>$szuloid,
+			'gyermekid'=>$gyermekid[0]['userid'],
+			'hasznalt'=>0
+			);
+		$this->db->insert('szulogyermek',$data3);
+	
+		
+	}
 	public function modosit_szulo($name,$dob,$szulhely,$taj,$tel,$irsz,$lakcim,$email,$osztaly,$userid)
 	{
 		$data = array(

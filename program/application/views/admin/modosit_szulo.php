@@ -5,8 +5,54 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
+       <script>   
+      function ujgyerekkinyit() 
+      {
+        if(document.getElementById('ujgyerek').style.display == "block")
+        {
+          document.getElementById('ujgyerek').style.display = "none";
+        }
+        else
+        {
+          document.getElementById('ujgyerek').style.display = "block";
+        } 
+      }
+      function ujgyerekbecsuk()
+      {
+        document.getElementById('ujgyerek').style.display = "none";
+      }
+      </script>
+      <?php 
+	  $php_array=array();
+		foreach ($diakok_nevei as $diak)
+		{
+		    $php_array[]=$diak;
+		}
+		$js_array = json_encode($php_array);
+		echo "<script>";
+		echo "var javascript_array = ".$js_array. ";";
+		echo "</script>";
+		?>
+		<script>
+	  function updateResult(query)
+  	{
+      let resultList = document.querySelector("#result-list");
+      resultList.innerHTML = "";
+      javascript_array.map(function(algo)
+      {
+        query.split(" ").map(function (word)
+        {
+          if(algo.toLowerCase().indexOf(word.toLowerCase()) != -1)
+          {
+            resultList.innerHTML += `<OPTION>${algo}</OPTION>`;
+          }
+        })
+      })
+  	}
+    </script>
+
     </HEAD>
-	<BODY>
+	<BODY onload='ujgyerekbecsuk()'>
 
 <h2 class='text-center'>Szülő adatainak módosítása</h2>
 <div class="container-fluid">
@@ -25,25 +71,30 @@
 			Irányítószám <input type='text' class='form-control' name='irsz' value='<?=$szulokadatai['irsz']?>' autocomplete='off' placeholder='Irányítószám' >
 			Lakcím <input type='text' class='form-control' name='lakcim' value='<?=$szulokadatai['lakcim']?>' autocomplete='off' placeholder='Lakcím' >
 			Email <input type='text' class='form-control' name='email' value='<?=$szulokadatai['email']?>' autocomplete='off' placeholder='Email cím' >
+			<?php echo form_close();?>
 		<?php endforeach;?>
 			Gyerek<?php $db=count($gyerekek);?><?php if($db>1):?>ek<?php endif;?>:
 		<?php for ($i=0;$i<count($gyerekek)-1;$i++):?>
 				<a href='<?php echo base_url();?>Admin/Diak_mod0/<?=$gyerekek[$i]['userid']?>'><?=$gyerekek[$i]['name']?></a>, 	
 			<?php endfor;?>
-			<a href='<?php echo base_url();?>Admin/Diak_mod0/<?=$gyerekek[count($gyerekek)-1]['userid']?>'><?=$gyerekek[$i]['name']?></a> 	
-			
+			<a href='<?php echo base_url();?>Admin/Diak_mod0/<?=$gyerekek[count($gyerekek)-1]['userid']?>'><?=$gyerekek[$i]['name']?></a>
+			<button class='btn btn-warning' onclick="ujgyerekkinyit()">Új gyerek hozzáadása</button>
 			<BR>
-
+			<div id='ujgyerek'>
+				<?php echo form_open('Admin/Gyerekhozzaad');?>
+				     Gyermek<input type='text' class='form-control' oninput='updateResult(this.value)' name='diaknev' placeholder='Diák neve...' autocomplete='off'>
+ 					<SELECT id='result-list' name='diak' size='4' multiple required>
+ 					</SELECT><BR>
+ 					<input type='hidden' name='szuloid' value='<?=$szulokadatai['userid']?>'>
+ 					<button type='submit' class='btn btn-success'>Kész</button></a>
+ 				<?php form_close();?>
+			</div>
 			<button type='submit' class='btn btn-primary btn-block'>Módosít!</button>
-			<?php echo form_close();?>
+			
           </div>
       </div>
     </div>
   </div>
 </div>
-
-
-<?PHP echo form_close();?>
-
 </body>
 </html>

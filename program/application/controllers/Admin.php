@@ -319,7 +319,20 @@ class Admin extends CI_Controller
 		$szulokadatai=$this->load->admin_model->szulokadatai($userid);
 		$szuloadatai=['szulokadatai'=>$szulokadatai];
 		$gyerekei=$this->load->admin_model->szulogyerekei($userid);
-		$adatok=['gyerekek'=>$gyerekei,'szulokadatai'=>$szuloadatai];
+		$diakok=$this->admin_model->mindendiak();
+		$diakok_nevei=array();
+		foreach ($diakok as $diaknev)
+		{
+			foreach ($diaknev as $diak)
+			{
+				$diakok_nevei[]=$diak;
+			}
+		}
+		$adatok=['gyerekek'=>$gyerekei,
+				'szulokadatai'=>$szuloadatai,
+				'diakok_nevei'=>$diakok_nevei
+				];
+
 		$this->load->view('admin/modosit_szulo',$adatok);
 	}
 
@@ -374,6 +387,13 @@ class Admin extends CI_Controller
 			$kesz=$this->admin_model->ujszulo();
 			redirect('Admin/szulok');
 		}    
+	}
+	public function Gyerekhozzaad()
+	{
+		$szuloid=$this->input->post('szuloid');
+		$gyereknev=$this->input->post('diak');
+		$kesz=$this->admin_model->gyermekhozzaad($szuloid,$gyereknev);
+		redirect('Admin/szulok');
 	}
 	public function Alapadatok()
 	{
