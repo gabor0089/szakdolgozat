@@ -175,6 +175,7 @@ class tanar_model extends CI_Model
 		$query=$this->db->query("SELECT
 									haladasi_naplo.id as id,
 									osztalyok.osztalynev as osztalynev,
+									haladasi_naplo.osztalyid as osztalyid,
 									tantargyak.nev as tantargynev,
 									tantargyak.tantargyid as tantargyid,
 									tantargyak.oraszam as oraszam,
@@ -189,11 +190,37 @@ class tanar_model extends CI_Model
 									haladasi_naplo.tantargyid=tantargyak.tantargyid");
 		return $query->result_array();	
 	}
+	public function haladasinaplo_ures($targyid)
+	{
+		$query=$this->db->query("SELECT
+									osztalyok.osztalynev as osztalynev,
+									osztalyok.osztalyid as osztalyid,
+									tantargyak.nev as tantargynev,
+									tantargyak.tantargyid as tantargyid,
+									tantargyak.oraszam as oraszam
+								from
+									osztalyok,tantargyak
+								where
+									tantargyak.osztaly=osztalyok.osztalyid AND
+									tantargyak.tantargyid='$targyid'");
+		return $query->result_array();
+	}
 	public function haladasinaplokesz($naploid,$tev)
 	{
 		$this->db->set('tevekenyseg',$tev);
 		$this->db->where('id',$naploid);
 		$this->db->update('haladasi_naplo');
+	}
+	public function haladasinaplo_uj($datum,$hanyadik_ora,$osztalyid,$tantargyid,$tevekenyseg,$tanarid)
+	{
+		$data=['datum'=>$datum,
+				'hanyadik_ora'=>$hanyadik_ora,
+				'osztalyid'=>$osztalyid,
+				'tantargyid'=>$tantargyid,
+				'tevekenyseg'=>$tevekenyseg,
+				'tanarid'=>$tanarid];
+		$this->db->insert('haladasi_naplo',$data);
+	
 	}
 	public function alapadatok()
 	{

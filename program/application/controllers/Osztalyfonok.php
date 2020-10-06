@@ -587,13 +587,30 @@ class Osztalyfonok extends CI_Controller
 		{
 			$haladasinaplo=$this->tanar_model->haladasinaplo($targyid);
 		}
+		if(count($haladasinaplo)<1)
+				$haladasinaplo=$this->tanar_model->haladasinaplo_ures($targyid);
 		$adatok=$this->Main();
 		$userid = $this->session->user_id;
 		$tanitotttargyak=$this->tanar_model->tanitotttargyak($userid);
 		$data=[ 'tanitotttargyak'=>$tanitotttargyak,
-				'naplo'=>$haladasinaplo];
+				'naplo'=>$haladasinaplo,
+				'userid'=>$userid];
 		$this->load->view($adatok['headerlink'],$adatok);
 		$this->load->view('Osztalyfonok/haladasinaplo',$data);
+	}
+
+
+	public function Haladasi_naplo_uj()
+	{
+		$datum=$this->input->post('datum');
+		$hanyadik_ora=$this->input->post('ora');
+		$osztalyid=$this->input->post('osztalyid');
+		$tantargyid=$this->input->post('tantargyid');
+		$tevekenyseg=$this->input->post('tev');
+		$tanarid=$this->session->user_id;
+		$this->load->model('tanar_model');
+		$this->tanar_model->haladasinaplo_uj($datum,$hanyadik_ora,$osztalyid,$tantargyid,$tevekenyseg,$tanarid);
+		$this->Haladasinaplo($tantargyid);
 	}
 	public function Haladasinaplokesz()
 	{
