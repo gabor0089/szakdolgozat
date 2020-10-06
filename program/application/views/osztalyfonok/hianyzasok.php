@@ -2,63 +2,82 @@
 <HTML>
 	<HEAD>
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.css">
-	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
-   	</HEAD>
+	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
+        </HEAD>
 	<BODY>
-	<div class='container'>
-		<table class="table table-hover table-sm ">
-			<tr class='row'>
-				<td class='col-md-2 bg-nev text-center h2'></td>
-				<td class='col-md-4 bg-ora text-center h2'>Hiányzások</td>
-				<td class='col-md-4 bg-perc text-center h2'>Késések</td>
-			</tr>
-			<tr class='row'>
-				<td class='col-md-2 bg-nev text-left'>Név</td>
-				<td class='col-md-1 bg-ora text-center'>Igazolt</td>
-				<td class='col-md-1 bg-ora text-center'>Igazolatlan</td>
-				<td class='col-md-1 bg-ora text-center'>Igazolandó</td>
-				<td class='col-md-1 bg-ora text-center'>Összesen</td>
-				<td class='col-md-1 bg-perc text-center'>Igazolt</td>
-				<td class='col-md-1 bg-perc text-center'>Igazolatlan</td>
-				<td class='col-md-1 bg-perc text-center'>Igazolandó</td>
-				<td class='col-md-1 bg-perc text-center'>Összesen</td>
-			</tr>
-
-	<?php $osszh=0;$osszhigazolt=0;$osszhigazoltalan=0;$osszhigazolando=0;?>
-	<?php $osszk=0;$osszkigazolt=0;$osszkigazoltalan=0;$osszkigazolando=0;?>
-	<?php for($i=0; $i < count($nevek); $i++):?>
-		<tr class='row'>
-			<td class='col-md-2 bg-nev'><?=$nevek[$i]['name']?></td>
-				<?php foreach ($hianyzasok as $hiany):?>
-				<?php if($hiany['diakid']==$nevek[$i]['userid']):?>
-					<?php if($hiany['perc']=='45') $osszh++;?>
-					<?php if($hiany['statusz']==1 && $hiany['perc']==45) $osszhigazolando++;?>
-					<?php if($hiany['statusz']==2 && $hiany['perc']==45) $osszhigazolt++;?>
-					<?php if($hiany['statusz']==3 && $hiany['perc']==45) $osszhigazoltalan++;?>
-					<?php if($hiany['perc']<45) $osszk+=$hiany['perc'];?>
-					<?php if($hiany['statusz']==1 && $hiany['perc']<45) $osszkigazolando+=$hiany['perc'];?>
-					<?php if($hiany['statusz']==2 && $hiany['perc']<45) $osszkigazolt+=$hiany['perc'];?>
-					<?php if($hiany['statusz']==3 && $hiany['perc']<45) $osszkigazoltalan+=$hiany['perc'];?>
-				<?php endif;?>
-				<?php endforeach;?>
-			<td class='col-md-1 bg-ora text-center'><?php if($osszhigazolt>0) echo $osszhigazolt." óra";?></td>
-			<td class='col-md-1 bg-ora text-center'><?php if($osszhigazoltalan>0) echo $osszhigazoltalan." óra";?></td>
-			<td class='col-md-1 bg-ora text-center'><?php if($osszhigazolando>0) echo $osszhigazolando." óra";?></td>
-			<td class='col-md-1 bg-ora text-center'><?php if($osszh>0) echo $osszh." óra";?></td>
-
-			<td class='col-md-1 bg-perc text-center'><?php if($osszkigazolt>0) echo $osszkigazolt." perc";?></td>
-			<td class='col-md-1 bg-perc text-center'><?php if($osszkigazoltalan>0) echo $osszkigazoltalan." perc";?></td>
-			<td class='col-md-1 bg-perc text-center'><?php if($osszkigazolando>0) echo $osszkigazolando." perc";?></td>
-			<td class='col-md-1 bg-perc text-center'><?php if($osszk>0) echo $osszk." perc";?></td>
-			<td class='col-md-1'><a href="<?php echo base_url();?>Osztalyfonok/reszletes_hianyzas/<?=$nevek[$i]['userid']?>"><button class='btn btn-primary'>Részletek</button></a></td>
-		</tr>
-		<?php $osszh=0;$osszhigazolt=0;$osszhigazoltalan=0;$osszhigazolando=0;?>
-		<?php $osszk=0;$osszkigazolt=0;$osszkigazoltalan=0;$osszkigazolando=0;?>
-	<?php endfor;?>
-		</table>
+	<h1 class='text-center'>Hiányzások</h1>
+				<?PHP echo form_open('Osztalyfonok/ujhianyzas')?>
+<?php
+$ma=date("Y-m-d",time());
+if(!isset($nevsor))
+	{
+		$osztaly="";
+		$ora="";
+		$datum="";
+	}
+?>
+<div class='row'>
+	<div class='col-md-2'>
+		<div class='form-group'>
+			<input type='text' name='osztaly' value='<?=$osztaly?>' class='form-control' placeholder='Osztály' autocomplete='off' required autofocus>
+		</div>
 	</div>
+	<div class='col-md-2'>
+		<div class='form-group'>
+			<input type='date' name='datum' value='<?=$ma?>' class='form-control' required >
+		</div>
+	</div>
+	<div class='col-md-2'>
+		<div class='form-group'>
+			<input type='text' name='ora' value='<?=$ora?>' class='form-control' placeholder='óra' autocomplete='off' required>
+		</div>
+	</div>
+	<div class='col-md-2'>
+		<div class='form-group'>
+			<button type='submit' class='btn btn-primary btn-block'>Névsor listázása</button><BR>
+		</div>
+	</div>
+</div>
+<?php
+echo form_close();
+if(isset($nevsor))
+	{
+		foreach ($nevsor as $nevek):
+echo form_open('Osztalyfonok/Ujhianyzasfelvitel')?>
+		
+<div class='row'>
+	<div class='col-md-2'>
+		<div class='form-group'>
+			<input type='text' name='diak' value='<?=$nevek['name']?>' class='form-control' readonly autocomplete='off'>
+		</div>
+	</div>
+	<div class='col-md-1'>
+		<div class='form-group'>
+			<input type='text' name='perc' value='' class='form-control'>
+		</div>
+	</div>
+		<div class='form-group'>
+			<input type='hidden' name='diakid' value='<?=$nevek['userid']?>' class='form-control'>
+			<input type='hidden' name='ora' value='<?=$ora?>' class='form-control'>
+			<input type='hidden' name='hianyzas_datum' value='<?=$datum?>' class='form-control'>
+		</div>
+	<div class='col-md-1'>
+		<div class='form-group'>
+			<button type='submit' class='btn btn-primary btn-block'>Késés</button>
+		</div>
+	</div>
+</div>
+		<?php 
+	echo form_close();
+
+			endforeach;?>
+		<?php
+	
+	}
+?>
+			
 
 	</body>
 </Html>

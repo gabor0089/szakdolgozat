@@ -117,7 +117,7 @@ class Tanar extends CI_Controller
 		$hianyzas_datum=$this->input->post('hianyzas_datum');
 		$perc=$this->input->post('perc');
 		$this->tanar_model->Ujhianyzasfelvitel($tanarid,$diakid,$ora,$perc,$hianyzas_datum);
-		$this->Ujhianyzas();
+		$this->Hianyzas();
 	}
 	public function Osztalyozas_diakok()
 	{
@@ -167,7 +167,9 @@ class Tanar extends CI_Controller
 			$tantargyid=$tantargy;
 		$diak=$this->tanar_model->diaknev($diakid);
 		$targy=$this->tanar_model->tantargynev($tantargyid);
-		$jegyek=$this->tanar_model->jegyek($diakid,$tantargyid);
+		$this->load->model('users_model');
+		$ev=$this->users_model->iskolanev();
+		$jegyek=$this->tanar_model->jegyek($diakid,$tantargyid,$ev[0]['ev']);
 		$dolgozatok=$this->tanar_model->dolgozatok($tanarid,$tantargyid);
 		$data=[
 				'jegyek'=>$jegyek,
@@ -277,7 +279,7 @@ class Tanar extends CI_Controller
 	}
 
 
-	public function Osztalyozas_csoportos() //EZ JÓ, EHHEZ NE NYÚLJ!!!
+	public function Osztalyozas_csoportos()
 	{
 		$userid=$this->session->user_id;
 		$this->load->model('tanar_model');
@@ -312,7 +314,9 @@ class Tanar extends CI_Controller
 		$this->load->model('tanar_model');
 		$tantargynev=$this->tanar_model->tantargynev($tantargyid);
 		$nevsor=$this->tanar_model->osztalynevsor($osztalyid);
-		$jegyek=$this->tanar_model->osztalytargyjegy($osztalyid,$tantargyid);
+		$this->load->model('users_model');
+		$ev=$this->users_model->iskolanev();
+		$jegyek=$this->tanar_model->osztalytargyjegy($osztalyid,$tantargyid,$ev[0]['ev']);
 		$osztalynev=$this->tanar_model->osztalynev($osztalyid);
 		$dolgozatlista=$this->tanar_model->dolgozatlista1tantargy($userid,$tantargyid);
 		

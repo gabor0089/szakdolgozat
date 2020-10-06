@@ -9,6 +9,18 @@
     </HEAD>
 	<BODY>
 	<div class='container'>
+      <div class='row'>
+        <div class='col-sm-12 text-center h2'>Saját osztályom</div>
+      </div>
+      <div class="row">
+        <div class='col-sm-6 text-right'><a href='<?php echo base_url();?>Osztalyfonok/SajatOsztalyJegyek'>
+          <button class='btn btn-info'>Jegyek</button></a>
+        </div>
+        <div class='col-sm-6 text-left'><a href='<?php echo base_url();?>Osztalyfonok/SajatOsztalyHianyzasok'>
+          <button class='btn btn-info'>Hiányzások</button></a>
+        </div>
+      </div>
+
 		<div class='row'>
 			<div class='col-md-12 h2 text-center'>Jegyek</div>
 		</div>
