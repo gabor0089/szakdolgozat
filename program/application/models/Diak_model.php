@@ -47,19 +47,22 @@ class diak_model extends CI_Model
 		$query=$this->db->query("SELECT value from users_sets where userid='$userid' AND set_name='jegyek'");
 		return $query->result_array();
 	}
-	public function Jegyekidorend($userid)
+	public function Jegyekidorend($userid,$ev)
 	{
+		$ev2=$ev+1;
 		$query=$this->db->query("SELECT tantargyak.nev as tantargynev,jegyek.jegy as jegy,jegyek.idopont as idopont,jegyek.megjegyzes as megjegyzes,users.name as tanar 
 							from tantargyak right join jegyek on tantargyak.tantargyid=jegyek.tantargyid 
 							join users on users.userid=jegyek.kiadta  
-							where jegyek.kikapta='$userid' order by idopont desc");
+							where jegyek.kikapta='$userid' AND jegyek.idopont between '$ev-09-01' AND '$ev2-09-01' 
+							order by idopont desc");
 		$result_array=$query->result_array();
 		return $result_array;
 	}
-	public function Jegyektabla($userid)
+	public function Jegyektabla($userid,$ev)
 	{
+		$ev2=$ev+1;
 		$query=$this->db->query("SELECT jegy,tantargyid,megjegyzes,idopont from jegyek 
-							where kikapta='$userid'");
+							where kikapta='$userid' AND jegyek.idopont between '$ev-09-01' AND '$ev2-09-01'");
 		$result_array=$query->result_array();
 		return $result_array;
 	}

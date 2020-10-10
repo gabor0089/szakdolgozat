@@ -313,19 +313,36 @@ class Osztalyfonok extends CI_Controller
 		$osztalyomid=$adatok[0]['osztalyid'];
 
 		$tantargyak=$this->osztalyfonok_model->tantargyak($osztalyomid);
-
+		$tantargyidk=array();
+		foreach($tantargyak as $t)
+		{
+			$tantargyidk[]=$t['tantargyid'];
+		}
 		$nevek=$this->osztalyfonok_model->nevsor($osztalyomid);
 		$datas=$this->osztalyfonok_model->alapadatok();
 		if($sorszam==null)
-			$sszam=0;
-		else $sszam=$sorszam;
-		$evvegijegyek=$this->osztalyfonok_model->evvegijegyek($tantargyak[$sszam]['tantargyid'],$adatok[0]['osztalyid']);
+			$sszam=$tantargyidk[0];
+		elseif($sorszam>=0 && $sorszam<count($tantargyidk)-1)
+		{ 
+			$sszam=$tantargyidk[$sorszam];
+		}
+		elseif($sorszam<0)
+		{
+			$sszam=$tantargyidk[count($tantargyidk)-1];
+		}
+		elseif($sorszam>count($tantargyidk)-1)
+		{
+			$sszam=$tantargyidk[0];
+		}
+		$evvegijegyek=$this->osztalyfonok_model->evvegijegyek($sszam,$adatok[0]['osztalyid']);
+		$tantargynev=$this->osztalyfonok_model->tantargynev($sszam);
 		if(count($evvegijegyek)==0)
 			$evvegijegyek=array();
+		$key = array_search($sszam, $tantargyidk);
 		$data=['nevek'=>$nevek,
-				'tantargyidk'=>$tantargyak[$sszam]['tantargyid'],
-				'tantargynevek'=>$tantargyak[$sszam]['nev'],
-				'sszam'=>$sszam,
+				'tantargyidk'=>$sszam,
+				'tantargynevek'=>$tantargynev['nev'],
+				'sszam'=>$key,
 				'evvegijegyek'=>$evvegijegyek
 				];
 		$adatok=$this->Main();

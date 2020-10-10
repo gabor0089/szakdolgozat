@@ -11,7 +11,6 @@ class Admin extends CI_Controller
 
     public function index()
     {
-
         $this->load->view('admin/alapadatok', array('error' => ' ' ));
     }
 
@@ -542,6 +541,75 @@ class Admin extends CI_Controller
 		$this->admin_model->ujterem($terem,$megjegyzes);
 		$this->Tantermek();
 	}
-
-
+	public function Orarend($osztaly)
+	{
+		$this->load->model('admin_model');
+		$orarend=$this->admin_model->orarend($osztaly);
+		$osztalynev=$this->admin_model->osztalynev($osztaly);
+		$osztalyok=$this->admin_model->osztalyok();
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$data=['orarend'=>$orarend,
+				'osztalyok'=>$osztalyok,
+				'osztalynev'=>$osztalynev,
+				'alaposztalyid'=>$osztaly];
+		$this->load->view('admin/orarend',$data);
+	}
+	public function Orarend_mod($oraid,$osztalyid)
+	{
+		$this->load->model('admin_model');
+		$orarend_ora=$this->admin_model->orarend_ora($oraid);
+		$tantermek=$this->admin_model->tanteremlista();
+		$tantargyaklista=$this->admin_model->tantargyak_adottosztaly($osztalyid);
+		$adatok=$this->Main();
+		$tanarok=$this->admin_model->tanarok_adottosztaly();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$data=['orarend'=>$orarend_ora,
+				'tantargyak'=>$tantargyaklista,
+				'terem'=>$tantermek,
+				'tanarok'=>$tanarok,
+				'oraid'=>$oraid];
+		$this->load->view('admin/orarend_ora',$data);
+	}
+	public function Orarend_ora_kesz()
+	{
+		$this->load->model('admin_model');
+	    $oraid=$_POST['oraid'];
+	    if(isset($_POST['terem']))
+	    {
+	    	$terem=$_POST['terem'];
+	    	$this->admin_model->orarend_valtozas_terem($oraid,$terem);
+	    }
+	    if(isset($_POST['targy']))
+	    {
+	    	$targy=$_POST['targy'];
+	    	echo $targy;
+	    	$this->admin_model->orarend_valtozas_targy($oraid,$targy);
+	    }
+	    if(isset($_POST['tanar']))
+	    {
+	    	$tanar=$_POST['tanar'];
+	    	echo $tanar;
+	    	$this->admin_model->orarend_valtozas_tanar($oraid,$tanar);
+	    }
+	    redirect('Admin/Orarend_mod/'.$oraid);
+	}
+	public function Ora_torol($oraid)
+	{
+		$this->load->model('admin_model');
+		$this->admin_model->ora_torol($oraid);
+		redirect('Admin/Orarend_mod/'.$oraid);        
+	}
+	public function orarend_letrehozas($osztalyid)
+	{
+		$this->load->model('admin_model');
+		$this->admin_model->orarend_adat_torol($osztalyid);
+		for ($i=1; $i < 6; $i++) { 
+			for ($j=0; $j < 11; $j++) { 
+						$this->admin_model->orarend_letrehoz($osztalyid,$i,$j);				
+			}
+		}
+	redirect('Admin/Orarend/'.$osztalyid);        
+			        
+	}
 }

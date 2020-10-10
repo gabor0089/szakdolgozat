@@ -45,7 +45,7 @@
       Aktuális tanév
     </div>
     <div class="col-md-5">
-      <input type='text' class='form-control' name='ev' value='<?=$ev?>' autocomplete='off' placeholder='Aktuális tanév' required><br/>
+      <input type='text' class='form-control' name='ev' value="<?=$ev?>/<?=$ev+1?>" autocomplete='off' placeholder='Aktuális tanév' required><br/>
     </div>
     <div class="col-md-5">
     </div>

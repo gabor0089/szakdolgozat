@@ -27,6 +27,7 @@
           <nav>
             <a href="<?php echo base_url();?>Admin/alapadatok">Alapadatok</a>
             <a href="<?php echo base_url();?>Admin/csengrend">Csengetési rend</a>
+            <a href="<?php echo base_url();?>Admin/orarend/1">Órarend</a>
             <a href="<?php echo base_url();?>Admin/diakok">Diákok</a>
             <a href="<?php echo base_url();?>Admin/tanarok">Tanárok</a>
             <a href="<?php echo base_url();?>Admin/tantargyak">Tantárgyak</a>

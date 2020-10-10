@@ -47,6 +47,39 @@ class Admin_model extends CI_Model
 		$query9=$this->db->query("UPDATE csengetesirend SET kezdes='$k9',vege='$v9' where ora=9");
 		$query10=$this->db->query("UPDATE csengetesirend SET kezdes='$k10',vege='$v10' where ora=10");
 	}
+	public function orarend($osztaly)
+	{
+		$query=$this->db->query("SELECT 
+						orarend.oraid as oraid,
+						orarend.milyennap as milyennap,
+					    orarend.hanyadik_ora as hanyadik_ora,
+					    tantargyak.nev as tantargynev,
+					    termek.nev as teremnev,
+					    users.name as tanarnev
+					    FROM 
+					    	orarend LEFT JOIN tantargyak ON (orarend.tantargyid=tantargyak.tantargyid)
+					        LEFT JOIN termek ON (orarend.teremid=termek.teremid)
+					        LEFT JOIN users ON (orarend.tanarid=users.userid)
+					    WHERE
+					    	orarend.osztalyid=$osztaly");
+		return $result_array=$query->result_array();
+	}
+	public function orarend_ora($oraid)
+	{
+		$query=$this->db->query("SELECT 
+						orarend.oraid as oraid,
+						orarend.milyennap as milyennap,
+					    orarend.hanyadik_ora as hanyadik_ora,
+					    tantargyak.nev as tantargynev,
+					    termek.nev as teremnev,
+					    users.name as tanarnev
+					    FROM 
+					    	orarend LEFT JOIN tantargyak ON (orarend.tantargyid=tantargyak.tantargyid)
+					        LEFT JOIN termek ON (orarend.teremid=termek.teremid)
+					        LEFT JOIN users ON (orarend.tanarid=users.userid)
+					    WHERE orarend.oraid=$oraid");
+		return $result_array=$query->result_array();
+	}
 
 	public function diakoklistaja($sorrend)
 	{
@@ -365,6 +398,12 @@ class Admin_model extends CI_Model
 		return $osztalyid;
 	}
 
+	public function osztalynev($osztalyid)
+	{
+		$query=$this->db->query("SELECT osztalynev from osztalyok where osztalyid=$osztalyid");
+		$osztalyid=$query->row_array();
+		return $osztalyid;
+	}
 
 	public function tanteremlista()
 	{
@@ -383,6 +422,60 @@ class Admin_model extends CI_Model
 				'tanarid'=>$tanarid,
 				'oraszam'=>$oraszam];
 		$query=$this->db->insert('tantargyak',$data);
+	}
+	public function tantargyak_adottosztaly($osztaly)
+	{
+		$query=$this->db->query("SELECT tantargyid,nev 
+									from tantargyak 
+									where osztaly='$osztaly' order by nev");
+		return $query->result_array();
+	}
+	public function orarend_valtozas_terem($oraid,$terem)
+	{
+		$data=['teremid'=>$terem];
+		$this->db->where('oraid',$oraid);
+		$this->db->update('orarend',$data);
+	}
+	public function orarend_valtozas_targy($oraid,$targy)
+	{
+		$data=['tantargyid'=>$targy];
+		$this->db->where('oraid',$oraid);
+		$this->db->update('orarend',$data);
+	}
+	public function orarend_valtozas_tanar($oraid,$tanar)
+	{
+		$data=['tanarid'=>$tanar];
+		$this->db->where('oraid',$oraid);
+		$this->db->update('orarend',$data);
+	}
+	public function ora_torol($oraid)
+	{
+		$data=['tanarid'=>0,'tantargyid'=>0,'teremid'=>0];
+		$this->db->where('oraid',$oraid);
+		$this->db->update('orarend',$data);
+	}
+	public function tanarok_adottosztaly()
+	{
+		$query=$this->db->query("SELECT userid,name 
+									from users 
+									where beosztas=2 OR beosztas=3 order by name");
+		return $query->result_array();
+	}
+	public function orarend_letrehoz($osztalyid,$nap,$hanyadik_ora)
+	{
+		$data=['osztalyid'=>$osztalyid,
+				'datum'=>"2020-10-09",
+				'milyennap'=>$nap,
+				'hanyadik_ora'=>$hanyadik_ora,
+				'tantargyid'=>0,
+				'teremid'=>0,
+				'tanarid'=>0];
+		$query=$this->db->insert('orarend',$data);
+
+	}
+	public function orarend_adat_torol($osztalyid)
+	{
+		$query=$this->db->query("DELETE from orarend where osztalyid='$osztalyid'");
 	}
 }
 

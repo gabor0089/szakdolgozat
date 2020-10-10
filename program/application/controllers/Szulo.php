@@ -103,8 +103,9 @@ class Szulo extends CI_Controller
 		if($set[0]['value']<0)//Táblázatosan jelenjenek meg!!!
 		{
 			$osztalyidm=$this->diak_model->osztaly($aktualgyerek[0]['gyermekid']);
-			$targyak=$this->diak_model->mindentargy($osztalyidm[0]['osztalyid']);		
-			$jegyek=$this->diak_model->jegyektabla($aktualgyerek[0]['gyermekid']);		
+			$targyak=$this->diak_model->mindentargy($osztalyidm[0]['osztalyid']);
+			$ev=$this->users_model->iskolanev();		
+			$jegyek=$this->diak_model->jegyektabla($aktualgyerek[0]['gyermekid'],$ev[0]['ev']);		
 			$jegyektargyak=['targyak'=>$targyak,'jegyek'=>$jegyek];
 			$adatok=$this->Main();
 			$gyermeklista=$this->Gyermeklista();
@@ -114,7 +115,8 @@ class Szulo extends CI_Controller
 		}
 		else
 		{//Időrendben jelenik  meg!
-			$jegyektargyak=$this->diak_model->jegyekidorend($aktualgyerek[0]['gyermekid']);
+			$ev=$this->users_model->iskolanev();
+			$jegyektargyak=$this->diak_model->jegyekidorend($aktualgyerek[0]['gyermekid'],$ev[0]['ev']);
 			$jegyektargyak=[
 				'jegyektargyak'=>$jegyektargyak
 			];

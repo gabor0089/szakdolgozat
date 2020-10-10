@@ -15,7 +15,7 @@
 <?=$iskolanev?>
 </span>
 <span class='header-name-exit'>
-<a href="<?php echo base_url();?>Users/profil/<?=$userid?>"><?=$name?></a> (<?=$beosztas?>: <?=$osztaly?>) 
+<a href="<?php echo base_url();?>Users/profil/<?=$userid?>"><?=$name?></a> (<?=$beosztas?>: <a href="<?php echo base_url();?>Osztalyfonok/sajatosztaly"><?=$osztaly?></a>) 
   <?php echo date("H:i:s",time());?> 
   <a class="hidden-sm hidden-xs" href="<?php echo base_url();?>Users/Kilepes"><img src="<?php echo base_url();?>assets/img/exit.png" height="15"></img></a>
 </span>
@@ -27,8 +27,10 @@
             <a href="<?php echo base_url();?>Osztalyfonok/alapadatok">Alapadatok</a>
             <a href="<?php echo base_url();?>Users/csengrend">Csengetési rend</a>
             <a href="<?php echo base_url();?>Osztalyfonok/orarend">Órarend</a>
-            <a href="<?php echo base_url();?>Osztalyfonok/osztalyozas">Osztályozás</a>
+            <a href="<?php echo base_url();?>Osztalyfonok/haladasinaplo">Haladási napló</a>
+            <a href="<?php echo base_url();?>Osztalyfonok/osztalyozas_egyeni">Osztályozás</a>
             <a href="<?php echo base_url();?>Osztalyfonok/hianyzas">Hiányzások</a>
+            <a href="<?php echo base_url();?>Osztalyfonok/dolgozatok">Dolgozatok</a>
             <a href="<?php echo base_url();?>Users/uzenetek">Üzenetek</a>
             <a class="visible-sm visible-xs" href="<?php echo base_url();?>Users/Kilepes">Kilépés</a>
 
