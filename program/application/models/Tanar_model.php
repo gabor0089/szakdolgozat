@@ -9,10 +9,21 @@ class tanar_model extends CI_Model
 
 	public function Orarend($id)
 	{
-		$query=$this->db->query('SELECT datum,hanyadik_ora,milyennap,orarend.osztalyid as osztalyid,osztalyok.osztalynev as osztaly,orarend.tantargyid as tantargyid,tantargyak.nev as tantargy,orarend.teremid as terem 
-							from orarend left join osztalyok on orarend.osztalyid=osztalyok.osztalyid 
-										 join tantargyak on tantargyak.tantargyid=orarend.tantargyid
-							where orarend.tanarid='.$id.' order by milyennap,hanyadik_ora');
+		$query=$this->db->query("SELECT 
+						orarend.oraid as oraid,
+						orarend.milyennap as milyennap,
+					    orarend.hanyadik_ora as hanyadik_ora,
+					    tantargyak.nev as tantargynev,
+					    termek.nev as teremnev,
+					    users.name as tanarnev,
+					    osztalyok.osztalynev as osztaly
+					    FROM 
+					    	orarend LEFT JOIN tantargyak ON (orarend.tantargyid=tantargyak.tantargyid)
+					        LEFT JOIN termek ON (orarend.teremid=termek.teremid)
+					        LEFT JOIN users ON (orarend.tanarid=users.userid)
+					        LEFT JOIN osztalyok on (orarend.osztalyid=osztalyok.osztalyid)
+					    WHERE
+					    	users.userid=$id order by milyennap,hanyadik_ora");
 		$result_array=$query->result_array();
 		return $result_array;
 	} 

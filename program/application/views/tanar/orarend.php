@@ -18,25 +18,24 @@
 					{
 							$nap=$ora['milyennap'];
 							$osztaly=$ora['osztaly'];
-							$tantargy=$ora['tantargy'];
-							$terem=$ora['terem'];
-							$osztalyid=$ora['osztalyid'];
-							$tantargyid=$ora['tantargyid'];
+							$tantargy=$ora['tantargynev'];
+							$terem=$ora['teremnev'];
+							$tantargyid=$ora['tantargynev'];
 
 						switch($ora['hanyadik_ora'])
 						{
 							//$a jelenti a 0. órát, $b az 1.-t stb.
-							case 0:$a[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
-							case 1:$b[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
-							case 2:$c[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
-							case 3:$d[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
-							case 4:$e[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
-							case 5:$f[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
-							case 6:$g[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
-							case 7:$h[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
-							case 8:$j[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
-							case 9:$k[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
-							case 10:$l[$nap]=$osztaly."<BR>".$tantargy."<BR>".$terem;break;
+							case 0:$a[$nap]=$osztaly."<BR>".$tantargy."<BR>Terem: ".$terem;break;
+							case 1:$b[$nap]=$osztaly."<BR>".$tantargy."<BR>Terem: ".$terem;break;
+							case 2:$c[$nap]=$osztaly."<BR>".$tantargy."<BR>Terem: ".$terem;break;
+							case 3:$d[$nap]=$osztaly."<BR>".$tantargy."<BR>Terem: ".$terem;break;
+							case 4:$e[$nap]=$osztaly."<BR>".$tantargy."<BR>Terem: ".$terem;break;
+							case 5:$f[$nap]=$osztaly."<BR>".$tantargy."<BR>Terem: ".$terem;break;
+							case 6:$g[$nap]=$osztaly."<BR>".$tantargy."<BR>Terem: ".$terem;break;
+							case 7:$h[$nap]=$osztaly."<BR>".$tantargy."<BR>Terem: ".$terem;break;
+							case 8:$j[$nap]=$osztaly."<BR>".$tantargy."<BR>Terem: ".$terem;break;
+							case 9:$k[$nap]=$osztaly."<BR>".$tantargy."<BR>Terem: ".$terem;break;
+							case 10:$l[$nap]=$osztaly."<BR>".$tantargy."<BR>Terem: ".$terem;break;
 						}
 					}
 				?>

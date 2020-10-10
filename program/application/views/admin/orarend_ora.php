@@ -54,6 +54,7 @@
     <?php foreach ($tantargyak as $targy):?>
         <?php echo form_open('Admin/Orarend_ora_kesz','',$hidden);?>
           <input type='hidden' name='targy' value='<?=$targy['tantargyid']?>'>
+          <input type='hidden' name='osztalyid' value='<?=$osztalyid?>'>
           <div class='col-sm-6'><button type='submit' class='btn btn-primary'><?=$targy['nev']?></button></div>
         <?php echo form_close();?>
     <?php endforeach;?>
@@ -63,6 +64,7 @@
     <?php foreach ($terem as $t):?>
       <?php echo form_open('Admin/Orarend_ora_kesz','',$hidden);?>
           <input type='hidden' name='terem' value='<?=$t['teremid']?>'>
+          <input type='hidden' name='osztalyid' value='<?=$osztalyid?>'>
           <div class='col-sm-2'><button type='submit' class='btn btn-primary'><?=$t['nev']?></button></div>
       <?php echo form_close();?>
     <?php endforeach;?>
@@ -72,6 +74,7 @@
     <?php foreach ($tanarok as $tan):?>
       <?php echo form_open('Admin/Orarend_ora_kesz','',$hidden);?>
           <input type='hidden' name='tanar' value='<?=$tan['userid']?>'>
+          <input type='hidden' name='osztalyid' value='<?=$osztalyid?>'>
           <div class='col-sm-2'><button type='submit' class='btn btn-primary'><?=$tan['name']?></button></div>
       <?php echo form_close();?>
     <?php endforeach;?>

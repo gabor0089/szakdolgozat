@@ -30,7 +30,7 @@
 			<?php foreach ($tanitotttargyak as $targy):?>
 			<?php $targy2=$targy['tantargyid'];?>
 			<div class='col-md-1'>
-				<a href='<?=base_url()?>Tanar/haladasinaplo/<?=$targy2?>'>
+				<a href='<?=base_url()?>Osztalyfonok/haladasinaplo/<?=$targy2?>'>
 					<button class='btn btn-primary'><?=$targy['nev']?> <?=$targy['osztalynev']?></button>
 				</a>
 			</div>
@@ -58,7 +58,7 @@
 				<div class='col-md-1 text-right'><?=$n['hanyadik_ora']?></div>
 				<div class='col-md-2'><?=$n['datum']?> <?=$nap?></div>
 				<div class='col-md-6'>
-				<?php echo form_open('Tanar/haladasinaplokesz');?>
+				<?php echo form_open('Osztalyfonok/haladasinaplokesz');?>
 					<input class='form-control' type='text' name='tev' value='<?=$n['tevekenyseg']?>'>
 					<input type='hidden' name='naploid' value='<?=$n['id']?>'>
 					<input type='hidden' name='targyid' value='<?=$n['tantargyid']?>'>
@@ -76,7 +76,7 @@
 					'osztalyid'=>$naplo[0]['osztalyid'],
 					'tantargyid'=>$naplo[0]['tantargyid']);
 				?>
-				<?php echo form_open('Tanar/haladasi_naplo_uj','',$hidden);?>
+				<?php echo form_open('Osztalyfonok/haladasi_naplo_uj','',$hidden);?>
 				<div class="row">
 						<div class='col-md-1'><input class='form-control' type='text' name='ora' value='' size='1'></div>
 						<div class='col-md-2'><input class='form-control' type='date' name='datum' value=''></div>

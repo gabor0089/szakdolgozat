@@ -568,13 +568,15 @@ class Admin extends CI_Controller
 				'tantargyak'=>$tantargyaklista,
 				'terem'=>$tantermek,
 				'tanarok'=>$tanarok,
-				'oraid'=>$oraid];
+				'oraid'=>$oraid,
+				'osztalyid'=>$osztalyid];
 		$this->load->view('admin/orarend_ora',$data);
 	}
 	public function Orarend_ora_kesz()
 	{
 		$this->load->model('admin_model');
 	    $oraid=$_POST['oraid'];
+	    $osztalyid=$_POST['osztalyid'];
 	    if(isset($_POST['terem']))
 	    {
 	    	$terem=$_POST['terem'];
@@ -592,7 +594,7 @@ class Admin extends CI_Controller
 	    	echo $tanar;
 	    	$this->admin_model->orarend_valtozas_tanar($oraid,$tanar);
 	    }
-	    redirect('Admin/Orarend_mod/'.$oraid);
+	    redirect('Admin/Orarend_mod/'.$oraid.'/'.$osztalyid);
 	}
 	public function Ora_torol($oraid)
 	{

@@ -9,10 +9,19 @@ class osztalyfonok_model extends CI_Model
 
 	public function Orarend($osztalyid)
 	{	
-		$query=$this->db->query('SELECT datum,hanyadik_ora,milyennap,users.name as tanarnev,tantargyak.nev as tantargy,orarend.teremid as terem 
-							from orarend left join users on users.userid=orarend.tanarid 
-										 join tantargyak on tantargyak.tantargyid=orarend.tantargyid
-							where orarend.osztalyid='.$osztalyid.' order by milyennap,hanyadik_ora');
+		$query=$this->db->query("SELECT 
+						orarend.oraid as oraid,
+						orarend.milyennap as milyennap,
+					    orarend.hanyadik_ora as hanyadik_ora,
+					    tantargyak.nev as tantargynev,
+					    termek.nev as teremnev,
+					    users.name as tanarnev
+					    FROM 
+					    	orarend LEFT JOIN tantargyak ON (orarend.tantargyid=tantargyak.tantargyid)
+					        LEFT JOIN termek ON (orarend.teremid=termek.teremid)
+					        LEFT JOIN users ON (orarend.tanarid=users.userid)
+					    WHERE
+					    	orarend.osztalyid=$osztalyid order by milyennap,hanyadik_ora");
 		$result_array=$query->result_array();
 		return $result_array;
 	} 
@@ -88,18 +97,15 @@ class osztalyfonok_model extends CI_Model
 	}	
 	public function osztalynevsor($osztalyid)
 	{
-		/*
-		$this->db->order_by('name','ASC');
-		$query=$this->db->get_where('users',array('osztalyid'=>$osztalyid));
-		*/
 		$query0=$this->db->query("SELECT gy.userid,gy.name,gy.dob,gy.taj,gy.szulhely,gy.tel,gy.irsz,gy.email,gy.lakcim,gy.foto_link,sz.name as szulonev,sz.userid as szuloid  from szulogyermek inner join users gy on(szulogyermek.gyermekid=gy.userid) inner join users sz on(szulogyermek.szuloid=sz.userid)");
 		return $query0->result_array();
 	}
-	public function jegyek($tantargyid)
+	public function jegyek($tantargyid,$ev)
 	{
+		$ev2=$ev+1;
 		$this->db->order_by('idopont','ASC');
+		$this->db->where("idopont BETWEEN '$ev-09-01' AND '$ev2-09-01'");
 		$query=$this->db->get_where('jegyek',array('tantargyid'=>$tantargyid));
-		//$query=$this->db->query("SELECT jegyid,kiadta,kikapta,idopont,jegy,tantargyid,jeloles,megjegyzes,dolgid, dolgfajlid,jegyek_evvegi.tantargyid,jegyek_evvegi.jegy,jegyek_evvegi.datum from jegyek,jegyek_evvegi where tantargyid=$tantargyid AND jegyek_evvegi.userid=jegyek.kikapta");
 		return $query->result_array();
 	}
 	public function evvegijegyek($tantargyid,$osztalyid)
@@ -213,8 +219,7 @@ class osztalyfonok_model extends CI_Model
 			'userid'=>$diakid
 		];
 //		var_dump($data);
-		$this->db->insert('jegyek_evvegi',$data);	
-		
+		$this->db->insert('jegyek_evvegi',$data);			
 	}
 
 

@@ -61,7 +61,7 @@ class Admin_model extends CI_Model
 					        LEFT JOIN termek ON (orarend.teremid=termek.teremid)
 					        LEFT JOIN users ON (orarend.tanarid=users.userid)
 					    WHERE
-					    	orarend.osztalyid=$osztaly");
+					    	orarend.osztalyid=$osztaly order by milyennap,hanyadik_ora");
 		return $result_array=$query->result_array();
 	}
 	public function orarend_ora($oraid)

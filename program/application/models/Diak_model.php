@@ -34,9 +34,15 @@ class diak_model extends CI_Model
 
 	public function Orarend($id)
 	{
-		$query=$this->db->query('SELECT datum,hanyadik_ora,milyennap,users.name as tanarnev,tantargyak.nev as tantargy,orarend.teremid as terem 
-							from orarend left join users on users.userid=orarend.tanarid 
-										 join tantargyak on tantargyak.tantargyid=orarend.tantargyid
+		$query=$this->db->query('SELECT 
+								datum,hanyadik_ora,milyennap,
+								users.name as tanarnev,
+								tantargyak.nev as tantargy,
+								termek.nev as terem 
+							from orarend 
+							left join users on users.userid=orarend.tanarid 
+							left join tantargyak on tantargyak.tantargyid=orarend.tantargyid
+							left join termek on termek.teremid=orarend.teremid
 							where orarend.osztalyid='.$id.' order by milyennap,hanyadik_ora');
 
 		$result_array=$query->result_array();
