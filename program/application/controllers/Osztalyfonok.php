@@ -335,6 +335,8 @@ class Osztalyfonok extends CI_Controller
 		{
 			$sszam=$tantargyidk[0];
 		}
+		$ev=$this->users_model->iskolanev();
+		$evkozijegyek=$this->osztalyfonok_model->jegyek($sszam,$ev[0]['ev']);
 		$evvegijegyek=$this->osztalyfonok_model->evvegijegyek($sszam);
 		$tantargy=$this->osztalyfonok_model->tantargynev($sszam);
 		if(count($evvegijegyek)==0)
@@ -344,7 +346,8 @@ class Osztalyfonok extends CI_Controller
 				'tantargyidk'=>$sszam,
 				'tantargynevek'=>$tantargy['nev'],
 				'sszam'=>$key,
-				'evvegijegyek'=>$evvegijegyek
+				'evvegijegyek'=>$evvegijegyek,
+				'evkozijegyek'=>$evkozijegyek
 				];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
@@ -371,7 +374,6 @@ class Osztalyfonok extends CI_Controller
 					$this->osztalyfonok_model->evvegijegy($tantargyid,$jegy,$datum,$diakid);
 				}
 		}
-//		$tantargyak=$this->osztalyfonok_model->tantargyak($osztalyomid);
 		$tantargyak=$this->osztalyfonok_model->tantargyak(1); //<--ezt a sort majd törölni, és az osztalyomid-t megtalálni
 		$tantargyidk=array();
 		foreach($tantargyak as $t)
