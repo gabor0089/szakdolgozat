@@ -25,18 +25,26 @@
       		?>
 			<tr class='row'>
 				<td class='col-md-2'></td>
-				<td class='col-md-8'></td>
+				<td class='col-md-7'></td>
+				<td class='col-md-1 text-center'>Átlag</td>
 				<td class='col-md-2 text-center'>Év végi osztályzat</td>
 			</tr>
 			<?php foreach ($nevek as $nev):?>
 				<tr class='row'>
 				<td class='col-md-2'><?=$nev['name']?></td>
-				<td class='col-md-8'>
+				<td class='col-md-7'>
 					<?php foreach ($evkozijegyek as $evkozi):?>
 						<?php if($nev['userid']==$evkozi['kikapta'])
 							echo $evkozi['jegy']." ";?>
 					<?php endforeach;?>
 				</td>
+				<td class='col-md-1 text-center'>
+					<?php foreach ($atlagok as $atlag):?>
+						<?php if($nev['userid']==$atlag['kikapta'])
+							echo round($atlag['ertek'],2);?>
+					<?php endforeach;?>
+				</td>
+
 				<?php $megvan=false;?>
 				<?php for ($i=0;$i<count($evvegijegyek);$i++):?>
 					<?php if($nev['userid']==$evvegijegyek[$i]['userid'] && 

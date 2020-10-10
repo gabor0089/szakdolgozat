@@ -338,6 +338,7 @@ class Osztalyfonok extends CI_Controller
 		$ev=$this->users_model->iskolanev();
 		$evkozijegyek=$this->osztalyfonok_model->jegyek($sszam,$ev[0]['ev']);
 		$evvegijegyek=$this->osztalyfonok_model->evvegijegyek($sszam);
+		$atlagok=$this->osztalyfonok_model->atlagok($sszam,$ev[0]['ev']);
 		$tantargy=$this->osztalyfonok_model->tantargynev($sszam);
 		if(count($evvegijegyek)==0)
 			$evvegijegyek=array();
@@ -347,7 +348,8 @@ class Osztalyfonok extends CI_Controller
 				'tantargynevek'=>$tantargy['nev'],
 				'sszam'=>$key,
 				'evvegijegyek'=>$evvegijegyek,
-				'evkozijegyek'=>$evkozijegyek
+				'evkozijegyek'=>$evkozijegyek,
+				'atlagok'=>$atlagok
 				];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);

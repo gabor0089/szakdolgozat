@@ -224,6 +224,13 @@ class osztalyfonok_model extends CI_Model
 		];
 		$this->db->insert('jegyek_evvegi',$data);			
 	}
+	public function atlagok($sszam,$ev)
+	{
+		$ev2=$ev+1;
+		$query=$this->db->query("SELECT avg(jegy) as ertek,kikapta from jegyek where 
+								tantargyid=$sszam AND idopont BETWEEN '$ev-09-01' AND '$ev2-09-01' group by kikapta");
+		return $query->result_array();
+	}
 
 
 }
