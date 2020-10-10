@@ -308,6 +308,7 @@ class Osztalyfonok extends CI_Controller
 	{
 		$userid = $this->session->user_id;
 		$this->load->model('osztalyfonok_model');
+
 		$adatok=$this->osztalyfonok_model->osztalyom($userid);
 		$osztalyomnev=$adatok[0]['osztalynev'];
 		$osztalyomid=$adatok[0]['osztalyid'];
@@ -334,14 +335,14 @@ class Osztalyfonok extends CI_Controller
 		{
 			$sszam=$tantargyidk[0];
 		}
-		$evvegijegyek=$this->osztalyfonok_model->evvegijegyek($sszam,$adatok[0]['osztalyid']);
-		$tantargynev=$this->osztalyfonok_model->tantargynev($sszam);
+		$evvegijegyek=$this->osztalyfonok_model->evvegijegyek($sszam);
+		$tantargy=$this->osztalyfonok_model->tantargynev($sszam);
 		if(count($evvegijegyek)==0)
 			$evvegijegyek=array();
 		$key = array_search($sszam, $tantargyidk);
 		$data=['nevek'=>$nevek,
 				'tantargyidk'=>$sszam,
-				'tantargynevek'=>$tantargynev['nev'],
+				'tantargynevek'=>$tantargy['nev'],
 				'sszam'=>$key,
 				'evvegijegyek'=>$evvegijegyek
 				];
@@ -353,12 +354,13 @@ class Osztalyfonok extends CI_Controller
 	public function Evvegekesz()
 	{
 		$this->load->model('osztalyfonok_model');
+		$tantargyid="";
 		foreach ($_POST as $key => $value) 
 		{
 			if($key=="tantargyid")
 				$tantargyid=$value;
 		}
-		$tanar=$this->session->user_id;
+
 		foreach ($_POST as $key => $value)
 		{
 				$diakid=$key;
@@ -369,8 +371,15 @@ class Osztalyfonok extends CI_Controller
 					$this->osztalyfonok_model->evvegijegy($tantargyid,$jegy,$datum,$diakid);
 				}
 		}
-		//var_dump($_POST);
-		$this->Evvege($tantargyid);
+//		$tantargyak=$this->osztalyfonok_model->tantargyak($osztalyomid);
+		$tantargyak=$this->osztalyfonok_model->tantargyak(1); //<--ezt a sort majd törölni, és az osztalyomid-t megtalálni
+		$tantargyidk=array();
+		foreach($tantargyak as $t)
+		{
+			$tantargyidk[]=$t['tantargyid'];
+		}
+		$key = array_search($tantargyid, $tantargyidk);
+		$this->Evvege($key);
 	}
 
 	public function Osztalyozas_diakok()
