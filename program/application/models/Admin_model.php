@@ -181,6 +181,16 @@ class Admin_model extends CI_Model
 			'username'=>$felhasznalonev,
 			'password'=>$jelszo);
 		$this->db->insert('login',$data2);
+		if($beosztas==2)
+		{
+			$utolsouserid=$this->db->query('SELECT userid from users order by userid desc limit 1');
+			$resultarray=$utolsouserid->result_array();
+			$data3=array('userid'=>$resultarray[0]['userid'],
+							'set_name'=>'evvege',
+							'value'=>1);
+			$this->db->insert('users_sets',$data3);
+		}
+	
 	}
 
 	public function ujdiak($filename)
