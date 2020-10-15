@@ -304,6 +304,77 @@ class Osztalyfonok extends CI_Controller
 		}
 		$this->Erettsegi($userid);
 	}
+	public function Evvege_Nezetvaltas()
+	{
+		$userid = $this->session->user_id;
+		$this->load->model('osztalyfonok_model');
+		$this->osztalyfonok_model->evvege_nezetvaltas($userid);
+		$this->Evvege_Nezetvalaszto();
+	}
+	public function Evvege_Nezetvalaszto()
+	{
+		$userid = $this->session->user_id;
+		$this->load->model('osztalyfonok_model');
+		$jelenleginezet=$this->osztalyfonok_model->evvege_jelenlegi_nezet($userid);
+		$adatok=$this->Main();
+		if($jelenleginezet['value']==1)
+			$this->Evvege();
+		else
+			$this->Evvege_1diak();        
+	}
+	public function Evvege_1diak($diakid=null)//EZT MÉG MÓDOSÍTANI!!!!!!!!!!!!!!!!!!!!
+	{
+		$userid = $this->session->user_id;
+		$this->load->model('osztalyfonok_model');
+		$this->load->model('users_model');
+
+		$adatok=$this->osztalyfonok_model->osztalyom($userid);
+		$osztalyomnev=$adatok[0]['osztalynev'];
+		$osztalyomid=$adatok[0]['osztalyid'];
+		$nevsor=$this->osztalyfonok_model->osztalynevsor($osztalyomid);
+		foreach($nevsor as $n)
+		{
+			$nevsoridk[]=$n['userid'];
+		}
+		if($diakid==null)
+			$sszam=$nevsoridk[0];
+		elseif($diakid>=0 && $diakid<=count($nevsor)-1)
+		{ 
+			$sszam=$nevsoridk[$diakid];
+		}
+		elseif($diakid<0)
+		{
+			$sszam=$nevsoridk[count($nevsor)-1];
+		}
+		elseif($diakid>count($nevsor)-1)
+		{
+			$sszam=$nevsoridk[0];
+		}
+		$key = array_search($sszam, $nevsoridk);
+		$evvegijegyek=$this->osztalyfonok_model->evvegijegyek_1diak($sszam);
+		$ev=$this->users_model->iskolanev();
+		$evkozijegyek=$this->osztalyfonok_model->jegyek_1diak($sszam,$ev[0]['ev']);
+		//////////////////////////////////////////////////////////////////////
+		$tantargyak=$this->osztalyfonok_model->tantargyak($osztalyomid);
+		$nevek=$this->osztalyfonok_model->nevsor($osztalyomid);
+		$diaknev=$this->osztalyfonok_model->diaknev($sszam);
+		$atlagok=$this->osztalyfonok_model->atlagok_diak($sszam,$ev[0]['ev']);
+		if(count($evvegijegyek)==0)
+			$evvegijegyek=array();
+		$data=[	'sszam'=>$key,
+				'nevsoridk'=>$nevsoridk,
+				'diaknev'=>$diaknev,
+				'diakid'=>$diakid,
+				'tantargyak'=>$tantargyak,
+				'evvegijegyek'=>$evvegijegyek,
+				'evkozijegyek'=>$evkozijegyek,
+				'atlagok'=>$atlagok
+				];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('osztalyfonok/osztalyozas_evvege_1diak',$data);
+
+	}
 	public function Evvege($sorszam=null)
 	{
 		$userid = $this->session->user_id;
@@ -323,7 +394,7 @@ class Osztalyfonok extends CI_Controller
 		$datas=$this->osztalyfonok_model->alapadatok();
 		if($sorszam==null)
 			$sszam=$tantargyidk[0];
-		elseif($sorszam>=0 && $sorszam<count($tantargyidk)-1)
+		elseif($sorszam>=0 && $sorszam<=count($tantargyidk)-1)
 		{ 
 			$sszam=$tantargyidk[$sorszam];
 		}
@@ -338,7 +409,7 @@ class Osztalyfonok extends CI_Controller
 		$ev=$this->users_model->iskolanev();
 		$evkozijegyek=$this->osztalyfonok_model->jegyek($sszam,$ev[0]['ev']);
 		$evvegijegyek=$this->osztalyfonok_model->evvegijegyek($sszam);
-		$atlagok=$this->osztalyfonok_model->atlagok($sszam,$ev[0]['ev']);
+		$atlagok=$this->osztalyfonok_model->atlagok_tantargy($sszam,$ev[0]['ev']);
 		$tantargy=$this->osztalyfonok_model->tantargynev($sszam);
 		if(count($evvegijegyek)==0)
 			$evvegijegyek=array();

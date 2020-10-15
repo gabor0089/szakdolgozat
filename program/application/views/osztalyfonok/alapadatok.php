@@ -40,7 +40,7 @@
       ?>
       Év végi zárás: <input type='text' class='form-control' name='evvegizaras' value='<?=$evvegedatum?> <?=$evvegeido?>' autocomplete='off' readonly>
       <?php if(($erettsegidatum<$ma) || ($erettsegidatum==$ma && $erettsegiido<=$most)):?>
-           <a href="<?php echo base_url();?>Osztalyfonok/Evvege/0"><button class='btn btn-danger'>Év végi eredmények</button></a>
+           <a href="<?php echo base_url();?>Osztalyfonok/Evvege_Nezetvalaszto"><button class='btn btn-danger'>Év végi eredmények</button></a>
       <?php endif;?>  
       <BR>
       Érettségi: <input type='text' class='form-control' name='evvegizaras' value='<?=$erettsegidatum?> <?=$erettsegiido?>' autocomplete='off' readonly>

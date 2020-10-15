@@ -16,9 +16,9 @@
 			<div class='col-md-12 text-left'><a href="<?php echo base_url();?>Osztalyfonok/Evvege_Nezetvaltas">Nézetváltás</a></div>
 		</div>
 		<div class='row'>
-			<div class='col-md-2 h3 text-right'><a href="<?php echo base_url();?>Osztalyfonok/Evvege/<?=$sszam-1?>">előző</a></div>
-			<div class='col-md-8 text-center h3'><?=$tantargynevek?></div>
-			<div class='col-md-2 h3 text-left'><a href="<?php echo base_url();?>Osztalyfonok/Evvege/<?=$sszam+1?>">következő</a></div>
+			<div class='col-md-2 h3 text-right'><a href="<?php echo base_url();?>Osztalyfonok/Evvege_1diak/<?=$sszam-1?>">előző</a></div>
+			<div class='col-md-8 text-center h3'><?=$diaknev['name']?></div>
+			<div class='col-md-2 h3 text-left'><a href="<?php echo base_url();?>Osztalyfonok/Evvege_1diak/<?=$sszam+1?>">következő</a></div>
 		</div>
 		<table class="table table-striped table-hover table-sm">
 			<?php echo form_open('Osztalyfonok/evvegekesz');?>
@@ -32,26 +32,25 @@
 				<td class='col-md-1 text-center'>Átlag</td>
 				<td class='col-md-2 text-center'>Év végi osztályzat</td>
 			</tr>
-			<?php foreach ($nevek as $nev):?>
+			<?php foreach ($tantargyak as $t):?>
 				<tr class='row'>
-				<td class='col-md-2'><?=$nev['name']?></td>
+				<td class='col-md-2'><?=$t['nev']?></td>
 				<td class='col-md-7'>
 					<?php foreach ($evkozijegyek as $evkozi):?>
-						<?php if($nev['userid']==$evkozi['kikapta'])
+						<?php if($t['tantargyid']==$evkozi['tantargyid'])
 							echo $evkozi['jegy']." ";?>
 					<?php endforeach;?>
 				</td>
 				<td class='col-md-1 text-center'>
 					<?php foreach ($atlagok as $atlag):?>
-						<?php if($nev['userid']==$atlag['kikapta'])
+						<?php if($t['tantargyid']==$atlag['tantargyid'])
 							echo round($atlag['ertek'],2);?>
 					<?php endforeach;?>
 				</td>
 
 				<?php $megvan=false;?>
 				<?php for ($i=0;$i<count($evvegijegyek);$i++):?>
-					<?php if($nev['userid']==$evvegijegyek[$i]['userid'] && 
-							$evvegijegyek[$i]['tantargyid']==$tantargyidk && 
+					<?php if($t['tantargyid']==$evvegijegyek[$i]['tantargyid'] && 
 							$evvegijegyek[$i]['jegy']<>null):?>
 						<?php $megvan=true;?>
 						<td class='col-md-2 text-center'><?=$evvegijegyek[$i]['jegy']?></td>
@@ -59,7 +58,7 @@
 				<?php endfor;?>
 					<?php if(!$megvan):?>
 						<td class='col-md-2'>
-							<input type='text' class='form-control form-control-sm text-center' maxlength='1' name='<?=$nev['userid']?>' value=''>
+							<input type='text' class='form-control form-control-sm text-center' maxlength='1' name='<?=$t['tantargyid']?>' value=''>
 						</td>
 					<?php endif;?>
 				</tr>
@@ -68,7 +67,7 @@
 			<tr class='row'>
 				<td class='col-md-12 text-right'><button class='btn btn-danger'>Mentés</button></td>
 			</tr>
-			<input type='hidden' name='tantargyid' value='<?=$tantargyidk?>'>
+			<input type='hidden' name='userid' value='<?=$tantargyidk?>'>
 			<?php echo form_close();?>
 		</table>
 <?php

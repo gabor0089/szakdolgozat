@@ -97,7 +97,13 @@ class osztalyfonok_model extends CI_Model
 	}	
 	public function osztalynevsor($osztalyid)
 	{
-		$query0=$this->db->query("SELECT gy.userid,gy.name,gy.dob,gy.taj,gy.szulhely,gy.tel,gy.irsz,gy.email,gy.lakcim,gy.foto_link,sz.name as szulonev,sz.userid as szuloid  from szulogyermek inner join users gy on(szulogyermek.gyermekid=gy.userid) inner join users sz on(szulogyermek.szuloid=sz.userid)");
+		$query0=$this->db->query("SELECT gy.userid,gy.name,gy.dob,gy.taj,gy.szulhely,
+										gy.tel,gy.irsz,gy.email,gy.lakcim,gy.foto_link,
+										sz.name as szulonev,sz.userid as szuloid  from 
+										szulogyermek inner join 
+										users gy on(szulogyermek.gyermekid=gy.userid) 
+										inner join users sz on(szulogyermek.szuloid=sz.userid)
+										WHERE gy.osztalyid=$osztalyid");
 		return $query0->result_array();
 	}
 	public function jegyek($tantargyid,$ev)
@@ -108,6 +114,14 @@ class osztalyfonok_model extends CI_Model
 		$query=$this->db->get_where('jegyek',array('tantargyid'=>$tantargyid));
 		return $query->result_array();
 	}
+	public function jegyek_1diak($userid,$ev)
+	{
+		$ev2=$ev+1;
+		$this->db->order_by('idopont','ASC');
+		$this->db->where("idopont BETWEEN '$ev-09-01' AND '$ev2-09-01'");
+		$query=$this->db->get_where('jegyek',array('kikapta'=>$userid));
+		return $query->result_array();
+	}
 	public function evvegijegyek($tantargyid)
 	{
 		$query=$this->db->query("SELECT 
@@ -116,6 +130,16 @@ class osztalyfonok_model extends CI_Model
 							jegyek_evvegi.tantargyid
 							from users 
 								left join jegyek_evvegi on users.userid=jegyek_evvegi.userid 
+				    		");
+		return $query->result_array();
+	}
+	public function evvegijegyek_1diak($userid)
+	{
+		$query=$this->db->query("SELECT 
+							jegyek_evvegi.jegy,
+							jegyek_evvegi.tantargyid from
+							jegyek_evvegi 
+							WHERE jegyek_evvegi.userid=$userid
 				    		");
 		return $query->result_array();
 	}
@@ -224,14 +248,32 @@ class osztalyfonok_model extends CI_Model
 		];
 		$this->db->insert('jegyek_evvegi',$data);			
 	}
-	public function atlagok($sszam,$ev)
+	public function atlagok_tantargy($sszam,$ev)
 	{
 		$ev2=$ev+1;
 		$query=$this->db->query("SELECT avg(jegy) as ertek,kikapta from jegyek where 
 								tantargyid=$sszam AND idopont BETWEEN '$ev-09-01' AND '$ev2-09-01' group by kikapta");
 		return $query->result_array();
 	}
-
+	public function atlagok_diak($sszam,$ev)
+	{
+		$ev2=$ev+1;
+		$query=$this->db->query("SELECT avg(jegy) as ertek,tantargyid from jegyek where 
+								kikapta=$sszam AND idopont BETWEEN '$ev-09-01' AND '$ev2-09-01' group by tantargyid");
+		return $query->result_array();
+	}
+	public function evvege_nezetvaltas($userid)
+	{
+		$this->db->set('value', 'value*-1',FALSE);
+		$this->db->where('userid', $userid);
+		$this->db->where('set_name', 'evvege');
+		$this->db->update('users_sets');	
+	}
+	public function evvege_jelenlegi_nezet($userid)
+	{
+		$query = $this->db->get_where('users_sets', array('set_name' => 'evvege','userid'=>$userid));
+		return $query->row_array();
+	}
 
 }
 ?>
