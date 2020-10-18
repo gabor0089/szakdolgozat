@@ -380,7 +380,7 @@ class Admin_model extends CI_Model
 	}
 	public function tantargyaklista($sorrend)
 	{
-		$query=$this->db->query("SELECT tantargyid,nev,osztaly,tanarid,oraszam,
+		$query=$this->db->query("SELECT tantargyid,nev,osztaly,tanarid,oraszam,fontossag,
 									users.name as tanarnev,
 									osztalyok.osztalynev as osztalynev 
 									from tantargyak,users,osztalyok 
@@ -396,12 +396,13 @@ class Admin_model extends CI_Model
 		return $diakid;
 	}
 
-	public function Tantargyvaltozas($tantargyid,$tantargynev,$tanarid,$osztalyid,$oraszam)
+	public function Tantargyvaltozas($tantargyid,$tantargynev,$tanarid,$osztalyid,$oraszam,$fontossag)
 	{
 		$data=['nev'=>$tantargynev,
 				'osztaly'=>$osztalyid,
 				'tanarid'=>$tanarid,
-				'oraszam'=>$oraszam];
+				'oraszam'=>$oraszam,
+				'fontossag'=>$fontossag];
 		$this->db->where('tantargyid',$tantargyid);
 		$this->db->update('tantargyak',$data);
 	}
@@ -430,12 +431,13 @@ class Admin_model extends CI_Model
 		$data=['nev'=>$terem,'megjegyzes'=>$megjegyzes];
 		$query=$this->db->insert('termek',$data);
 	}
-	public function ujtantargy($nev,$osztalyid,$tanarid,$oraszam)
+	public function ujtantargy($nev,$osztalyid,$tanarid,$oraszam,$fontossag)
 	{
 		$data=['nev'=>$nev,
 				'osztaly'=>$osztalyid,
 				'tanarid'=>$tanarid,
-				'oraszam'=>$oraszam];
+				'oraszam'=>$oraszam,
+				'fontossag'=>$fontossag];
 		$query=$this->db->insert('tantargyak',$data);
 	}
 	public function tantargyak_adottosztaly($osztaly)

@@ -34,7 +34,8 @@
           <td class='col-md-2'><a href='<?php echo base_url();?>Admin/Tantargyak/nev'>Tantárgy neve</a></td>
           <td class='col-md-1'><a href='<?php echo base_url();?>Admin/Tantargyak/osztaly'>Osztály</a></td>
           <td class='col-md-2'><a href='<?php echo base_url();?>Admin/Tantargyak/tanarnev'>Tanár</a></td>
-          <td class='col-md-2'><a href='<?php echo base_url();?>Admin/Tantargyak/oraszam'>Óraszám</a></td>
+          <td class='col-md-1'><a href='<?php echo base_url();?>Admin/Tantargyak/oraszam'>Óraszám</a></td>
+          <td class='col-md-1'><a href='<?php echo base_url();?>Admin/Tantargyak/fontossag'>Fontosság</a></td>
           </TR>
         <tr class='row bg-info' id='ujtantargy'>
         <?php echo form_open('Admin/Ujtantargy')?>
@@ -42,6 +43,7 @@
           <td class='col-md-1'><input type='text' class='form-control' name='osztalynev' value=''></td>
           <td class='col-md-2'><input type='text' class='form-control' name='tanarnev' value=''></td>
           <td class='col-md-1'><input type='text' class='form-control' name='oraszam' value=''></td>
+          <td class='col-md-1'><input type='text' class='form-control' name='fontossag' value=''></td>
           <td class='col-md-4'><button class='btn btn-success'>Új tantárgy hozzáadása!</button></td>
         <?php echo form_close();?>
           </TR>
@@ -53,6 +55,7 @@
           <td class='col-md-1'><input type='text' class='form-control' name='osztalynev' value='<?=$lista['osztalynev']?>'></td>
           <td class='col-md-2'><input type='text' class='form-control' name='tanarnev' value='<?=$lista['tanarnev']?>'></td>
           <td class='col-md-1'><input type='text' class='form-control' name='oraszam' value='<?=$lista['oraszam']?>'></td>
+          <td class='col-md-1'><input type='text' class='form-control' name='fontossag' value='<?=$lista['fontossag']?>'></td>
           <input type='hidden' class='form-control' name='tantargyid' value='<?=$lista['tantargyid']?>'>
           <td class='col-md-2'><button class='btn btn-primary'>Mentés!</button></td>
           </TR>

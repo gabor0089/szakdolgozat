@@ -476,10 +476,12 @@ class Admin extends CI_Controller
 	{
 		$this->load->model('admin_model');
 		$nev=$_POST['tantargynev'];
+		$fontossag=$_POST['fontossag'];
 		$osztalyid=$this->admin_model->osztalyid($_POST['osztalynev']);
 		$tanarid=$this->admin_model->tanarid($_POST['tanarnev']);
+
 		$oraszam=$_POST['oraszam'];
-		$this->admin_model->ujtantargy($nev,$osztalyid['osztalyid'],$tanarid['userid'],$oraszam);
+		$this->admin_model->ujtantargy($nev,$osztalyid['osztalyid'],$tanarid['userid'],$oraszam,$fontossag);
 		$this->Tantargyak();
 	}
 	public function Tantargyak($sorrend=null)
@@ -504,7 +506,8 @@ class Admin extends CI_Controller
 		$osztalynev=$this->input->post('osztalynev');
 		$osztalyid=$this->admin_model->osztalyid($osztalynev);
 		$oraszam=$this->input->post('oraszam');
-		$this->admin_model->Tantargyvaltozas($tantargyid,$tantargynev,$tanarid['userid'],$osztalyid['osztalyid'],$oraszam);
+		$fontossag=$this->input->post('fontossag');
+		$this->admin_model->Tantargyvaltozas($tantargyid,$tantargynev,$tanarid['userid'],$osztalyid['osztalyid'],$oraszam,$fontossag);
 		$this->Tantargyak();
 	}
 
