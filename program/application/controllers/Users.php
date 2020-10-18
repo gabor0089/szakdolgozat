@@ -46,7 +46,6 @@ class Users extends CI_Controller
 			$password=$this->input->post('password');
 			$this->load->model('users_model');
 			$userid=$this->users_model->login($username,$password);
-		
 			if($userid)
 			{
 				$user_data=
@@ -252,7 +251,6 @@ public function Main()
 		$csoport=$felado."-".$cimzett;
 		if($felado>$cimzett)
 			$csoport=$cimzett."-".$felado;
-		echo $felado." ".$cimzett." ".$szoveg." ".$datum." ".$csoport;
 		$this->load->model('users_model');
 		$this->users_model->ujuzenet($felado,$cimzett,$szoveg,$datum,$csoport);
 		redirect('Users/uzenetek');
