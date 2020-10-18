@@ -11,6 +11,13 @@
 <div class='container'>
 	<div class='row'>
 		<table class="table table-striped table-hover table-sm">
+		<tr class='row'>
+		<td class='col-md-2'>Dátum</td>
+		<td class='col-md-2'>Óra</td>
+		<td class='col-md-2'>Mennyiség</td>
+		<td class='col-md-2'>Jegyző tanár</td>
+		<td class='col-md-2'>Állapot</td>
+		</tr>
 <?php foreach ($datas as $d):?>
 <TR class='row'>
 	<TD class='col-md-2'>
