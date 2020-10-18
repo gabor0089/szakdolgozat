@@ -238,8 +238,6 @@ class Admin extends CI_Controller
 					$kesz=$this->admin_model->ujtanar($name,$dob,$szulhely,$taj,$tel,$irsz,$lakcim,$beosztas,$filename);
 					$utolsotanar=$this->admin_model->legutobbi_tanar();
 					$kesz2=$this->admin_model->ujofoosztaly($ofoosztaly,$utolsotanar[0]['userid']);
-					//var_dump($utolsotanar);
-					//echo $ofoosztaly."-".$utolsotanar[0]['userid'];
 					redirect('Admin/tanarok');
 				} 
 		}    
@@ -447,6 +445,7 @@ class Admin extends CI_Controller
 	}
 	public function Csengrend()
 	{
+
 		$this->form_validation->set_rules('k1','1.óra kezdőidőpontja','required');
 
 		if($this->form_validation->run()===FALSE)
@@ -467,14 +466,6 @@ class Admin extends CI_Controller
 			$kesz=$this->admin_model->csengrendkesz($k0,$k1,$k2,$k3,$k4,$k5,$k6,$k7,$k8,$k9,$k10,$v0,$v1,$v2,$v3,$v4,$v5,$v6,$v7,$v8,$v9,$v10);
 		
 		}
-			/*$datas=$this->load->admin_model->alapadatok();
-			$adatok=
-			[
-				'isnev'=>$datas[0]['iskolanev'],
-				'ignev'=>$datas[0]['igazgatonev'],
-				'cim'=>$datas[0]['iskolacim'],
-				'ev'=>$datas[0]['ev']
-			];*/
 			$csengetes=$this->admin_model->csengrend();
 			$data=['csengetes'=>$csengetes];
 			$adatok=$this->Main();

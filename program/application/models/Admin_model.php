@@ -189,6 +189,11 @@ class Admin_model extends CI_Model
 							'set_name'=>'evvege',
 							'value'=>1);
 			$this->db->insert('users_sets',$data3);
+			
+			$data4=array('userid'=>$resultarray[0]['userid'],
+							'set_name'=>'ofonezet',
+							'value'=>1);
+			$this->db->insert('users_sets',$data3);
 		}
 	
 	}

@@ -99,6 +99,7 @@ class Osztalyfonok extends CI_Controller
 	{
 		$userid = $this->session->user_id;
 		$this->load->model('osztalyfonok_model');
+		$this->osztalyfonok_model->jegyvagyhianyzas_beallit($userid);
 		$adatok=$this->osztalyfonok_model->osztalyom($userid);
 		$osztalyomnev=$adatok[0]['osztalynev'];
 		$osztalyomid=$adatok[0]['osztalyid'];
@@ -131,6 +132,7 @@ class Osztalyfonok extends CI_Controller
 	{
 		$userid = $this->session->user_id;
 		$this->load->model('osztalyfonok_model');
+		$this->osztalyfonok_model->jegyvagyhianyzas_beallit($userid);
 		$adatok=$this->osztalyfonok_model->osztalyom($userid);
 		$osztalyomnev=$adatok[0]['osztalynev'];
 		$osztalyomid=$adatok[0]['osztalyid'];
@@ -311,64 +313,67 @@ class Osztalyfonok extends CI_Controller
 		$this->osztalyfonok_model->evvege_nezetvaltas($userid);
 		$this->Evvege_Nezetvalaszto();
 	}
-	public function Evvege_Nezetvalaszto()
+	public function Evvege_Nezetvalaszto($key=null)
 	{
 		$userid = $this->session->user_id;
 		$this->load->model('osztalyfonok_model');
 		$jelenleginezet=$this->osztalyfonok_model->evvege_jelenlegi_nezet($userid);
 		$adatok=$this->Main();
+		if($key==null)
+			$key=0;
 		if($jelenleginezet['value']==1)
-			$this->Evvege();
+			$this->Evvege($key);
 		else
-			$this->Evvege_1diak();        
+			$this->Evvege_1diak($key);        
 	}
 	public function Evvege_1diak($diakid=null)//EZT MÉG MÓDOSÍTANI!!!!!!!!!!!!!!!!!!!!
 	{
 		$userid = $this->session->user_id;
 		$this->load->model('osztalyfonok_model');
-		$this->load->model('users_model');
 
 		$adatok=$this->osztalyfonok_model->osztalyom($userid);
 		$osztalyomnev=$adatok[0]['osztalynev'];
 		$osztalyomid=$adatok[0]['osztalyid'];
 		$nevsor=$this->osztalyfonok_model->osztalynevsor($osztalyomid);
+		
 		foreach($nevsor as $n)
 		{
 			$nevsoridk[]=$n['userid'];
 		}
 		if($diakid==null)
 			$sszam=$nevsoridk[0];
-		elseif($diakid>=0 && $diakid<=count($nevsor)-1)
+		elseif($diakid>=0 && $diakid<=count($nevsoridk)-1)
 		{ 
 			$sszam=$nevsoridk[$diakid];
 		}
 		elseif($diakid<0)
 		{
-			$sszam=$nevsoridk[count($nevsor)-1];
+			$sszam=$nevsoridk[count($nevsoridk)-1];
 		}
-		elseif($diakid>count($nevsor)-1)
+		elseif($diakid>count($nevsoridk)-1)
 		{
 			$sszam=$nevsoridk[0];
 		}
-		$key = array_search($sszam, $nevsoridk);
-		$evvegijegyek=$this->osztalyfonok_model->evvegijegyek_1diak($sszam);
+		$tantargyak=$this->osztalyfonok_model->tantargyak($osztalyomid);
+
+		
 		$ev=$this->users_model->iskolanev();
 		$evkozijegyek=$this->osztalyfonok_model->jegyek_1diak($sszam,$ev[0]['ev']);
-		//////////////////////////////////////////////////////////////////////
-		$tantargyak=$this->osztalyfonok_model->tantargyak($osztalyomid);
-		$nevek=$this->osztalyfonok_model->nevsor($osztalyomid);
-		$diaknev=$this->osztalyfonok_model->diaknev($sszam);
+		$evvegijegyek=$this->osztalyfonok_model->evvegijegyek_1diak($sszam);
 		$atlagok=$this->osztalyfonok_model->atlagok_diak($sszam,$ev[0]['ev']);
+		$diaknev=$this->osztalyfonok_model->diaknev($sszam);
 		if(count($evvegijegyek)==0)
 			$evvegijegyek=array();
-		$data=[	'sszam'=>$key,
+		$key = array_search($sszam, $nevsoridk);
+		$data=['tantargyak'=>$tantargyak,
 				'nevsoridk'=>$nevsoridk,
 				'diaknev'=>$diaknev,
-				'diakid'=>$diakid,
-				'tantargyak'=>$tantargyak,
+				'diakid'=>$sszam,
+				'sszam'=>$key,
 				'evvegijegyek'=>$evvegijegyek,
 				'evkozijegyek'=>$evkozijegyek,
-				'atlagok'=>$atlagok
+				'atlagok'=>$atlagok,
+				'osztalyomid'=>$osztalyomid
 				];
 		$adatok=$this->Main();
 		$this->load->view($adatok['headerlink'],$adatok);
@@ -427,7 +432,7 @@ class Osztalyfonok extends CI_Controller
 		$this->load->view('osztalyfonok/osztalyozas_evvege',$data);
 
 	}
-	public function Evvegekesz()
+	public function Evvegekesz_tantargy()
 	{
 		$this->load->model('osztalyfonok_model');
 		$tantargyid="";
@@ -454,7 +459,41 @@ class Osztalyfonok extends CI_Controller
 			$tantargyidk[]=$t['tantargyid'];
 		}
 		$key = array_search($tantargyid, $tantargyidk);
-		$this->Evvege($key);
+		$this->Evvege_Nezetvalaszto($key);
+	}
+	public function Evvegekesz_diak()
+	{
+		$this->load->model('osztalyfonok_model');
+		$userid="";
+		foreach ($_POST as $key => $value) 
+		{
+			if($key=="userid")
+				$userid=$value;
+		}
+		foreach ($_POST as $key => $value) 
+		{
+			if($key=="osztalyid")
+				$osztalyid=$value;
+		}
+
+		foreach ($_POST as $key => $value)
+		{
+				$tantargyid=$key;
+				$jegy=$value;
+				$datum=date("Y-m-d H:i:s",time());
+				if($value<>"" && $key<>"userid")
+				{
+					$this->osztalyfonok_model->evvegijegy($tantargyid,$jegy,$datum,$userid);
+				}
+		}
+		$nevek=$this->osztalyfonok_model->osztalynevsor($osztalyid); //<--ezt a sort majd törölni, és az osztalyomid-t megtalálni
+		$useridk=array(); //át kell írni ezt az egészet, mert csak copyzva van az előző metódusból, és nem a szükséges adatokat adja vissza!
+		foreach($nevek as $n)
+		{
+			$useridk[]=$n['userid'];
+		}
+		$key = array_search($userid, $useridk);
+		$this->Evvege_Nezetvalaszto($key);
 	}
 
 	public function Osztalyozas_diakok()
@@ -675,12 +714,15 @@ class Osztalyfonok extends CI_Controller
 
 	public function sajatosztaly()
 	{
-		$this->load->view('osztalyfonok/sajatosztaly'); //ez a sor csak átmeneti!!!!!!!!!!!!!!!
-		//Kell ide egy feltétel, hogy melyik jelenjen meg: az, amelyik utoljára lett kiválasztva, tehát az adatbázisból jöjjön
-		//$this->SajatOsztalyJegyek();
-		//$this->SajatOsztalyHianyzasok();
+		$userid = $this->session->user_id;
+		$this->load->model('osztalyfonok_model');
+		$jegyvagyhianyzas=$this->osztalyfonok_model->jegyvagyhianyzas($userid);
+		if($jegyvagyhianyzas['value']==1)
+			$this->SajatOsztalyJegyek();
+		else
+			$this->SajatOsztalyHianyzasok();
 	}
-		public function Haladasinaplo($targyid=null)
+	public function Haladasinaplo($targyid=null)
 	{
 		$haladasinaplo=[];
 		$this->load->model('tanar_model');
@@ -757,6 +799,31 @@ class Osztalyfonok extends CI_Controller
 		$this->tanar_model->Ujhianyzasfelvitel($tanarid,$diakid,$ora,$perc,$hianyzas_datum);
 		$this->Hianyzas();
 	}
-
+	public function Evvaltas($diakid)
+	{
+		$this->load->model('osztalyfonok_model');
+		$this->load->model('admin_model');
+		$diak=$this->osztalyfonok_model->diaknev($diakid);
+		$diakosztalya=$this->osztalyfonok_model->diak_osztalya($diakid);
+		$osztalyok=$this->admin_model->osztalyok();
+		$data=[
+				'diakid'=>$diakid,
+				'diaknev'=>$diak['name'],
+				'jelenlegi_osztaly'=>$diakosztalya['osztalynev'],
+				'jelenlegi_osztalyid'=>$diakosztalya['osztalyid'],
+				'osztalyok'=>$osztalyok
+				];
+		$adatok=$this->Main();
+		$this->load->view($adatok['headerlink'],$adatok);
+		$this->load->view('Osztalyfonok/Evvaltas',$data);				
+	}
+	public function Evvaltas_kesz()
+	{
+		$this->load->model('osztalyfonok_model');
+		$diakid=$this->input->post('userid');
+		$osztalyid=$this->input->post('osztalyid');
+		$this->osztalyfonok_model->Evvaltas($diakid,$osztalyid);
+		$this->Evvege_1diak();        
+	}
 
 }

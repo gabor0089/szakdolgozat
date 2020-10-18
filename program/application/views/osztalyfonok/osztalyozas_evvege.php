@@ -21,7 +21,7 @@
 			<div class='col-md-2 h3 text-left'><a href="<?php echo base_url();?>Osztalyfonok/Evvege/<?=$sszam+1?>">következő</a></div>
 		</div>
 		<table class="table table-striped table-hover table-sm">
-			<?php echo form_open('Osztalyfonok/evvegekesz');?>
+			<?php echo form_open('Osztalyfonok/evvegekesz_tantargy');?>
 			<?php 
 				$ma=date("Y-m-d",time());
       			$most=date("H:i:s",time());

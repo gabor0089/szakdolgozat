@@ -47,7 +47,7 @@
 	<input type='text' class='form-control' name='k10' value='<?=$csengetes[10]['kezdes']?>'></TD><TD class='col-md-1'>
 	<input type='text' class='form-control' name='v10' value='<?=$csengetes[10]['vege']?>'></TD></TR>
 </TABLE>
-<button type='submit' class='btn btn-primary btn-block form-control col-sm-6 col-md-4'>Mentés</button>
+<button type='submit' class='btn btn-primary btn-block form-control col-sm-6 col-md-3'>Mentés</button>
 </div>
 </div>
 <?PHP echo form_close();?>

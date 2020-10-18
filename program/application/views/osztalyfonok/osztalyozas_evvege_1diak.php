@@ -21,7 +21,7 @@
 			<div class='col-md-2 h3 text-left'><a href="<?php echo base_url();?>Osztalyfonok/Evvege_1diak/<?=$sszam+1?>">következő</a></div>
 		</div>
 		<table class="table table-striped table-hover table-sm">
-			<?php echo form_open('Osztalyfonok/evvegekesz');?>
+			<?php echo form_open('Osztalyfonok/evvegekesz_diak');?>
 			<?php 
 				$ma=date("Y-m-d",time());
       			$most=date("H:i:s",time());
@@ -67,9 +67,15 @@
 			<tr class='row'>
 				<td class='col-md-12 text-right'><button class='btn btn-danger'>Mentés</button></td>
 			</tr>
-			<input type='hidden' name='userid' value='<?=$tantargyidk?>'>
+			<input type='hidden' name='userid' value='<?=$diakid?>'>
+			<input type='hidden' name='osztalyid' value='<?=$osztalyomid?>'>
 			<?php echo form_close();?>
-		</table>
+		
+		<tr class='row'>
+			<td class='col-md-9'></td>
+			<td class='col-md-3 text-right'><a href="<?php echo base_url();?>Osztalyfonok/Evvaltas/<?=$diakid?>"><button type='submit' class='btn btn-success text-right'>Következő osztályba léphet</button></a></td>
+		</tr>
+	</table>
 <?php
 	ini_set('xdebug.var_display_max_depth', '10');
 	ini_set('xdebug.var_display_max_children', '256');

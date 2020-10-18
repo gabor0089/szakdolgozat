@@ -274,6 +274,31 @@ class osztalyfonok_model extends CI_Model
 		$query = $this->db->get_where('users_sets', array('set_name' => 'evvege','userid'=>$userid));
 		return $query->row_array();
 	}
+	public function diak_osztalya($diakid)
+	{
+		$query=$this->db->query("SELECT osztalyok.osztalyid,osztalynev from osztalyok,users 
+								WHERE osztalyok.osztalyid=users.osztalyid AND
+								users.userid=$diakid");
+		return $query->row_array();
+	}
+	public function Evvaltas($diakid,$osztalyid)
+	{
+		$this->db->set('osztalyid', $osztalyid,FALSE);
+		$this->db->where('userid', $diakid);
+		$this->db->update('users');			
+	}
+	public function Jegyvagyhianyzas($userid)
+	{
+		$query = $this->db->get_where('users_sets', array('set_name' => 'ofonezet','userid'=>$userid));
+		return $query->row_array();
+	}
+	public function Jegyvagyhianyzas_beallit($userid)
+	{
+		$this->db->set('value', 'value*-1',FALSE);
+		$this->db->where('userid', $userid);
+		$this->db->where('set_name', 'ofonezet');
+		$this->db->update('users_sets');	
+	}
 
 }
 ?>
