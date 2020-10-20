@@ -7,10 +7,17 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
     </HEAD>
 	<BODY>
-	<H1 class='text-center'>Jegyek</H1><a href='Nezet'>Nézet váltás</a>
+	<H1 class='text-center'>Jegyek</H1>
 	<div class='container'>
+	<a href='Nezet'>Nézet váltás</a>
 		<div class='row'>
 		<table class="table table-striped table-hover table-sm">
+		<tr class='row'>
+		<td class='col-md-3 text-uppercase'>Tantárgy</td>
+		<td class='col-md-8'></td>
+		<td class='col-md-1 text-uppercase'>Átlag</td>
+
+		</tr>
 				<?php foreach ($targyak as $t):?> 
 				<tr class='row'>
 					<td class='font-weight-bold col-md-3'>

@@ -76,7 +76,7 @@ class diak_model extends CI_Model
 	{
 		$query=$this->db->query("SELECT tantargyak.nev as tantargynev,tantargyak.tantargyid as tid from tantargyak
 								where osztaly=$osztalyid 
-								order by tantargyid");
+								order by fontossag");
 		$result_array=$query->result_array();
 		return $result_array;
 	}

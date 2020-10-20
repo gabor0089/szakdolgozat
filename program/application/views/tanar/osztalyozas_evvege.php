@@ -14,7 +14,6 @@
 			<div class='col-md-12 h4 text-center'><?=$targynev['nev']?> <?=$targynev['osztalynev']?></div>
 		</div>
 		<table class="table table-striped table-hover table-sm">
-			<?php echo form_open('Tanar/evvegekesz');?>
 			<tr class='row'>
 				<td class='col-md-1'></td>
 				<td class='col-md-2'></td>
@@ -32,19 +31,13 @@
 					<td class='col-md-2'><?=$evvegijegyek[$i]['name']?></td>
 					<td class='col-md-1 text-center'>
 						<?php if($evvegijegyek[$i]['jegy']==0):?>
-							<input type='text' class='form-control' maxlength='1' name='<?=$evvegijegyek[$i]['userid']?>' value=''>	
+						
 						<?php else:?>
 							<?=$evvegijegyek[$i]['jegy'];?>
 						<?php endif;?>
 					</td>
 				</tr>
 			<?php endfor;?>
-	
-			<tr class='row'>
-					<td class='col-md-12 text-right'><button class='btn btn-danger'>Mentés</button></td>
-			</tr>
-			<input type='hidden' name='tantargyid' value='<?=$tantargyid?>'>
-			<?php echo form_close();?>
 		</table>
 <?php
 	ini_set('xdebug.var_display_max_depth', '10');

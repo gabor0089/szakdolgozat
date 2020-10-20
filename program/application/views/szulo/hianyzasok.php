@@ -23,9 +23,9 @@
 	<TD class='col-md-2'><?=$d['ora']?>. óra</TD>
 	<TD class='col-md-2'><?=$d['perc']?> perc késés</TD>
 	<TD class='col-md-2'><?=$d['tanarnev']?></TD>
-	<?php if($d['statusz']==1):?><TD class='col-md-1 bg-warning'><?php endif;?>
-	<?php if($d['statusz']==2):?><TD class='col-md-1 bg-success'><?php endif;?>
-	<?php if($d['statusz']==3):?><TD class='col-md-1 bg-danger'><?php endif;?>
+	<?php if($d['statusz']==1):?><TD class='col-md-1 bg-warning text-center'>Még nem igazolt<?php endif;?>
+	<?php if($d['statusz']==2):?><TD class='col-md-1 bg-success text-center'>Igazolt<?php endif;?>
+	<?php if($d['statusz']==3):?><TD class='col-md-1 bg-danger text-center'>Igazolatlan<?php endif;?>
 </TR>
 <?php endforeach;?>
 </TABLE>

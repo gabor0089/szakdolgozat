@@ -349,7 +349,7 @@ class Tanar extends CI_Controller
 				'naplo'=>$haladasinaplo,
 				'userid'=>$userid];
 		$this->load->view($adatok['headerlink'],$adatok);
-		$this->load->view('Tanar/haladasinaplo',$data);
+		$this->load->view('tanar/haladasinaplo',$data);
 	}
 
 	public function Haladasi_naplo_uj()

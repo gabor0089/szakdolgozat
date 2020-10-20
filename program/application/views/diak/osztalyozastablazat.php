@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
     </HEAD>
 	<BODY>
-	<H1 class='text-center'>Jegyeim</H1><a href='Nezet'>Nézet váltás</a>
+	<H1 class='text-center'>Jegyeim</H1>
 	<div class='container'>
+	<a href='Nezet'>Nézet váltás</a>
 		<div class='row'>
+
 		<table class="table table-striped table-hover table-sm">
 				<?php foreach ($targyak as $t):?> 
 				<tr class='row'>

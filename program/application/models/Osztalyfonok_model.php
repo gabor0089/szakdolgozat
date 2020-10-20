@@ -70,7 +70,7 @@ class osztalyfonok_model extends CI_Model
 	}
 	public function tantargyak($osztalyomid)
 	{
-		$this->db->order_by('tantargyid','ASC');
+		$this->db->order_by('fontossag','ASC');
 		$query=$this->db->get_where('tantargyak',array('osztaly'=>$osztalyomid));
 		$result_array=$query->result_array();
 		return $result_array;	

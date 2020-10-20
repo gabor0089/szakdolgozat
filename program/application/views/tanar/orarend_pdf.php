@@ -10,8 +10,8 @@
 					{
 							$nap=$ora['milyennap'];
 							$osztaly=$ora['osztaly'];
-							$tantargy=$ora['tantargy'];
-							$terem=$ora['terem'];
+							$tantargy=$ora['tantargynev'];
+							$terem=$ora['teremnev'];
 							$osztalyid=5;
 							$tantargyid=10;
 						switch($ora['hanyadik_ora'])
