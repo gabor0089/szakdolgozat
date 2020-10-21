@@ -61,8 +61,8 @@
                 <td><?=$nevek[$i]['taj'][0].$nevek[$i]['taj'][1].$nevek[$i]['taj'][2]?>-<?=$nevek[$i]['taj'][3].$nevek[$i]['taj'][4].$nevek[$i]['taj'][5]?>-<?=$nevek[$i]['taj'][6].$nevek[$i]['taj'][7].$nevek[$i]['taj'][8]?></td>
                 <td><?=$nevek[$i]['tel'][0].$nevek[$i]['tel'][1]?>-<?=$nevek[$i]['tel'][2].$nevek[$i]['tel'][3]?> <?=$nevek[$i]['tel'][4].$nevek[$i]['tel'][5]?><?=$nevek[$i]['tel'][6]." ".$nevek[$i]['tel'][7]?><?=$nevek[$i]['tel'][8].$nevek[$i]['tel'][9]?><?=$nevek[$i]['tel'][10]?></td>
                 <td><?=$nevek[$i]['irsz']?> <?=$nevek[$i]['lakcim']?></td>
-                <td><a target="_blank" href="../../uploads/<?=$nevek[$i]['foto_link']?>">
-                  <img width="40" src="../uploads/<?=$nevek[$i]['foto_link']?>"></img>
+                <td><a target="_blank" href="<?php echo base_url();?>/uploads/<?=$nevek[$i]['foto_link']?>">
+                  <img width="40" src="<?php echo base_url();?>/uploads/<?=$nevek[$i]['foto_link']?>"></img>
                 </a></td>
                 <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$nevek[$i]['userid']?>' title='<?=$nevek[$i]['name']?>'><img src="<?php echo base_url();?>assets/img/boritek.png"></a></td>
                 <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$nevek[$i]['szuloid']?>' title='<?=$nevek[$i]['szulonev']?>'><img src="<?php echo base_url();?>assets/img/boritek.png"><img src="<?php echo base_url();?>assets/img/szulok.png"></a></td>

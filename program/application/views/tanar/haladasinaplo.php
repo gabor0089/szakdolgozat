@@ -29,7 +29,7 @@
 		<div class='row'>
 			<?php foreach ($tanitotttargyak as $targy):?>
 			<?php $targy2=$targy['tantargyid'];?>
-			<div class='col-md-1'>
+			<div class='col-lg-2 col-md-12 text-center'>
 				<a href='<?=base_url()?>Tanar/haladasinaplo/<?=$targy2?>'>
 					<button class='btn btn-primary'><?=$targy['nev']?> <?=$targy['osztalynev']?></button>
 				</a>

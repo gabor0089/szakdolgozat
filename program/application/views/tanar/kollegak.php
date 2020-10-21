@@ -46,8 +46,8 @@
                 <th scope="row"><?=$kollegak[$i]['name']?></th>
                 <td><?=$kollegak[$i]['dob']?></td>
                 <td><?=$kollegak[$i]['irsz']?> <?=$kollegak[$i]['lakcim']?></td>
-                <td><a target="_blank" href="../uploads/<?=$kollegak[$i]['foto_link']?>">
-                  <img width="40" src="../uploads/<?=$kollegak[$i]['foto_link']?>"></img>
+                <td><a target="_blank" href="<?php echo base_url();?>/uploads/<?=$kollegak[$i]['foto_link']?>">
+                  <img width="40" src="<?php echo base_url();?>/uploads/<?=$kollegak[$i]['foto_link']?>"></img>
                 </a></td>
                 <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$kollegak[$i]['userid']?>' title='<?=$kollegak[$i]['name']?>'><img src="<?php echo base_url();?>assets/img/boritek.png"></a></td>
               </tr>
