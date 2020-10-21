@@ -16,32 +16,6 @@ class Users extends CI_Controller
 		}
 		else
 		{
-			/*
-			$this->load->library('email');
-			$config=array(
-				'mailtype'=>"html",
-				'protocol'=>'smtp',
-				'smtp_host'=>'mail.atw.hu',
-				'smtp_user'=>'regabi.atw.hu',
-				'smtp_pass'=>'Secret2018regabi!',
-				'smtp_port'=>587
-				);
-			$this->email->initialize($config);
-			$this->email->from('renyhart.gabor@gmail.com', 'Gábortól');
-			$this->email->to('renyhart.gabor@gmail.com');
-			
-			$this->email->subject('TesztEmail');
-			$this->email->message('Ez az üzenet.');
-
-			if($this->email->send())
-				{
-					echo "üzenet elküldve";
-				}
-			else
-				{
-					echo $this->email->print_debugger();
-				}
-			*/
 			$username=$this->input->post('username');
 			$password=$this->input->post('password');
 			$this->load->model('users_model');
@@ -275,7 +249,7 @@ public function Main()
 		$tel=$this->input->post('tel');
 		$felulet=$this->input->post('felulet');
 		$this->users_model->profilmod($userid,$nev,$email,$irsz,$lakcim,$tel);
-		if(isset($jelszo))
+		if(isset($jelszo) && $jelszo<>"")
 			$this->users_model->jelszomod($userid,$jelszo);
 		$this->users_model->feluletmod($userid,$felulet);
 

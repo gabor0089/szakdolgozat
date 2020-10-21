@@ -21,17 +21,17 @@
     </HEAD>
 	<BODY>
 	<H2 class='text-center'>Üzenetek</H2>
-	<div class="container-fluid vert_center">
+	<div class="container-fluid">
 	<div class='row'>
-		<div class='col-md-3'>Üzenetváltások vele: <?=$partner?></div>
+		<div class='col-md-3 col-xs-9 col-sm-9'>Üzenetváltások vele: <?=$partner?></div>
 		<div class='col-md-3'><button class='btn btn-info' id='ujvalasz' onclick="ujvalaszablak()">Válasz</button></div>
 	</div>
 	<div class='row'>
 			<div class='col-md-2'></div>
-			<div class='col-md-6' id='ujvalaszablak' style="display:none;">
+			<div class='col-md-6 col-xs-12' id='ujvalaszablak' style="display:none;">
 				<?php $hidden = array('felado' => $userid, 'cimzett' => $partnerid);
 				echo form_open('Users/ujuzenetkuldes','',$hidden);?>
-				<TEXTAREA name='uzenetszoveg' cols='50' rows='3' style="border:dotted 2px green;"></TEXTAREA> <button class='btn btn-success' type='submit'>Küldés</button>
+				<TEXTAREA name='uzenetszoveg' rows='3' style="border:dotted 2px green;"></TEXTAREA> <button class='btn btn-success' type='submit'>Küldés</button>
 				<?php echo form_close();?>
 			</div>
 		</div>

@@ -47,8 +47,8 @@
               <tr class='sor'>
                 <th scope="row"><?=$i?>.</th>
                 <th scope="row"><?=$osztalyom[$i]['name']?></th>
-                <td><?=$osztalyom[$i]['dob']?></td>
                 <td><?=$osztalyom[$i]['tel']?></td>
+                <td><?=$osztalyom[$i]['dob']?></td>
                 <td><?=$osztalyom[$i]['irsz']?> <?=$osztalyom[$i]['lakcim']?></td>
                 <td><a target="_blank" href="../uploads/<?=$osztalyom[$i]['foto_link']?>">
                   <img width="40" src="../uploads/<?=$osztalyom[$i]['foto_link']?>"></img>

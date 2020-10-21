@@ -14,18 +14,18 @@
   <div class="row">
     <div class="container">
       <div class='row'>
-        <div class='col-md-2'>
+        <div class='col-md-2 col-sm-12'>
           <a href='<?=base_url()?>Diak/alapadatok'>
             <button class='btn btn-primary'>Iskola adatai</button>
           </a>
         </div>
 
-        <div class='col-md-2'>
+        <div class='col-md-2 col-sm-12'>
           <a href='<?=base_url()?>Diak/Tanaraim'>
             <button class='btn btn-primary'>Tanáraim</button>
           </a>
         </div>
-        <div class='col-md-2'>
+        <div class='col-md-2 col-sm-12'>
           <a href='<?=base_url()?>Diak/Osztalyom'>
             <button class='btn btn-primary'>Osztályom</button>
           </a>
