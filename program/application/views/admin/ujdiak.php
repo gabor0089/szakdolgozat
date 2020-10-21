@@ -20,6 +20,10 @@
 				{
 					echo "A felvitel ".$feltoltes."<BR>";
 				}
+				else
+				{
+					echo "Hiba!".$error;
+				}
 			?>
             Név <input type='text' class='form-control' name='nev' value='' size='50' autocomplete='off' placeholder='Név' required>
             Születési idő <input type='date' class='form-control' name='szulido' value='2001-04-02' autocomplete='off' placeholder='Születési idő' >

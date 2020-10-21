@@ -94,6 +94,7 @@ class Admin extends CI_Controller
 	{
 		$this->load->model('admin_model');
 		$this->form_validation->set_rules('nev','Diák neve','required');	
+		$this->form_validation->set_rules('userfile','Fénykép feltöltése','required');	
 		if($this->form_validation->run()===FALSE)
 		{
 			$adatok2=['feltoltes'=>'sikertelen!'];

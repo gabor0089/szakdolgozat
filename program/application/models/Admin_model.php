@@ -303,7 +303,7 @@ class Admin_model extends CI_Model
 		$data4=array(
 			'userid'=>$idd[0]['userid'],
 			'value'=>1,
-			'set_name'=>jegyek
+			'set_name'=>'jegyek'
 			);
 		$this->db->insert('users_sets',$data4);
 
