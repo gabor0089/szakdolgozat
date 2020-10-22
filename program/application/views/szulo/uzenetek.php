@@ -8,14 +8,14 @@
     </HEAD>
 	<BODY>
 	<H1 class='text-center'>Üzenetek</H1>
-	<div class="container-fluid vert_center">
+	<div class="container-fluid">
 		<?php foreach ($uzenetek as $uzi):?>
 			<div class='row'>
-				<div class='col-md-2'>
+				<div class='col-md-2 col-xs-6 col-sm-6'>
 				<?php $csoport=$uzi['csoport'];?>
 					<a href="<?php echo base_url();?>Szulo/egyuzenet/<?=$csoport?>/<?=$userid?>"><?=$uzi['datum']?></a>
 				</div>
-				<div class='col-md-2'>
+				<div class='col-md-2 col-xs-6 col-sm-6'>
 				<?php if($uzi['felado']==$userid)
 					{
 						$nev=$uzi['cimzettnev'];
@@ -27,7 +27,7 @@
 					?>
 					<a href="<?php echo base_url();?>Szulo/egyuzenet/<?=$csoport?>/<?=$userid?>"><?=$nev?></a>
 				</div>
-				<div class='col-md-4'>
+				<div class='col-md-4 col-xs-12 col-sm-12'>
 					<a href="<?php echo base_url();?>Szulo/egyuzenet/<?=$csoport?>/<?=$userid?>"><?=$uzi['uzenet']?></a>
 				</div>
 			</div><HR>

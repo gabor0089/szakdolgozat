@@ -303,7 +303,7 @@ class Szulo extends CI_Controller
 		$data=['partner'=>$partnerid,
 				'userid'=>$userid,
 				'partnernev'=>$partnernev[0]['name']];
-		$this->load->view('users/ujuzenet',$data);
+		$this->load->view('szulo/ujuzenet',$data);
 	}
 	public function Ujuzenetkuldes()
 	{
