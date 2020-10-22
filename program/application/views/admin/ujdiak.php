@@ -22,7 +22,7 @@
 				}
 				else
 				{
-					echo "Hiba!".$error;
+					//echo "Hiba!".$error;
 				}
 			?>
             Név <input type='text' class='form-control' name='nev' value='' size='50' autocomplete='off' placeholder='Név' required>
