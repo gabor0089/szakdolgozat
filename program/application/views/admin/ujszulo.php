@@ -41,7 +41,6 @@
 
 <?PHP echo form_close();
 $php_array=array();
-var_dump($diakok_nevei);
 foreach ($diakok_nevei as $diak)
 {
     if(intval($diak)>1)
@@ -49,7 +48,6 @@ foreach ($diakok_nevei as $diak)
     else
       $php_array[]=$diak;
 }
-var_dump($php_array);
 $js_array = json_encode($php_array);
 echo "<script>";
 echo "var javascript_array = ".$js_array. ";";
