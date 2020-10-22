@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
     </HEAD>
   <BODY>
+  <?php var_dump($szuloklistaja)?>
     <h1 class='text-center'>Szülők</h1>
     <div class='container-fluid'>
       <a href='../Admin/Ujszulo' title='Új szülő felvitele'><button type='submit' class='btn btn-success'>+ Új szülő felvitele</button></a>
@@ -28,7 +29,7 @@
                 <?=$lista['tel'][4].$lista['tel'][5].$lista['tel'][6]?> <?=$lista['tel'][7].$lista['tel'][8].$lista['tel'][9].$lista['tel'][10]?></td>          
             <td class='col-md-2'><?=$lista['irsz']?> <?=$lista['lakcim']?></TD>
             <td class='col-md-2'><?=$lista['email']?></TD>
-            <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$lista[7]?>' title='<?=$lista[0]?>'><img src="<?php echo base_url();?>assets/img/boritek.png"></a></td>
+            <td><a target="_blank" href='<?=base_url()?>Users/Ujuzenet/<?=$lista['userid']?>' title='<?=$lista[0]?>'><img src="<?php echo base_url();?>assets/img/boritek.png"></a></td>
           </TR>
             <?php endforeach;?>
         </table>
