@@ -1,10 +1,13 @@
 \select@language {magyar} \contentsline {chapter}{\numberline {1}Probléma kifejtése}{4}{chapter.1}% 
 \select@language {magyar} \contentsline {chapter}{\numberline {2}Implementálás}{5}{chapter.2}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {3}Problémák, és megoldásuk a fejlesztés során}{6}{chapter.3}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {4}Felhasználói dokumentáció}{7}{chapter.4}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {5}Továbbfejlesztési lehetőségek}{8}{chapter.5}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.1}Külső fájl importálása}{8}{section.5.1}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.2}Órarend}{8}{section.5.2}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.3}Házi feladatok}{9}{section.5.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.4}Szülői, orvosi igazolás feltöltése}{9}{section.5.4}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás}{10}{chapter.6}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.1}Codeigniter}{5}{section.2.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.2}Javascript}{6}{section.2.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.3}Bootstrap}{6}{section.2.3}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {3}Problémák, és megoldásuk a fejlesztés során}{8}{chapter.3}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {4}Felhasználói dokumentáció}{9}{chapter.4}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {5}Továbbfejlesztési lehetőségek}{10}{chapter.5}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.1}Külső fájl importálása}{10}{section.5.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.2}Órarend}{10}{section.5.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.3}Házi feladatok}{11}{section.5.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.4}Szülői, orvosi igazolás feltöltése}{11}{section.5.4}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás}{12}{chapter.6}% 

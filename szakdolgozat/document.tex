@@ -9,6 +9,7 @@
 \usepackage[magyar]{babel}
 \footnotestyle{rule=fourth}
 \usepackage{natbib}
+\usepackage{listings,xcolor}
 \setcitestyle{aysep={}}
 
 \begin{document}
@@ -23,7 +24,7 @@
 \tableofcontents
 
 \chapter*{Bevezetés}
-Mindannyian voltunk diákok, jártunk iskolába, és mindenki kapott jegyet. Az én időmben még papír alapon. A Naplóba. Már általános iskola végén sem értettem, hogy ha ennyi számítógép van már a világban, akkor miért nem használják egy ilyen területen, ahol sok az adminisztráció, és sok a hibázási lehetőség.
+Mindannyian voltunk diákok, jártunk iskolába, és mindenki kapott jegyet. Az én időmben még papír alapon. A naplóba, amitől mindig féltünk feleléskor, hogy hol nyílik ki. Már általános iskola végén sem értettem, hogy ha ennyi számítógép van már a világban, akkor miért nem használják egy ilyen területen, ahol sok az adminisztráció, és sok a hibázási lehetőség.
 
 Erre lett megoldás Magyarországon a 2018 szeptemberében kötelezővé tett e-napló használata az iskolákban. Korábban már több intézmény használt saját fejlesztésű, vagy egy vállalat által elkészített elektronikus naplót.
 
@@ -41,11 +42,68 @@ Ki tudja, esetleg pont ez az alkalmazás lesz a jövő középiskolai elektronik
 A jelenleg használatban lévő e-naplók a vélemények szerint bonyolultak, sok időt vesznek el az oktatóktól, az adminisztrátoroktól, és a diákoknak sem esik kézre. Viszont nincsenek olyannyira kihasználva, amennyire a XXI. századi felhasználóknak szüksége lenne rá. A célom, hogy egy olyan alkalmazást készítsek el, ami kellően egyszerűen, gyorsan használható és szinte tökéletes. Csak szinte, hiszen mindig lesznek olyan dolgok, amiket egyszerűbben nem lehet megoldani, csak ha máshonnan veszünk el erőforrást. Azaz ha egy funkció egyszerűbb a felhasználónak, az a feldolgozó rendszernek bizonyosan bonyolultabb. Tovább tarthat az adatok kinyerése az adatbázisból, valamint a megjelenítés is tovább tarthat, ami több -- azaz néhány száz vagy akár ezer felhasználónál -- már jelentős lassúsággal járna.\\
 A fejlesztés során folyamatosan konzultáltam tanár szakos hallgatókkal, akik ismerik a jelenlegi helyzetet, és egyes dolgokat meg tudnak közelíteni más módokon is. Több tíz éve a pályán lévő tapasztalt pedagógusok véleményét is kikérdeztem, hiszen ők a régebbi papír alapú rendszert is használták, és ezt az új e-rendszerben is benne vannak.
 \chapter{Implementálás}
+A programot PHP nyelven írtam, a Codeigniter keretrendszer segítségével. Néhány helyen alkalmaztam Javascriptet a felhasználói élmény fokozása érdekében. A megjelenítésért pedig a Bootstrap a felelős.
+\section{Codeigniter}
+A Codeigniter használata egyszerű, könnyen lehet teljes értékű web alkalmazásokat fejleszteni vele. A jelenlegi stabil kiadása a 4.0.4 verzió, amit 2020. július 15-én adtak ki. A szakdolgozati programom elkészítésének a kezdetén még a 3-as verzió volt a legújabb, így azzal a verzióval haladtam a végéig.
+A Codeigniter egy nagyon hatékony, mégis kevés memóriát és lemezterületet használó PHP keretrendszer. Az MVC tervezési mintát használja, amelynek lényege, hogy a sok adatot a felhasználó elé táró számítógépes alkalmazásokban az adathoz (modell) és a felhasználói felülethez (nézet) tartozó dolgok szétválasztódjanak azért, hogy a felhasználói felület ne befolyásolja az adatkezelést, és az adatok átszervezhetők legyenek a felhasználói felület változtatása nélkül. Ezt az elképzelést a Codeigniter egy controller közbeiktatásával éri el.
+
+Működése a következő:\\
+Egy weboldal betöltése a megfelelő controller megfelelő metódusával kezdődik. 
+\lstset{language=php,basicstyle=\footnotesize\ttfamily,
+	keywordstyle=\color{blue},
+	stringstyle=\color{red},
+	identifierstyle=\color{black},
+	emph            =[1]{Welcome,CI_Controller,index,\$data,get_news},
+	emphstyle       =[1]\color{blue},
+	numbers=left,frame=r}
+\begin{lstlisting}
+<?php
+class Welcome extends CI_Controller
+{
+	public function index()
+	{
+		$data['news'] = $this->news_model->get_news();
+		$this->load->view('news/index', $data);
+	}
+}
+?>
+\end{lstlisting}
+\newpage
+Ez a programrészlet hozzáfér az adatbázishoz a modellen keresztül. A modellben valamilyen adatbáziskezelői parancs fut le. Úgymint lekérdezés, beszúrás, törlés, módosítás. 
+\lstset{language=php,basicstyle=\footnotesize\ttfamily,
+	keywordstyle=\color{blue},
+	stringstyle=\color{red},
+	identifierstyle=\color{black},
+	emph            =[1]{get_news,\$query,News_model,CI_Model},
+	emphstyle       =[1]\color{blue},
+	numbers=left,frame=r}
+\begin{lstlisting}
+<?php
+class News_model extends CI_Model
+{
+	public function get_news()
+	{
+		$query = $this->db->get('news');
+		return $query->result_array();
+	}
+}
+\end{lstlisting}
+A parancs lefutása után a vezérlés -- lekérdezés esetében a lekérdezett adattal együtt -- a controllerbe kerül vissza, amely előkészíti az adatokat a view számára, majd meghívja a viewt, ami a 7.sor alapján a news/index helyen található, majd a \$data változón keresztül hozzákapcsolja a szükséges adatokat. Amint a view megkapta az adatokat, megjeleníti azokat, és kezdődik minden elölről, a felhasználó interakciója alapján.
+\section{Javascript}
+A JavaScript egy komplett programnyelv-fordító, amely közvetlenül a webböngésző szoftverekben működik. A JavaScripttel mindent meg lehet csinálni, mint a Java-val, vagy bármilyen hasonló, általános programozási nyelvvel, például:
+
+Deklarálhatsz vele változókat
+Értékeket tárolhatsz és hívhatsz meg
+Függvényeket definiálhatsz és használhatsz
+Saját osztályokat hozhatsz létre
+Külső modulokat használhatsz
+
+\section{Bootstrap}
 A forráskódot a Sublime Text 3 programmal írtam. A saját számítógépemen a WAMP programot használtam a szerver funkciójának betöltésére.
 A WAMP négy program nevéből alkotott szó:
 \begin{itemize}
 	\item Windows, a Microsoft által gyártott operációs rendszer.
-	\item Apache HTTP Server, egy szabad szoftver/nyílt forrású webszerver, a jelenleg a legnépszerűbb.
+	\item Apache HTTP Server, egy szabad szoftver/nyílt forrású webszerver, jelenleg a legnépszerűbb.
 	\item MySQL, egy többszálas, többfelhasználós SQL adatbázis-kezelő rendszer (DBMS), a Sun Microsystems tulajdonában, több mint 11 millió installációval.
 	\item PHP (PHP: Hypertext Preprocessor), egy programozási nyelv, amit eredetileg dinamikus weboldalak fejlesztésére terveztek. A PHP-t leggyakrabban szerveroldali alkalmazásoknál használják, de parancssorból/konzol alól is használható.
 \end{itemize}
@@ -74,6 +132,7 @@ Ebbe a fejezetbe kerül a probléma ismételt leírása, valamint a megoldásáv
 	https://www.mozaik.info.hu/Homepage/Mozaportal/MPdigitalis.php?op=mozanaplo\\
 	https://ekreta.hu/\\
 	https://hu.wikipedia.org/wiki/WAMP\\
+	https://matebalazs.hu/javascript.html\\
 	https://thispersondoesnotexist.com/ \\
 	https://codingislove.com/realtime-search-javascript/\\
 	http://www.sulibolt.hu/asc\_ism.html
