@@ -3,6 +3,8 @@
 \select@language {magyar} \contentsline {chapter}{\numberline {3}Problémák, és megoldásuk a fejlesztés során}{6}{chapter.3}% 
 \select@language {magyar} \contentsline {chapter}{\numberline {4}Felhasználói dokumentáció}{7}{chapter.4}% 
 \select@language {magyar} \contentsline {chapter}{\numberline {5}Továbbfejlesztési lehetőségek}{8}{chapter.5}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.1}Órarend}{8}{section.5.1}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.2}Házi feladatok}{8}{section.5.2}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás}{9}{chapter.6}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.1}Külső fájl importálása}{8}{section.5.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.2}Órarend}{8}{section.5.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.3}Házi feladatok}{8}{section.5.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.4}Szülői, orvosi igazolás feltöltése}{9}{section.5.4}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás}{10}{chapter.6}% 
