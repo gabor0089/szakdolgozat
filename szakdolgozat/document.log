@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.10.24)  6 SEP 2020 08:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.10.24)  23 OCT 2020 10:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -611,7 +611,7 @@ LaTeX Info: Redefining \nameref on input line 14.
 LaTeX Info: Redefining \cal on input line 576.
 LaTeX Info: Redefining \mit on input line 577.
 )
-<eszterhazy-logo-hu.pdf, id=33, 256.07469pt x 84.78476pt>
+<eszterhazy-logo-hu.pdf, id=41, 256.07469pt x 84.78476pt>
 File: eszterhazy-logo-hu.pdf Graphic file (type pdf)
 <use eszterhazy-logo-hu.pdf>
 Package pdftex.def Info: eszterhazy-logo-hu.pdf  used on input line 21.
@@ -626,7 +626,13 @@ Package pdftex.def Info: eszterhazy-logo-hu.pdf  used on input line 21.
 
  [2
 
-] [3
+]
+Overfull \hbox (0.71077pt too wide) in paragraph at lines 30--31
+[]\T1/lmr/m/n/12 A Di-git-nap-lo Kft. ál-tal fej-lesz-tett IEAR (Is-ko-lai Elek
+t-ro-ni-kus Ad-mi-niszt-rá-ci-ós Rend-
+ []
+
+[3
 
 ]
 1. fejezet.
@@ -654,42 +660,41 @@ Package pdftex.def Info: eszterhazy-logo-hu.pdf  used on input line 21.
 
 ]
 
-Package natbib Warning: Empty `thebibliography' environment on input line 49.
+Package natbib Warning: Empty `thebibliography' environment on input line 63.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 50.
+
+Overfull \hbox (11.70209pt too wide) in paragraph at lines 57--63
+\T1/lmr/m/n/12 https://www.mozaik.info.hu/Homepage/Mozaportal/MPdigitalis.php?o
+p=mozanaplo 
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 64.
 [10
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 50.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 64.
  (./document.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 50.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 50.
-
-
-Package rerunfilecheck Warning: File `document.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `document.out':
-(rerunfilecheck)             Before: 60D581E12D90F1C8E874BB6BE0818D2B;1155
-(rerunfilecheck)             After:  36C6B82299082B95B316B27079274504;1433.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 64.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 64.
+Package rerunfilecheck Info: File `document.out' has not changed.
+(rerunfilecheck)             Checksum: 36C6B82299082B95B316B27079274504;1433.
  ) 
 Here is how much of TeX's memory you used:
- 11943 strings out of 492167
- 173793 string characters out of 6129158
- 265708 words of memory out of 5000000
- 16113 multiletter control sequences out of 15000+600000
- 53807 words of font info for 46 fonts, out of 8000000 for 9000
+ 11954 strings out of 492167
+ 173938 string characters out of 6129158
+ 266711 words of memory out of 5000000
+ 16120 multiletter control sequences out of 15000+600000
+ 54481 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  42i,7n,39p,798b,379s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/texlive/2019/tex
 mf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2019/texmf-dist/fonts/type
 1/public/lm/lmcsc10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr12
 .pfb>
-Output written on document.pdf (10 pages, 107714 bytes).
+Output written on document.pdf (10 pages, 110888 bytes).
 PDF statistics:
- 112 PDF objects out of 1000 (max. 8388607)
- 90 compressed objects within 1 object stream
+ 120 PDF objects out of 1000 (max. 8388607)
+ 98 compressed objects within 1 object stream
  22 named destinations out of 1000 (max. 500000)
- 74 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 90 words of extra memory for PDF output out of 10000 (max. 10000000)
 
