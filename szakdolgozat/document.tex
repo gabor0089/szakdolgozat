@@ -41,7 +41,17 @@ Ki tudja, esetleg pont ez az alkalmazás lesz a jövő középiskolai elektronik
 A jelenleg használatban lévő e-naplók a vélemények szerint bonyolultak, sok időt vesznek el az oktatóktól, az adminisztrátoroktól, és a diákoknak sem esik kézre. Viszont nincsenek olyannyira kihasználva, amennyire a XXI. századi felhasználóknak szüksége lenne rá. A célom, hogy egy olyan alkalmazást készítsek el, ami kellően egyszerűen, gyorsan használható és szinte tökéletes. Csak szinte, hiszen mindig lesznek olyan dolgok, amiket egyszerűbben nem lehet megoldani, csak ha máshonnan veszünk el erőforrást. Azaz ha egy funkció egyszerűbb a felhasználónak, az a feldolgozó rendszernek bizonyosan bonyolultabb. Tovább tarthat az adatok kinyerése az adatbázisból, valamint a megjelenítés is tovább tarthat, ami több -- azaz néhány száz vagy akár ezer felhasználónál -- már jelentős lassúsággal járna.\\
 A fejlesztés során folyamatosan konzultáltam tanár szakos hallgatókkal, akik ismerik a jelenlegi helyzetet, és egyes dolgokat meg tudnak közelíteni más módokon is. Több tíz éve a pályán lévő tapasztalt pedagógusok véleményét is kikérdeztem, hiszen ők a régebbi papír alapú rendszert is használták, és ezt az új e-rendszerben is benne vannak.
 \chapter{Implementálás}
-A forráskódot a Sublime Text 3 programmal írtam. Az első tesztekhez a saját számítógépemen WampServer-t használok, mely a Windows-Apache-Mysql-PHP szavakból tevődik össze. Az adatbázisban az adattáblák harmadik normálformában vannak, 19 tábla összekapcsolásából áll össze az alkalmazás.
+A forráskódot a Sublime Text 3 programmal írtam. A saját számítógépemen a WAMP programot használtam a szerver funkciójának betöltésére.
+A WAMP négy program nevéből alkotott szó:
+\begin{itemize}
+	\item Windows, a Microsoft által gyártott operációs rendszer.
+	\item Apache HTTP Server, egy szabad szoftver/nyílt forrású webszerver, a jelenleg a legnépszerűbb.
+	\item MySQL, egy többszálas, többfelhasználós SQL adatbázis-kezelő rendszer (DBMS), a Sun Microsystems tulajdonában, több mint 11 millió installációval.
+	\item PHP (PHP: Hypertext Preprocessor), egy programozási nyelv, amit eredetileg dinamikus weboldalak fejlesztésére terveztek. A PHP-t leggyakrabban szerveroldali alkalmazásoknál használják, de parancssorból/konzol alól is használható.
+\end{itemize}
+
+
+ Az adatbázisban az adattáblák harmadik normálformában vannak, 19 tábla összekapcsolásából áll össze az alkalmazás.
 \chapter{Problémák, és megoldásuk a fejlesztés során}
 Ebben a fejezetben kifejtem, hogy az alkalmazás mely részénél futottam bele olyan problémákba, amit nem tudtam egyszerűen, könnyen átlépni. Először a probléma felmerülésének helyét, leírását adom meg, majd több megoldást kipróbálok, végül leírom miért pont az adott megoldás lett a tökéletes.
 \chapter{Felhasználói dokumentáció}
@@ -49,7 +59,8 @@ Ebben a fejezetben a felhasználók számára, világosan, érthetően, képerny
 \chapter{Továbbfejlesztési lehetőségek}
 Szeretnék egy olyan rendszert megalkotni, ami már-már továbbfejleszthetetlen. De természetesen ilyen nem létezik, soha nem is fog. Minden programban vannak továbbfejlesztési lehetőségek.
 \section{Külső fájl importálása}
-Akár Excel, akár csv fájlt is fel lehetne tölteni, amit a program feldolgoz, és az adatokat a megfelelő helyekre tárolja el. Például ha egy diák év közben érkezik az iskolánkba, akkor a személyes adatait felvehetjük, nem tart sokáig, ám az előző intézményben szerzett korábbi jegyeire is szükségünk lenne. Ezeket egyesével nagyon sok idő lenne felvinni, és a hibázási lehetőség is nagyon nagy. Ekkor jön a következő gondolat, hogy akkor Exportálásra is lenne igény, így tényleg a diák összes adatát egy pillanat alatt lementhetjük, és a másik rendszerben pedig beimportálás után használhatjuk.
+Akár Excel, akár csv fájlt is fel lehetne tölteni, amit a program feldolgoz, és az adatokat a megfelelő helyekre tárolja el. Például ha egy diák év közben érkezik az iskolánkba, akkor a személyes adatait felvehetjük, nem tart sokáig, ám az előző intézményben szerzett korábbi jegyeire is szükségünk lenne. Ezeket egyesével nagyon sok idő lenne felvinni, és a hibázási lehetőség is nagyon nagy. Ekkor jön a következő gondolat, hogy akkor Exportálásra is lenne igény, így tényleg a diák összes adatát egy pillanat alatt lementhetjük, és a másik rendszerben pedig beimportálás után használhatjuk.\\
+Természetesen minden év elején a sok új diákot, és a szüleit is könnyedén fel lehetne tölteni a rendszerbe, amennyiben egy megfelelően formázott dokumentum rendelkezésre áll a feltöltésre.
 \section{Órarend}
 Egy elektronikus naplóban kézenfekvő megoldás, ha az órarendet is már az alkalmazás készíti el. Ahhoz, hogy ezt el lehessen készíteni, szükség van a tanárok, az osztályok, és a tantermek rögzítésére. Természetesen nem megfeledkezve a tantárgyakról, ami minden osztály esetében más és más. Ezek az adatok az általam készített programokban természetesen megvannak, így már csak maga az órarend generálásra lenne hátra. Ennek a megalkotása viszont felérne egy újabb fél éves fejlesztési folyamattal.
 \section{Házi feladatok}
@@ -62,6 +73,7 @@ Ebbe a fejezetbe kerül a probléma ismételt leírása, valamint a megoldásáv
 	https://www.digitnaplo.hu/\\
 	https://www.mozaik.info.hu/Homepage/Mozaportal/MPdigitalis.php?op=mozanaplo\\
 	https://ekreta.hu/\\
+	https://hu.wikipedia.org/wiki/WAMP\\
 	https://thispersondoesnotexist.com/ \\
 	https://codingislove.com/realtime-search-javascript/\\
 	http://www.sulibolt.hu/asc\_ism.html
