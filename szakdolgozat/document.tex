@@ -42,7 +42,7 @@ Ki tudja, esetleg pont ez az alkalmazás lesz a jövő középiskolai elektronik
 A jelenleg használatban lévő e-naplók a vélemények szerint bonyolultak, sok időt vesznek el az oktatóktól, az adminisztrátoroktól, és a diákoknak sem esik kézre. Viszont nincsenek olyannyira kihasználva, amennyire a XXI. századi felhasználóknak szüksége lenne rá. A célom, hogy egy olyan alkalmazást készítsek el, ami kellően egyszerűen, gyorsan használható és szinte tökéletes. Csak szinte, hiszen mindig lesznek olyan dolgok, amiket egyszerűbben nem lehet megoldani, csak ha máshonnan veszünk el erőforrást. Azaz ha egy funkció egyszerűbb a felhasználónak, az a feldolgozó rendszernek bizonyosan bonyolultabb. Tovább tarthat az adatok kinyerése az adatbázisból, valamint a megjelenítés is tovább tarthat, ami több -- azaz néhány száz vagy akár ezer felhasználónál -- már jelentős lassúsággal járna.\\
 A fejlesztés során folyamatosan konzultáltam tanár szakos hallgatókkal, akik ismerik a jelenlegi helyzetet, és egyes dolgokat meg tudnak közelíteni más módokon is. Több tíz éve a pályán lévő tapasztalt pedagógusok véleményét is kikérdeztem, hiszen ők a régebbi papír alapú rendszert is használták, és ezt az új e-rendszerben is benne vannak.
 \chapter{Implementálás}
-A programot PHP nyelven írtam, a Codeigniter keretrendszer segítségével. Néhány helyen alkalmaztam Javascriptet a felhasználói élmény fokozása érdekében. A megjelenítésért pedig a Bootstrap a felelős.
+A programot PHP nyelven írtam, a Codeigniter keretrendszer segítségével. Néhány helyen alkalmaztam Javascriptet a felhasználói élmény fokozása érdekében. A megjelenítésért pedig a Bootstrap a felelős. A kódot a Sublime Text 3 programmal írtam. A saját rendszeremen a WAMP alkamazás szolgáltatásait használtam.
 \section{Codeigniter}
 A Codeigniter használata egyszerű, könnyen lehet teljes értékű web alkalmazásokat fejleszteni vele. A jelenlegi stabil kiadása a 4.0.4 verzió, amit 2020. július 15-én adtak ki. A szakdolgozati programom elkészítésének a kezdetén még a 3-as verzió volt a legújabb, így azzal a verzióval haladtam a végéig.
 A Codeigniter egy nagyon hatékony, mégis kevés memóriát és lemezterületet használó PHP keretrendszer. Az MVC tervezési mintát használja, amelynek lényege, hogy a sok adatot a felhasználó elé táró számítógépes alkalmazásokban az adathoz (modell) és a felhasználói felülethez (nézet) tartozó dolgok szétválasztódjanak azért, hogy a felhasználói felület ne befolyásolja az adatkezelést, és az adatok átszervezhetők legyenek a felhasználói felület változtatása nélkül. Ezt az elképzelést a Codeigniter egy controller közbeiktatásával éri el.
@@ -90,9 +90,12 @@ A parancs lefutása után a vezérlés -- lekérdezés esetében a lekérdezett 
 A Javascriptet 1995-ben hozták létre, az akkori statikus weboldalak fejlesztéséért.
 Több paradigmás nyelvként a Javascript támogatja az eseményvezérelt, a funkcionális és az imperatív programozási stílusokat. Alkalmazásprogramozási interfészekkel (API) rendelkezik a szöveggel, dátummal, reguláris kifejezésekkel, adatstruktúrákkal való munkához. Magának a nyelvnek nincs be-kiírató funkciója, ezeket a feladatokat a gazda környezet, általában egy web böngésző biztosítja.
 \section{Bootstrap}
-
-A forráskódot a Sublime Text 3 programmal írtam. A saját számítógépemen a WAMP programot használtam a szerver funkciójának betöltésére.
-A WAMP négy program nevéből alkotott szó:
+A Bootstrap egy nyílt forrású webes keretrendszer, ami az informatív weboldalak fejlesztésének leegyszerűsítésére fókuszál. Az elsődleges célja, hogy ezt egy webprojekthez adjuk, az nem más, mint megkaphassuk a Bootstrap választásait a színek, méretek, betűtípusok, és kinézetek tekintetében.  Amint egy projekthez hozzáadjuk, a Bootstrap biztosítja az alap stílus meghatározásokat minden HTML elem számára. Az eredmény egy egységes megjelenés a táblák, és űrlap elemek megjelenésének miden webböngészőben
+A legelső változatot 2011. augusztus 19-én adták ki, miután átnevezték a projektet Twitter Blueprintről. A Bootstrap 2 2012 januárjában jelent meg, a 3-as verzió pedig 2013 nyarán. A 4. kiadást 2018 elején véglegesítették. A Bootstrap 5 Alfa verziója 2020 nyarán jelent meg.
+\section{Sublime Text 3}
+A Sublime Text egy shareware többplatformú forráskód szerkesztő. Számos programozási és jelölő nyelvet támogat. Pluginek segítségével a felhasználók funkciókat adhatnak hozzá.
+\section{WAMP}
+A WAMP egy Windowson futtatható alkalmazáskiszolgáló programcsomag, amely fő elemeit az alábbi négy program alkotja:
 \begin{itemize}
 	\item Windows, a Microsoft által gyártott operációs rendszer.
 	\item Apache HTTP Server, egy szabad szoftver/nyílt forrású webszerver, jelenleg a legnépszerűbb.
@@ -100,8 +103,16 @@ A WAMP négy program nevéből alkotott szó:
 	\item PHP (PHP: Hypertext Preprocessor), egy programozási nyelv, amit eredetileg dinamikus weboldalak fejlesztésére terveztek. A PHP-t leggyakrabban szerveroldali alkalmazásoknál használják, de parancssorból/konzol alól is használható.
 \end{itemize}
 
-
+\section{Az adatbázis}
  Az adatbázisban az adattáblák harmadik normálformában vannak, 19 tábla összekapcsolásából áll össze az alkalmazás.
+ Néhány tábla szerkezete:
+
+ users: A program felhasználóinak adatait tárolja. A személyes adatai mellett a diákok esetében az osztályát, és minden felhasználónak a beosztását.
+ 
+ jegyek: A diákok jegyeit tartalmazza. A tábla tartalmazza természetesen a diák azonosítóját, a jegy adóját, azaz a tanár azonosítóját. Az jegy adásának időpontját másodperc pontossággal, magát a jegyet, és hogy melyik tárgyból kapta az érdemjegyet. Két mező van arra, hogy egy jegyhez tartozó dolgozatot lehessen hozzáfűzni, és egy van arra, hogy a diák dolgozatát lehessen ide feltölteni.
+ 
+ haladasi\_naplo: A
+   
 \chapter{Problémák, és megoldásuk a fejlesztés során}
 Ebben a fejezetben kifejtem, hogy az alkalmazás mely részénél futottam bele olyan problémákba, amit nem tudtam egyszerűen, könnyen átlépni. Először a probléma felmerülésének helyét, leírását adom meg, majd több megoldást kipróbálok, végül leírom miért pont az adott megoldás lett a tökéletes.
 \chapter{Felhasználói dokumentáció}
