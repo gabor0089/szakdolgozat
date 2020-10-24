@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.10.24)  23 OCT 2020 18:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.10.24)  24 OCT 2020 12:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -696,14 +696,14 @@ LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-65.
+64.
 
 (c:/texlive/2019/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [5
 
 ]
-Overfull \hbox (2.91899pt too wide) in paragraph at lines 107--108
+Overfull \hbox (2.91899pt too wide) in paragraph at lines 99--100
 []\T1/lmr/m/n/12 MySQL, egy több-szá-las, több-fel-hasz-ná-lós SQL adatbázis-ke
 zel® rend-szer (DBMS),
  []
@@ -726,30 +726,30 @@ zel® rend-szer (DBMS),
 
 ]
 
-Package natbib Warning: Empty `thebibliography' environment on input line 139.
+Package natbib Warning: Empty `thebibliography' environment on input line 131.
 
 
-Overfull \hbox (11.70209pt too wide) in paragraph at lines 131--139
+Overfull \hbox (11.70209pt too wide) in paragraph at lines 123--131
 \T1/lmr/m/n/12 https://www.mozaik.info.hu/Homepage/Mozaportal/MPdigitalis.php?o
 p=mozanaplo 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 140.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 132.
 [13
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 140.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 132.
  (./document.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 140.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 140.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 132.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 132.
 Package rerunfilecheck Info: File `document.out' has not changed.
 (rerunfilecheck)             Checksum: 1204AE7A95ECE3E27A675D38D665180D;2322.
  ) 
 Here is how much of TeX's memory you used:
- 16013 strings out of 492167
- 234998 string characters out of 6129158
- 590097 words of memory out of 5000000
- 20111 multiletter control sequences out of 15000+600000
+ 16008 strings out of 492167
+ 234939 string characters out of 6129158
+ 590095 words of memory out of 5000000
+ 20109 multiletter control sequences out of 15000+600000
  58095 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  42i,7n,40p,888b,3186s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -759,10 +759,10 @@ ublic/lm/lmbx12.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/lm/lmcsc10.p
 fb><c:/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2019
 /texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2019/texmf-dist/fonts/t
 ype1/public/lm/lmtt10.pfb>
-Output written on document.pdf (13 pages, 170778 bytes).
+Output written on document.pdf (13 pages, 168917 bytes).
 PDF statistics:
- 198 PDF objects out of 1000 (max. 8388607)
- 170 compressed objects within 2 object streams
- 51 named destinations out of 1000 (max. 500000)
+ 194 PDF objects out of 1000 (max. 8388607)
+ 166 compressed objects within 2 object streams
+ 48 named destinations out of 1000 (max. 500000)
  130 words of extra memory for PDF output out of 10000 (max. 10000000)
 
