@@ -111,8 +111,19 @@ A WAMP egy Windowson futtatható alkalmazáskiszolgáló programcsomag, amely f�
  
  jegyek: A diákok jegyeit tartalmazza. A tábla tartalmazza természetesen a diák azonosítóját, a jegy adóját, azaz a tanár azonosítóját. Az jegy adásának időpontját másodperc pontossággal, magát a jegyet, és hogy melyik tárgyból kapta az érdemjegyet. Két mező van arra, hogy egy jegyhez tartozó dolgozatot lehessen hozzáfűzni, és egy van arra, hogy a diák dolgozatát lehessen ide feltölteni.
  
- haladasi\_naplo: A
+ haladasi\_naplo: A tanárok ebbe a táblába töltik fel azt, hogy melyik órán mit csinálnak, illetve mit fognak csinálni. A tantárgy azonosítóját természetesen tartalmazza, emellett az adott tantárgy, adott osztályában lévő óra sorszámát, az aznapi óra dátumát, és természetesen a tevékenységet, hogy azon a napon mi történik.
+ 
+ users\_sets: A felhasználók által választható az oldal megjelenítése bizonyos funkcióknál. Ebben a táblában ez kerül eltárolásra. A felhasználó azonosítója természetesen itt van, aztán a set\_name mezőben tárolom azt, hogy melyik kinézetről van szó. Például az 'ofonezet' beállítás az osztályfőnöknek azt a beállítását tartalmazza, hogy a saját osztályának a jegyeit vagy a hiányzását jelenítse meg. Maga a beállítás értéke pedig -1-et, illetve 1-et vehet fel. A program ez alapján eldönti, hogy mely kinézetet kell megjelenítenie.
+ 
+ szulogyermek: Ebben a táblában kerülnek összekapcsolásra a szülők a gyermekeikkel. El van tárolva a szülő azonosítója, a gyermek azonosítója, valamint egy harmadik mezőben, amelynek neve: 'hasznalt', annak a gyermeknek az azonosítója szerepel, akit a szülő jelenleg megtekinteni kíván. A többi gyermekénél ez a mező 0-t tartalmaz.
+ \begin{figure}[ht]
+ 	\centering
+ 	\includegraphics[width=5cm]{kepek/szulogyermek}
+ 	\caption{A 'szulogyermek' tábla részlete}
+ 	\label{fig:szulogyermek}
+ \end{figure}
    
+ uzenetek: Ez a tábla felelős az üzenetek tárolásáért. Tartalmazza természetesen a feladó és a címzett azonosítóját, valamint egy 'csoport' nevű mezőt is, mely a feladó és a címzett adataiból áll össze. Erre a jobb kereshetőség miatt volt szükség. Az üzenet dátumát, valamint természetesen az üzenet szövegét is tartalmazza. Tárgy mezőt nem hoztam létre, mert gondolataim szerint ez inkább egy 'Az iskola és a szülő közleményei' felület lenne, amelyben a szövegből egyértelműen kiderül az üzenet tárgya. Minden üzenetnek van egy státusza, ezt a státuszt már sajnos nem volt időm kidolgozni, de az értelme az lenne, hogy ha még nem olvasta a címzett, akkor a megjelenítésben jobban ki lenne emelve, jelezvén, hogy ez még nem lett elolvasva.
 \chapter{Problémák, és megoldásuk a fejlesztés során}
 Ebben a fejezetben kifejtem, hogy az alkalmazás mely részénél futottam bele olyan problémákba, amit nem tudtam egyszerűen, könnyen átlépni. Először a probléma felmerülésének helyét, leírását adom meg, majd több megoldást kipróbálok, végül leírom miért pont az adott megoldás lett a tökéletes.
 \chapter{Felhasználói dokumentáció}
@@ -128,6 +139,8 @@ Egy elektronikus naplóban kézenfekvő megoldás, ha az órarendet is már az a
 Ugyanúgy, ahogyan a jelenlegi programban a dolgozatok meg vannak valósítva, meg lehet ugyanezt a házi feladatra is valósítani. A  tanár kiadja a feladatot online, és a diákok otthon megcsinálva, feltölthetik a naplóba, ahonnan a tanár letöltés, nyomtatás, és piros toll használata nélkül egyszerűen tudná ellenőrizni. 
 \section{Szülői, orvosi igazolás feltöltése}
 Megvalósítható az is, hogy a szülő maga írja meg a Szülői igazolást, amit elmenthet Igazolásként. Ezt az osztályfőnök látja, és ez alapján állítja a meglévő hiányzás státuszát a megfelelőre. Az orvosi igazolással hasonló a helyzet. Amint a diák vagy a szülő kézhez kapta a betegséget igazoló dokumentumot, akkor feltöltheti azt képként a rendszerbe.
+\section{Üzenet státusza}
+Ahogy korábban már leírtam, időm nem volt rá sajnos, de a felhasználók segítségére válna egy olyan funkció, hogy a beérkezett üzeneteket megjelölhetné az alkalmazás valami feltűnő módon, hogy ez az üzenet, bizony még nem lett elolvasva. Gondolok itt akár kerettel körbevenni, vagy az üzenet elejét félkövér betűkkel kiemelni. Akár plusz gombbal tényleges elolvasás nélkül is lehetne olvasottnak jelölni.
 \chapter{Összefoglalás}
 Ebbe a fejezetbe kerül a probléma ismételt leírása, valamint a megoldásával együtt egy következtetés levonás.
 \begin{thebibliography}{}
