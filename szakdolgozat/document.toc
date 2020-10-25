@@ -8,10 +8,14 @@
 \select@language {magyar} \contentsline {section}{\numberline {2.6}Az adatbázis}{7}{section.2.6}% 
 \select@language {magyar} \contentsline {chapter}{\numberline {3}Problémák, és megoldásuk a fejlesztés során}{9}{chapter.3}% 
 \select@language {magyar} \contentsline {chapter}{\numberline {4}Felhasználói dokumentáció}{10}{chapter.4}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {5}Továbbfejlesztési lehetőségek}{11}{chapter.5}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.1}Külső fájl importálása}{11}{section.5.1}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.2}Órarend}{11}{section.5.2}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.3}Házi feladatok}{12}{section.5.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.4}Szülői, orvosi igazolás feltöltése}{12}{section.5.4}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.5}Üzenet státusza}{12}{section.5.5}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás}{13}{chapter.6}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.1}Bejelentkezés}{10}{section.4.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.2}Alapadatok}{11}{section.4.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.3}Csengetési rend}{11}{section.4.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.4}Órarend}{11}{section.4.4}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {5}Továbbfejlesztési lehetőségek}{12}{chapter.5}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.1}Külső fájl importálása}{12}{section.5.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.2}Órarend}{12}{section.5.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.3}Házi feladatok}{13}{section.5.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.4}Szülői, orvosi igazolás feltöltése}{13}{section.5.4}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.5}Üzenet státusza}{13}{section.5.5}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás}{14}{chapter.6}% 

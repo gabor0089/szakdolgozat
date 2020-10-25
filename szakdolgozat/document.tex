@@ -127,7 +127,36 @@ A WAMP egy Windowson futtatható alkalmazáskiszolgáló programcsomag, amely f�
 \chapter{Problémák, és megoldásuk a fejlesztés során}
 Ebben a fejezetben kifejtem, hogy az alkalmazás mely részénél futottam bele olyan problémákba, amit nem tudtam egyszerűen, könnyen átlépni. Először a probléma felmerülésének helyét, leírását adom meg, majd több megoldást kipróbálok, végül leírom miért pont az adott megoldás lett a tökéletes.
 \chapter{Felhasználói dokumentáció}
-Ebben a fejezetben a felhasználók számára, világosan, érthetően, képernyőképekkel illusztrálva írom le a program működésének minden olyan funkcióját, amire szükségük lehet az alkalmazás használata során.
+\section{Bejelentkezés}
+Regisztráció nem lévén mindössze bejelentkezni lehet a főoldalon. Egy felhasználónevet és egy jelszót kér a program.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=5cm]{kepek/bejelentkezes}
+	\caption{A bejelentkezési űrlap}
+	\label{fig:bejelentkezes}
+\end{figure}
+Bejelentkezés után megjelenik a menüsor az oldal felső részén. A menü bal oldalán az iskola neve látható, jobb oldalon pedig a bejelentkezett felhasználó neve és beosztása. A program öt különböző beosztást különböztet meg:
+\begin{itemize}
+	\item Adminisztrátor
+	\item Osztályfőnök
+	\item Tanár
+	\item Diák
+	\item Szülő
+\end{itemize}
+Beosztás mellett a pontos idő, majd a kijelentkezés ikonja látható.
+\section{Alapadatok}
+Az első menüpont az Alapadatok, melyben a felhasználók láthatják az iskola adatait, valamint beosztástól függően a kollégák, az osztálytársak, illetve a tanító tanárok adatait. Az adminisztrátornak van hozzá joga, és lehetősége, hogy az iskola adatait megváltoztassa.
+\section{Csengetési rend}
+Hasonlóan az alapadatokhoz, könnyen, egyszerű formában látható a csengetési rend amelyet az adminisztrátor szintén változtathat.
+\section{Órarend}
+Minden felhasználó láthatja az őt érintő órarendet, az adminisztrátornak van hozzá joga, hogy minden osztály órarendjét láthassa, és módosíthatja a megjelenő adatokat. Az órarendben megjelenik a tantárgy, az oktató tanár, és a tanterem, amiben a tanóra meg lesz tartva. Tanárok esetében az oktató tanár helyett az osztály jeleneik meg, amelyben órát kell tartani.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=11cm]{kepek/orarend}
+	\caption{Tanár órarendje}
+	\label{fig:orarend}
+\end{figure}
+
 \chapter{Továbbfejlesztési lehetőségek}
 Szeretnék egy olyan rendszert megalkotni, ami már-már továbbfejleszthetetlen. De természetesen ilyen nem létezik, soha nem is fog. Minden programban vannak továbbfejlesztési lehetőségek.
 \section{Külső fájl importálása}
